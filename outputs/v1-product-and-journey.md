@@ -89,7 +89,7 @@ flowchart TD
 
 ## Screen-by-screen storyboard for Paper
 
-Proposed visual direction: calm cream backgrounds, dark navy text, restrained teal progress markers, and warm gold reward accents. Use readable Gurmukhi type with generous line spacing. Keep the prayer reading area visually quiet. Reward controls appear after practice, not over sacred text. Colors, typography, and artwork are proposals, not Khalis brand standards.
+Current proposed visual direction: parchment backgrounds, dark green ink, moss green actions, pale leaf surfaces, and brass reward accents. This botanical direction supersedes the earlier navy and teal prose. Use readable Gurmukhi type with generous line spacing. Keep the prayer reading area visually quiet. Reward controls appear after practice, not over sacred text. Colors, typography, and artwork are proposals, not Khalis brand standards.
 
 ### 1. Parent settings
 

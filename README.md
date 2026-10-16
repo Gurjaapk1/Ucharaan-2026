@@ -21,3 +21,9 @@ Kids Mode is switched on by a parent in Settings, and a child's recordings stay 
 ## Tested before trusted
 
 The Uchaaran Helper's scores are checked against an ustaad's own judgement of the same recordings, and the follow-along against word timings marked by hand.
+
+## Project context and designs
+
+Start with the [team context index](docs/README.md) for the challenge, meeting decisions, V1 scope, user journey, scoring constraints, rewards, validation, and open decisions.
+
+[View the editable Paper designs](https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0) or browse the [mockup screenshots and notes](docs/07-paper-designs.md). Current state: planning and static mockups, with app implementation still pending.
