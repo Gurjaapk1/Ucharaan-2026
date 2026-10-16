@@ -43,3 +43,7 @@ The illustrative balance moves from 40 to 50 after a +10 completion reward, then
 Review age fit and cultural treatment; approve the journey story and currency name; specify parent access; add ready/processing, missed-tap, insufficient-balance, and other missing states before implementation as needed. A static screenshot does not validate tap timing, Gurmukhi layout across devices, accessibility, speech accuracy, or local processing.
 
 [Planning manifest](../outputs/paper/manifest.json) and [mockup manifest](../outputs/paper/mockups/manifest.json) preserve Paper references. The planning manifest is an earlier snapshot; the mockup manifest lists the later mockup boards.
+
+## History and mastery exploration, October 16
+
+See [the new options note](09-history-and-mastery-options.md) for six additional Paper mockups, three journey alternatives, and reopened decisions about stars, currency and feedback timing. The earlier design remains a baseline proposal. No alternative has been approved for implementation.

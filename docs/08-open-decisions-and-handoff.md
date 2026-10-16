@@ -32,3 +32,7 @@ The repository contains planning Markdown and Paper screenshots/manifests. No ap
 5. Build the bounded end-to-end practice loop, then connect real progress and cosmetic rewards.
 
 These are proposed implementation steps, not assigned tasks or a committed schedule. Owners remain unassigned. The meeting suggested splitting technical audio/content work from creative assets and UX, but did not establish named assignments.
+
+## History and mastery exploration, October 16
+
+See [the new options note](09-history-and-mastery-options.md) for six additional Paper mockups, three journey alternatives, and reopened decisions about stars, currency and feedback timing. The earlier design remains a baseline proposal. No alternative has been approved for implementation.

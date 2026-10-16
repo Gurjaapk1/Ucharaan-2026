@@ -242,3 +242,7 @@ Use separate visible labels for Requirement, Meeting decision, and Proposal. Pre
 ## App mockup checkpoint, October 16, 2026
 
 The same Paper file now also contains nine kid-facing mobile mockups and a review-notes board beneath the eight planning boards. See [mockup notes and source](./paper/mockups/README.md). All screens visually reviewed; example state is illustrative and implementation has not started.
+
+## History and mastery exploration, October 16
+
+See [the new options note](../docs/09-history-and-mastery-options.md) for six additional Paper mockups, three journey alternatives, and reopened decisions about stars, currency and feedback timing. The earlier design remains a baseline proposal. No alternative has been approved for implementation.

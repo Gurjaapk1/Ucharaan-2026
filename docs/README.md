@@ -16,6 +16,8 @@ We are designing a Kids Mode experience for Sundar Gutka that helps children pra
 8. [Paper designs](07-paper-designs.md): editable canvas, screenshots, visual direction, and illustrative data.
 9. [Open decisions and handoff](08-open-decisions-and-handoff.md): decisions needed, deferred ideas, verified state, and proposed build sequence.
 
+10. [History and mastery options](09-history-and-mastery-options.md): Mohkm transcript synthesis, three journey directions, historical sources and independent mechanic choices.
+
 ## What is settled and what is proposed
 
 The challenge brief supplies requirements. The meeting supplies initial team priorities. Detailed product behavior, botanical styling, nature rewards, economy amounts, and screen layouts are proposals for review. Visual inspection confirms layout only. No app functionality or model quality has been validated.
@@ -39,3 +41,5 @@ The text in these topic files is the maintained context handoff. The earlier [co
 ## Current delivery state
 
 Repository context, eight Paper planning boards, nine mobile mockups, a review-notes board, and local screenshot backups exist. No application code has been built in this project work. No scoring engine, runtime, backend, or deployment has been chosen. Team approval of the designs remains open.
+
+Latest exploration: six additional phone screens and two comparison boards explore history, pauri mastery and a hybrid. These options reopen the original reward economy and feedback timing; they are not approved scope changes.
