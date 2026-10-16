@@ -10,67 +10,73 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 pdfmetrics.registerFont(TTFont('SF', '/System/Library/Fonts/SFNS.ttf'))
 C = canvas.Canvas(str(HERE / 'Team12_Final_OnePager.pdf'), pagesize=(612, 792))
-C.setTitle('Uchaaran | A Gurbani learning journey | Team 12')
+C.setTitle('Uchaaran | Pronunciation, engagement and understanding | Team 12')
 C.setAuthor('Avi Oberoi, Gurjaap Kalra, Mohkm Singh, Gurasees Bajaj')
 NAVY, INK, MUTED, TEAL = '#152F4E', '#21364B', '#536475', '#176C77'
 
 def text(value, x, top, width, size=11, leading=15, color=INK):
-    style = ParagraphStyle('SF', fontName='SF', fontSize=size, leading=leading,
-                           textColor=HexColor(color))
-    p = Paragraph(value, style)
+    p = Paragraph(value, ParagraphStyle('SF', fontName='SF', fontSize=size,
+        leading=leading, textColor=HexColor(color)))
     _, h = p.wrap(width, 900)
     p.drawOn(C, x, top-h)
     return top-h
 
-def rect(x, y, w, h, color, radius=0):
+def bold(value, x, top, size=15, color=NAVY):
+    # Apply a restrained stroke to the same San Francisco glyphs for heading weight.
+    C.saveState()
+    C.setFillColor(HexColor(color)); C.setStrokeColor(HexColor(color))
+    C.setLineWidth(0.27 if size < 20 else 0.4)
+    t=C.beginText(x, top-size)
+    t.setFont('SF', size); t.setTextRenderMode(2); t.textOut(value)
+    C.drawText(t); C.restoreState()
+
+def rect(x,y,w,h,color,radius=0):
     C.setFillColor(HexColor(color))
-    if radius:
-        C.roundRect(x, y, w, h, radius, fill=1, stroke=0)
-    else:
-        C.rect(x, y, w, h, fill=1, stroke=0)
+    if radius: C.roundRect(x,y,w,h,radius,fill=1,stroke=0)
+    else: C.rect(x,y,w,h,fill=1,stroke=0)
 
-rect(0, 0, 612, 792, '#FBFAF7')
-rect(0, 647, 612, 145, NAVY)
-text('Uchaaran', 36, 766, 540, 33, 36, '#FFFFFF')
-text('A Gurbani learning journey children can return to.', 36, 720, 540, 16, 20, '#FFFFFF')
-text('Team 12  ·  Khalis Foundation', 36, 687, 540, 11, 14, '#D6E5EC')
-text('Avi Oberoi, Gurjaap Kalra, Mohkm Singh, Gurasees Bajaj', 36, 671, 540, 11, 14, '#D6E5EC')
+rect(0,0,612,792,'#FBFAF7')
+rect(0,655,612,137,NAVY)
+bold('Uchaaran',36,768,32,'#FFFFFF')
+text('Pronunciation first. A journey into Gurbani.',36,723,540,17,21,'#FFFFFF')
+text('Team 12 · Khalis Foundation',36,689,540,11,14,'#D6E5EC')
+text('Avi Oberoi, Gurjaap Kalra, Mohkm Singh, Gurasees Bajaj',36,673,540,11,14,'#D6E5EC')
 
-y = text('Make the next line approachable', 36, 628, 350, 18, 22)
-y = text('Children need help reading Gurmukhi, hearing correct pronunciation and knowing what to practice next. Parents may lack time or daily access to an ustaad.', 36, y-8, 350)
-y = text('We built a playable path through Japji Sahib: 38 pauris across six regions, with guided practice and character rewards inspired by Sundar Gutka.', 36, y-10, 350)
+bold('Help children say it, then connect with it.',36,637,18)
+text('Learning Gurbani asks children to navigate unfamiliar script, sounds and meaning. Uchaaran pairs pronunciation practice with a playful journey, so families have a clear path for learning together.',36,609,540,11,15)
 
-y = text('A simple loop, with a purpose', 36, y-14, 350, 18, 22)
-for title, copy in [
-    ('Explore', 'Choose Prem Singh or Sehaj Kaur. Open a pauri and preview its connected visual story.'),
-    ('Practice', 'Read Gurmukhi, Roman-letter Punjabi and English meaning alongside reference audio.'),
-    ('Build mastery', 'Review the challenge scorecard, revisit words and earn stars. Nanak coins unlock clothing, belongings and character actions.')
-]:
-    y = text(title, 36, y-6, 350, 12, 16, TEAL)
-    y = text(copy, 36, y-3, 350)
+bold('Engagement that serves learning',36,562,16)
+text('A map of 38 Japji Sahib pauris across six regions gives children a visible path. Prem Singh and Sehaj Kaur make it personal; stars and Nanak coins turn mastery into clothing, belongings and character actions.',36,536,337)
 
-image = ROOT / 'outputs/journey-regions/calm-v2/review/region-one-phone.png'
-C.drawImage(str(image), 412, 346, width=145, height=293.3, mask='auto')
-text('The working journey map', 405, 338, 164, 11, 14, MUTED)
-assert y >= 305, y
+bold('Understanding alongside pronunciation',36,458,16)
+text('Gurmukhi, Roman-letter Punjabi and English meaning sit beside reference audio. Children can listen, recite and revisit a word while exploring the meaning of the shabad. Pronunciation stays the primary goal.',36,432,337)
 
-rect(36, 235, 540, 65, '#EAF0F1', 8)
-text('What works today', 49, 289, 512, 13, 17, NAVY)
-text('Practice audio, the full journey, rewards and saved browser progress work. Challenge scores and word coaching are simulated. Live speech-following and pronunciation assessment still need backend integration.', 49, 267, 512, 11, 14)
+image=ROOT/'outputs/journey-regions/calm-v2/review/region-one-phone.png'
+C.drawImage(str(image),414,360,width=111,height=224.5,mask='auto')
+text('Explore · Practice · Grow',398,351,178,11,14,TEAL)
 
-text('Useful to Khalis Foundation now', 36, 217, 257, 15, 19)
-text('Test the learning flow with children and parents before native integration. Familiar book characters and paath audio connect the experience to existing community resources.', 36, 191, 257, 11, 14)
+bold('Why a memory palace?',36,346,16)
+text('A connected panorama gives each passage a place and each line a familiar landmark. Returning to that place is intended to support recall and reflection. Inspired by the idea of a journey through time and Sikh history, we chose calm, connected scenes over unrelated illustrations.',36,320,540,11,15)
 
-text('Built for the next team to carry on', 317, 217, 259, 15, 19)
-text('JavaScript/JSX, React Native Web screens, assets and integration notes support the handoff. Next: connect recitation tracking and validate scoring with an ustaad.', 317, 191, 259, 11, 14)
+rect(36,158,540,85,'#EAF0F1',8)
+bold('From recitation to a useful next step',49,234,14)
+text('Scoring pipeline design',49,213,510,11,14,MUTED)
+steps=[('Record a pauri','One continuous recitation'),('Align and compare','ML + the chosen reciter'),('Review and retry','Word feedback + audio')]
+for i,(title,desc) in enumerate(steps):
+    x=49+i*177
+    bold(title,x,197,12)
+    text(desc,x,179,164,11,14)
+    if i<2:
+        C.setStrokeColor(HexColor(TEAL)); C.setLineWidth(1)
+        C.line(x+154,187,x+165,187)
+        C.line(x+162,190,x+165,187); C.line(x+162,184,x+165,187)
 
-text('How the design evolved', 36, 121, 540, 15, 19)
-text('We explored journey maps and reward concepts in Paper, then built a playable prototype. Iteration led to calmer imagery, connected visual stories and character rewards tied to mastery.', 36, 97, 540, 11, 14)
+bold('Designed to fit Sundar Gutka',36,143,15)
+text('JavaScript and React Native patterns make the experience easier to carry forward. The native design reuses Sundar Gutka audio, text, settings and state, with Kids Mode isolated for small integration PRs. The ustaad sets the standard; ML helps identify what to practice.',36,119,540,11,14)
 
-C.setStrokeColor(HexColor('#CBD4DA'))
-C.line(36, 57, 576, 57)
-text('<link href="https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site" color="#176C77"><u>Try the live prototype</u></link>', 36, 43, 180, 11, 15)
-text('<link href="https://github.com/Gurjaapk1/Ucharaan-2026/tree/codex/v1-product-journey" color="#176C77"><u>GitHub: code and handoff</u></link>', 221, 43, 180, 11, 15)
-text('<link href="https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0" color="#176C77"><u>Paper: design process</u></link>', 419, 43, 157, 11, 15)
+C.setStrokeColor(HexColor('#CBD4DA')); C.line(36,57,576,57)
+text('<link href="https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site" color="#176C77"><u>Try the live prototype</u></link>',36,43,180,11,15)
+text('<link href="https://github.com/Gurjaapk1/Ucharaan-2026/tree/main" color="#176C77"><u>GitHub: main branch</u></link>',231,43,170,11,15)
+text('<link href="https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0" color="#176C77"><u>Paper: design process</u></link>',419,43,157,11,15)
 C.save()
 print('Created Team12_Final_OnePager.pdf')

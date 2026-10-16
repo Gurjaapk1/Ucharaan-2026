@@ -1,13 +1,13 @@
 # Final submission one-pager
 
-`Team12_Final_OnePager.pdf` replaces the midterm layout for the final submission. `build_onepager.py` is the editable source. It uses the local macOS San Francisco font at `/System/Library/Fonts/SFNS.ttf`; the PDF embeds the used glyphs. The font file is not copied into the repository.
+Current PDF: `Team12_Final_OnePager.pdf`. Editable source: `build_onepager.py`.
 
-The user-provided final guidelines ask for one page explaining the problem, the build and how the nonprofit can use it. The new version removes midterm feedback sections and emphasizes usefulness, community context, honest implementation status and code handoff. It retains Team 12's confirmed roster, the existing journey screenshot, and clickable prototype and GitHub branch links.
+The final pitch centers pronunciation, with child engagement and understanding as supporting design goals. It explains connected panoramas as a memory-palace design intent, rather than a measured learning outcome. The historical journey is conceptual inspiration, not a factual claim that an illustration depicts the composition of a particular pauri.
 
-The page distinguishes working audio, journey, rewards and browser persistence from simulated pronunciation feedback. Native speech alignment and scoring remain future integration work. No deployment, user-impact results, nonprofit acceptance or completed licensing review is claimed.
+San Francisco is embedded from the system font, with restrained stroked glyphs for heavier headings. The font itself is not copied into the repository. The page includes a journey screenshot and a recording, alignment and feedback diagram. Links point to the live prototype, GitHub main and the supplied Paper file.
 
-Validation: rendered and visually inspected; one page; document text is at least 11 pt; San Francisco is embedded; all three link annotations are present. Rebuild from the project root with Python and ReportLab: `python3 outputs/final-submission/build_onepager.py`.
+The scoring diagram and integration wording reflect the draft spec at `origin/main`, commit `201df5172d9700a3ba833b88039990e755e195ed`, `docs/specs/2026-10-16-kids-mode-design.md`. It describes complete-recording scoring, a chosen reciter and small integration PRs. The PDF does not claim verified end-to-end ML integration or a single-PR merge. The previous status box was removed at the user's request.
 
-Only the PDF is prepared here. The final submission's video and code ZIP are separate deliverables. Nothing has been submitted to the organizers.
+Validation: one page, 11 pt minimum document text, three exact link annotations, rendered and visually reviewed. Whiteboard material offered by the user has not arrived yet. No organizer submission or GitHub push was performed for this revision.
 
-Added a design-evolution paragraph based on the project discussion and design notes, plus the user-supplied Paper link. The Paper file sharing permissions were not changed.
+Rebuild from the project root with Python and ReportLab: `python3 outputs/final-submission/build_onepager.py`.
