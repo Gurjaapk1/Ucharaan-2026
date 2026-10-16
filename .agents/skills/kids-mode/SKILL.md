@@ -37,7 +37,8 @@ Flow:
    Anything beyond this needs team agreement first.
 3. **Do not modify the reader** (`src/ReaderScreen/**`, including `gutkaScript.js` and `gutkahtml.js`). Open Khalis PRs #397 and #400 are editing it. The practice screen renders its own panktis.
 4. **Off by default.** With Kids Mode off, the app must behave exactly as today.
-5. **Minimise native dependencies.** Reuse `react-native-track-player` for playback and `react-native-fs` for files. Recording needs exactly one library; agree on it before adding it. No other native modules.
+5. **Minimise native dependencies.** Reuse `react-native-track-player` for playback and `react-native-fs` for files. Recording needs exactly one library; agree on it before adding it. No other native modules. Checked 2026-10-16: the repo is on the old architecture (`newArchEnabled=false`), so `react-native-nitro-sound` (needs RN ≥ 0.79) is out; the only zero-peer recorder that fits is `react-native-audio-recorder-player` 3.6.14. A WebView recorder needs its own WebView with an https `baseUrl` (the reader's WebView has a null origin) and conflicts with track-player's audio session on iOS; treat it as unproven until the iPhone spike passes.
+5a. **Write JavaScript (`.js`/`.jsx` with PropTypes), not TypeScript.** `.tsx` compiles, but `yarn lint` silently skips it (no ESLint override) and nothing runs `tsc`, so a TypeScript island would ship unlinted and unchecked through Khalis's CI. Port the prototype's `.tsx` to `.jsx`.
 6. **Scoring runs outside the app** behind one API call. The app sends audio and shows the result. Audio leaves the phone only after a parent opts in, which is off by default.
 7. **Recordings are files**, stored under `DocumentDirectoryPath/kids/` via `react-native-fs`. Their metadata lives in the persisted `kidsMode` Redux state. Never write to `gutka_v01.db`: database updates delete and replace it.
 
