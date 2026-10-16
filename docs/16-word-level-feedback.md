@@ -1,8 +1,8 @@
 # Word-level challenge review
 
-After uninterrupted recitation, show the complete pauri with each assessed word highlighted. Green means clear; red with an underline means practise. Keep the existing overall percentage, stars and Nanak coin award. Do not interrupt the challenge to correct individual words.
+After uninterrupted recitation, show the complete pauri with each assessed word highlighted. Green means clear; red with an underline means practice. Keep the existing overall percentage, stars and Nanak coin award. Do not interrupt the challenge to correct individual words.
 
-Tap a word to open Practice coach with its percentage, line and word position, a short practice prompt, slower reference-line audio and a route into that exact practice line. A separate Review words to practise button and Next word to practise action offer an easier way through the weak words.
+Tap a word to open Practice coach with its percentage, line and word position, a short practice prompt, slower reference-line audio and a route into that exact practice line. A separate Review words to practice button and Next word to practice action offer an easier way through the weak words.
 
 ## Prototype boundary
 

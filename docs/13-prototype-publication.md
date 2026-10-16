@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 6 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 7 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_2448cf0c0f608191b411672995034e4c`
-- Deployment: `appgdep_6ad2a654e8148191ae1c288265679cac`
-- Pushed Sites source commit: `3fbddcd7d73ed69f0ffb816b1b5369fa01ee5bed`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_f68bc93755548191a2e335182fc3e136`
+- Deployment: `appgdep_6ad2a6c281c48191a84c1135dc3226b0`
+- Pushed Sites source commit: `adccbc299067e49ba6e701b36ad8492a18f0fad1`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-word-coach-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-spelling-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -36,3 +36,5 @@ Version 5 adds the connected Pauri 1 story, matching region-one art, recall prac
 Version 5 simplifies the illustration style and copy, makes the whole-path view optional, adds a saved Illustrations toggle and keeps reading actions in a fixed bottom bar. See `docs/15-production-polish.md` for the current visual rules and before/after review.
 
 Version 6 adds full-pauri word feedback after continuous recitation, a tappable practice coach, reference-line playback and exact-line retry. Scores and suggestions remain examples. The AI integration contract is in `docs/16-word-level-feedback.md`.
+
+Version 7 standardizes interface spelling to American English: practice. Build, runtime integrity and four Sites worker checks pass.

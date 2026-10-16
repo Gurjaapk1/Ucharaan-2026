@@ -1,6 +1,6 @@
 # Uchaaran interactive prototype
 
-A React Native Web prototype for reviewing a future Sundar Gutka Kids Mode. Start on the source-aligned Sundar Gutka home screen, open Settings, and turn on Kids Mode. Choose Prem Singh or Sehaj Kaur, explore a bani world, open the Japji Sahib map, practise a line, complete a continuous demo challenge, and spend earned Nanak coins on character frames.
+A React Native Web prototype for reviewing a future Sundar Gutka Kids Mode. Start on the source-aligned Sundar Gutka home screen, open Settings, and turn on Kids Mode. Choose Prem Singh or Sehaj Kaur, explore a bani world, open the Japji Sahib map, practice a line, complete a continuous demo challenge, and spend earned Nanak coins on character frames.
 
 ## Run and verify
 

@@ -48,7 +48,7 @@ export function sampleWordReview(pauri:Pauri,lineScores:readonly number[]):Revie
 export function practicePrompt(word:WordFeedback):{title:string;tip:string;steps:string[]} {
   const focus=word.focus==='ending'?'word ending':word.focus==='beginning'?'first sound':'whole word';
   return {
-    title:word.score<80?`Practise the ${focus}`:'Keep this word clear',
+    title:word.score<80?`Practice the ${focus}`:'Keep this word clear',
     tip:word.focus==='ending'?`Listen closely to how ${word.text} ends in the reference. Repeat the ending without rushing.`:word.focus==='beginning'?`Listen to the first sound in ${word.text}. Begin the word clearly, then join it to the rest.`:`Listen to ${word.text} as one word. Repeat it slowly, then at the reference pace.`,
     steps:[`Find ${word.text} in the reference line.`,`Repeat ${word.text} on its own.`,`Recite the full line, keeping that word clear.`],
   };

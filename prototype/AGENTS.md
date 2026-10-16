@@ -90,3 +90,5 @@ The user requested less busy imagery and clearer copy. Use broad painted shapes,
 ## Word-level feedback
 
 Keep uninterrupted recitation followed by full-pauri word feedback. Preserve original text and occurrence offsets. Mark demo scores and suggestions explicitly. Red words also need an underline; provide a sequential review action. Reference audio is line-level until verified word timings exist.
+
+Use American English spelling in interface copy: practice and practicing.

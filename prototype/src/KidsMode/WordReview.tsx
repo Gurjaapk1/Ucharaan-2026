@@ -22,13 +22,13 @@ export function WordReview({pauri,score,textSize,onPractice}:{pauri:Pauri;score:
     <Small>Tap a word for its score and a practice tip.</Small>
     <View style={[s.wrap,{marginVertical:4}]}>
       <Copy style={{color:t.successText,backgroundColor:t.success,paddingHorizontal:8}}>Clear</Copy>
-      <Copy style={{color:t.retryText,backgroundColor:t.retry,paddingHorizontal:8,textDecorationLine:'underline'}}>Practise</Copy>
+      <Copy style={{color:t.retryText,backgroundColor:t.retry,paddingHorizontal:8,textDecorationLine:'underline'}}>Practice</Copy>
     </View>
-    <Small>Example feedback · {flagged.length} words to practise</Small>
-    {flagged.length>0&&<Button secondary onPress={()=>setSelected(flagged[0])}>Review words to practise</Button>}
+    <Small>Example feedback · {flagged.length} words to practice</Small>
+    {flagged.length>0&&<Button secondary onPress={()=>setSelected(flagged[0])}>Review words to practice</Button>}
     <View style={{gap:22,marginVertical:12}}>{review.map((line,lineIndex)=><View key={lineIndex} style={{gap:7}}>
       <View style={s.rowBody}><View style={s.grow}><Small>Line {lineIndex+1}</Small></View><Small>{line.score}%</Small></View>
-      <Text style={[s.text,{fontSize:textSize,lineHeight:Math.max(46,textSize*1.65),color:t.text}]}>{line.tokens.map((token,index)=>token.kind==='separator'?<Text key={index}>{token.text}</Text>:<Text key={index} accessible accessibilityRole="button" accessibilityLabel={`${token.text}, example score ${token.feedback.score} percent, ${token.feedback.score<80?'practise':'clear'}. Open practice tip`} onPress={()=>{audio.stop();setSelected(token.feedback);}} style={{color:token.feedback.score<80?t.retryText:t.successText,backgroundColor:token.feedback.score<80?t.retry:t.success,textDecorationLine:token.feedback.score<80?'underline':'none'}}>{token.text}</Text>)}</Text>
+      <Text style={[s.text,{fontSize:textSize,lineHeight:Math.max(46,textSize*1.65),color:t.text}]}>{line.tokens.map((token,index)=>token.kind==='separator'?<Text key={index}>{token.text}</Text>:<Text key={index} accessible accessibilityRole="button" accessibilityLabel={`${token.text}, example score ${token.feedback.score} percent, ${token.feedback.score<80?'practice':'clear'}. Open practice tip`} onPress={()=>{audio.stop();setSelected(token.feedback);}} style={{color:token.feedback.score<80?t.retryText:t.successText,backgroundColor:token.feedback.score<80?t.retry:t.success,textDecorationLine:token.feedback.score<80?'underline':'none'}}>{token.text}</Text>)}</Text>
     </View>)}</View>
     <Sheet open={selected!==null} onOpenChange={open=>{if(!open)close();}} title="Practice coach">
       {selected&&prompt&&currentLine&&<View style={{padding:20,gap:14,backgroundColor:t.surface}}>
@@ -38,8 +38,8 @@ export function WordReview({pauri,score,textSize,onPractice}:{pauri:Pauri;score:
         <View style={{gap:8}}>{prompt.steps.map((step,i)=><Copy key={step}>{i+1}. {step}</Copy>)}</View>
         <Button onPress={()=>audio.playing?audio.stop():audio.listen(currentLine.start,currentLine.end,0.8)}>{audio.playing?'Pause reference':'Hear reference line'}</Button>
         <Small>Bhai Jarnail Singh · Slower playback</Small>
-        <Button secondary onPress={()=>{const line=selected.lineIndex;close();onPractice(line);}}>Practise this line</Button>
-        {flagged.length>1&&<Button secondary onPress={()=>{audio.stop();const index=flagged.findIndex(word=>word.id===selected.id);setSelected(flagged[(index+1)%flagged.length]);}}>Next word to practise</Button>}
+        <Button secondary onPress={()=>{const line=selected.lineIndex;close();onPractice(line);}}>Practice this line</Button>
+        {flagged.length>1&&<Button secondary onPress={()=>{audio.stop();const index=flagged.findIndex(word=>word.id===selected.id);setSelected(flagged[(index+1)%flagged.length]);}}>Next word to practice</Button>}
         {audio.error.length>0&&<Copy style={{color:t.retryText}}>{audio.error}</Copy>}
         <Button secondary onPress={close}>Back to results</Button>
         <Small>Demo suggestions, not an analysis of your voice. Word-level reference audio will require verified word timings.</Small>
