@@ -61,3 +61,5 @@ Latest refinement: [Historical journey, challenge mode and rewards](11-history-c
 17. [Expanded Nanak rewards](17-expanded-nanak-rewards.md): equipment slots, preview, unlock rules and demo mode.
 
 18. [Pronunciation and live following](18-pronunciation-and-live-following.md): reading order and recitation-driven line completion.
+
+19. [JavaScript handoff](19-javascript-handoff.md): reusable JS/JSX source and retained preview tooling.

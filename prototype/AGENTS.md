@@ -100,3 +100,7 @@ Use independent clothing, belonging and action slots. Preview does not spend coi
 ## Reading support and final alignment
 
 Practice uses Gurmukhi, source-backed Roman transliteration, then English meaning. Recall hides all three until revealed. Final challenge progression must follow detected line completion, never elapsed time. Current timed playback remains a clearly labeled simulation until recording/alignment is connected.
+
+## App source language
+
+Keep app-owned source in `src/KidsMode/`, `src/Prototype.jsx`, and browser adapters in JavaScript/JSX to match the native team. Preserve the protected TypeScript preview runtime. Do not reintroduce TypeScript into the reusable feature.

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {initialProgress,completePauri} from '../src/KidsMode/rewards.ts';
-import {unlockAndEquip,wardrobeOf,readRewardStory,parseWardrobe,freshWardrobe} from '../src/KidsMode/wardrobe.ts';
-import {freshExperience,parseExperience} from '../src/KidsMode/experience.ts';
+import {initialProgress,completePauri} from '../src/KidsMode/rewards.js';
+import {unlockAndEquip,wardrobeOf,readRewardStory,parseWardrobe,freshWardrobe} from '../src/KidsMode/wardrobe.js';
+import {freshExperience,parseExperience} from '../src/KidsMode/experience.js';
 test('purchase charges once and equips only its own slot',()=>{
  const p={...initialProgress,coins:60};
  const clothing=unlockAndEquip(p,'garden-thread');assert.equal(clothing.coins,30);

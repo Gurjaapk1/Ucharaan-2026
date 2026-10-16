@@ -24,7 +24,7 @@ App-owned UI is now expressed with React Native primitives and StyleSheet under 
 
 ### Adapter boundary
 
-`types.ts` defines `HostPorts`. Provide native implementations as follows:
+`KidsApp.jsx` receives a `host` object from `Prototype.jsx`. Provide native implementations as follows:
 
 | Port | Web preview | Native integration |
 | --- | --- | --- |
@@ -36,11 +36,11 @@ App-owned UI is now expressed with React Native primitives and StyleSheet under 
 | storage | Validated versioned localStorage snapshot | Existing persisted kidsMode Redux slice |
 | safeArea | Phone preview geometry | Existing safe-area context and platform conventions |
 
-`components.tsx` has stable shared controls; `styles.ts` contains RN styles. `KidsApp.tsx` is the interactive screen coordinator, not the production navigator. Split it into native routes and connect the persisted Redux slice when integrating. Keep the existing Home, Settings and Reader as the actual native shell; the preview re-creates only the relevant subset of them.
+`components.jsx` has stable shared controls; `styles.js` contains RN styles. `KidsApp.jsx` is the interactive screen coordinator, not the production navigator. Split it into native routes and connect the persisted Redux slice when integrating. Keep the existing Home, Settings and Reader as the actual native shell; the preview re-creates only the relevant subset of them.
 
-Pass database-derived pauris through the `pauris` prop. Replace the demonstration timer and `lineScore()` with backend alignment and rubric results. `content.ts` sample scores must never be treated as a pronunciation model. Tie real coin awards to persisted, idempotent attempt IDs before introducing cross-device progress.
+Pass database-derived pauris through the `pauris` prop. Replace the demonstration timer and `lineScore()` with backend alignment and rubric results. `content.js` sample scores must never be treated as a pronunciation model. Tie real coin awards to persisted, idempotent attempt IDs before introducing cross-device progress.
 
-Do not copy `Prototype.tsx`, `src/mobile/`, `prototype.css`, the web worker or the web `package.json` into the native app. The web package aliases `react-native` to `react-native-web@0.21.4`; native integration keeps the app's real React Native dependency. The web type check uses legacy `@types/react-native@0.72.8` for common native APIs. It is not a substitute for compiling against the team's actual native version.
+Do not copy `Prototype.jsx`, `src/mobile/`, `prototype.css`, the web worker or the web `package.json` into the native app. The web package aliases `react-native` to `react-native-web@0.21.4`; native integration keeps the app's real React Native dependency. The reusable feature is JavaScript/JSX. TypeScript and type packages remain only for the protected phone preview and build tooling. They are not required by the shared feature code.
 
 The Site preserves the preview runtime's status bar, so the top safe-area strip remains light. The actual app controls its native status bar. Catalogue coverage, Reader controls and settings are intentionally limited to the prototype's working paths. No claim of pixel-perfect equivalence or native build validation is made.
 
@@ -57,19 +57,19 @@ The Site preserves the preview runtime's status bar, so the top safe-area strip 
 
 ## Pauri 1 story reference
 
-`StoryScene.tsx` uses React Native Animated, Image and AccessibilityInfo to pan across one illustration and respect reduced motion. Use the same landmark composition in overview, practice and challenge. `story.ts` holds proposed memory cues separately from scripture. The browser-only global alias shim remains outside the shared feature folder.
+`StoryScene.jsx` uses React Native Animated, Image and AccessibilityInfo to pan across one illustration and respect reduced motion. Use the same landmark composition in overview, practice and challenge. `story.js` holds proposed memory cues separately from scripture. The browser-only global alias shim remains outside the shared feature folder.
 
-`experience.ts` defines the current local snapshot and recent attempt shape. It is a prototype persistence boundary, not a replacement Redux store or server award ledger. Connect native state and migrations to the established application architecture. See `docs/14-visual-story-and-full-feature-preview.md` for the visual system and review criteria.
+`experience.js` defines the current local snapshot and recent attempt shape. It is a prototype persistence boundary, not a replacement Redux store or server award ledger. Connect native state and migrations to the established application architecture. See `docs/14-visual-story-and-full-feature-preview.md` for the visual system and review criteria.
 
 The polish revision adds a persisted `illustrations` display preference. Older snapshots default it to true without clearing rewards. The reading action bar is a sibling of scrolling content and respects the host safe-area inset. Retain this layout in native navigation. The calm JPEG assets replace the earlier dense terrain on active screens.
 
 ## Word-level review
 
-`WordReview.tsx` renders the full pauri and coach. `wordFeedback.ts` preserves source offsets but supplies fixture scores and generic practice prompts only. Replace both fixture functions with confidence-aware backend results before production. See `docs/16-word-level-feedback.md` for alignment, timing and scoring requirements.
+`WordReview.jsx` renders the full pauri and coach. `wordFeedback.js` preserves source offsets but supplies fixture scores and generic practice prompts only. Replace both fixture functions with confidence-aware backend results before production. See `docs/16-word-level-feedback.md` for alignment, timing and scoring requirements.
 
 ## Wardrobe
 
-Reuse the slot model and pure transitions from `wardrobe.ts`. Map `Progress.wardrobe` into the existing kidsMode slice and migrate absent wardrobes to free defaults. Server-side entitlements and atomic coin transactions are required for cross-device use. `ExplorerPreview` uses native Animated, images and the host icon port. Replace simple body transforms and item symbols with reviewed animation/prop rigs for production. Keep temporary demo progress outside persisted state.
+Reuse the slot model and pure transitions from `wardrobe.js`. Map `Progress.wardrobe` into the existing kidsMode slice and migrate absent wardrobes to free defaults. Server-side entitlements and atomic coin transactions are required for cross-device use. `ExplorerPreview` uses native Animated, images and the host icon port. Replace simple body transforms and item symbols with reviewed animation/prop rigs for production. Keep temporary demo progress outside persisted state.
 
 ## Recitation-driven advancement
 

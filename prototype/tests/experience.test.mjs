@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {freshExperience,parseExperience} from '../src/KidsMode/experience.ts';
+import {freshExperience,parseExperience} from '../src/KidsMode/experience.js';
 
 test('fresh state and earned progress survive JSON storage',()=>{
  const value=freshExperience();value.kids=true;value.character='sehaj';value.progress={coins:10,best:{1:2},owned:['classic','sky','sunshine'],equipped:'sunshine'};value.attempts=[{pauri:1,score:84,at:1}];

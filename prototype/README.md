@@ -10,14 +10,14 @@ npm run dev -- --host 127.0.0.1 --port 4173
 npm run build
 npm run check:runtime
 npm run test:sites
-node --experimental-strip-types --test tests/rewards.test.mjs tests/experience.test.mjs tests/word-feedback.test.mjs
+npm run test:domain
 ```
 
 The device picker switches between iPhone and Android presentations. The app-owned screens use React Native View, Text, Pressable, Image, Switch and StyleSheet, rendered through React Native Web. The outer phone preview and browser audio adapter use React DOM. The native Sundar Gutka source is unchanged. This has not been built or tested as an iOS/Android binary.
 
 ## Shared source
 
-`src/KidsMode/` contains the app UI, theme tokens, reward rules, content types and host interfaces. `src/Prototype.tsx` supplies browser-only audio, icons, image paths, scrolling and safe-area adapters. Do not copy this prototype’s package.json into the native app: its `react-native` dependency deliberately aliases React Native Web. See the integration contract for native wiring.
+`src/KidsMode/` contains the app UI, theme tokens, reward rules, content data and host adapters. `src/Prototype.jsx` supplies browser-only audio, icons, image paths, scrolling and safe-area adapters. Do not copy this prototype’s package.json into the native app: its `react-native` dependency deliberately aliases React Native Web. See the integration contract for native wiring.
 
 ## What works
 
@@ -43,3 +43,7 @@ See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [cur
 See [word-level feedback](../docs/16-word-level-feedback.md) for the proposed AI contract and current sample-data boundary.
 
 Practice and the memory walk include source-backed Roman-letter Punjabi between Gurmukhi and English meaning. The final app must advance on detected recitation completion; the current challenge remains timed demo playback. See `docs/18-pronunciation-and-live-following.md`.
+
+## JavaScript handoff
+
+All app-owned screens and logic use JavaScript and JSX. The protected phone-preview shell and Vite tooling still use TypeScript; keep those outside the native app. Run `npm run test:domain` directly with Node, with no TypeScript loader. See [JavaScript migration](../docs/19-javascript-handoff.md).
