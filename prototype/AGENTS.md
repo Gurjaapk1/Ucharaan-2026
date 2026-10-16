@@ -92,3 +92,7 @@ The user requested less busy imagery and clearer copy. Use broad painted shapes,
 Keep uninterrupted recitation followed by full-pauri word feedback. Preserve original text and occurrence offsets. Mark demo scores and suggestions explicitly. Red words also need an underline; provide a sequential review action. Reference audio is line-level until verified word timings exist.
 
 Use American English spelling in interface copy: practice and practicing.
+
+## Expanded Nanak rewards
+
+Use independent clothing, belonging and action slots. Preview does not spend coins. Confirmation unlocks and equips atomically; owned items equip free. Story and milestone unlocks cost no coins. Keep the 60-coin demo separate from saved progress. Preserve older wardrobe/frame saves. Use American English.

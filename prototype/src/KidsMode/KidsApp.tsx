@@ -1,8 +1,10 @@
+import {RewardsScreen} from './RewardsScreen';
+import {wardrobeOf} from './wardrobe';
 import { useEffect, useState } from 'react';
 import { Image, Pressable, Switch, Text, View, type ViewStyle } from 'react-native';
 import {Avatar,Button,Copy,Heading,Row,Section,Small,Stars,UIProvider} from './components';
 import {s} from './styles';
-import { coinAward, completePauri, initialProgress, redeem, starsForScore } from './rewards';
+import { coinAward, completePauri, initialProgress, starsForScore } from './rewards';
 import { bold, dark, font, legacyFont, light } from './theme';
 import { characters, collection, regions } from './content';
 import catalog from './bani-catalog.json';
@@ -92,7 +94,7 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
 
   const title = screen==='home'?'ਸੁੰਦਰ ਗੁਟਕਾ':screen==='settings'?'Settings':screen==='world'?'Bani worlds':screen==='map'?'Japji Sahib':screen==='character'?'Choose your explorer':screen==='rewards'?'Nanak rewards':screen==='journal'?'My explorer':screen==='reader'?'ਜਪੁਜੀ ਸਾਹਿਬ':screen==='story'?'Pauri 1 · memory walk':`Pauri ${selected}`;
 
-  return <UIProvider value={{t,host,character,equipped:progress.equipped}}><View style={[s.app,{backgroundColor:host.statusBarBackground??t.surface,paddingTop:host.safeArea.top}]}>
+  return <UIProvider value={{t,host,character,equipped:progress.equipped,wardrobe:wardrobeOf(progress)}}><View style={[s.app,{backgroundColor:host.statusBarBackground??t.surface,paddingTop:host.safeArea.top}]}>
     {screen==='home'?<View style={[s.homeHeader,{backgroundColor:t.primary}]}>
       <Text style={s.fateh}><Text style={{fontFamily:legacyFont,fontSize:20}}>{'<> '}</Text>ਸ੍ਰੀ ਵਾਹਿਗੁਰੂ ਜੀ ਕੀ ਫਤਹਿ</Text>
       <View style={s.homeTitleRow}><Text style={s.homeTitle}><Text style={s.ornament}>Œ</Text> ਸੁੰਦਰ ਗੁਟਕਾ <Text style={s.ornament}>‰</Text></Text><Pressable accessibilityRole="button" accessibilityLabel="Settings" onPress={settings} style={s.settingsButton}><Icon name="settings" color="#faf9f6" size={28}/></Pressable></View>
@@ -151,7 +153,7 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
         <Button secondary onPress={()=>go('rewards')}>Visit rewards</Button>
         <View style={s.inline}><Button secondary onPress={()=>go('ready')}>Try again</Button><Button secondary onPress={()=>go('map')}>Back to map</Button></View>
       </View>}
-      {screen==='rewards'&&<View style={s.pad}><View style={s.rowBody}><Avatar small/><View style={s.grow}><Heading>Your rewards</Heading><Copy>{progress.coins} Nanak coins</Copy></View></View><Small>Use Nanak coins to choose a frame.</Small><View style={s.rewardGrid}>{collection.map(r=>{const owned=progress.owned.includes(r.id);const equipped=progress.equipped===r.id;return <View key={r.id} style={[s.reward,{borderColor:t.separator,backgroundColor:t.subtle}]}><Avatar small frame={r.id}/><Copy style={{fontFamily:bold,textAlign:'center',minHeight:48}}>{r.name}</Copy><Button secondary disabled={equipped||(!owned&&progress.coins<r.cost)} onPress={()=>{setProgress(p=>redeem(p,r.id,r.cost));setNotice(`${r.name} equipped`);}}>{equipped?'Equipped':owned?'Equip':`${r.cost} coins`}</Button></View>;})}</View><Button onPress={()=>go('map')}>Earn more stars</Button><Small>Frames change your portrait and map marker. Your learning progress stays the same.</Small></View>}
+      {screen==='rewards'&&<RewardsScreen progress={progress} setProgress={setProgress} onEarn={()=>go('map')}/>}
       {screen==='journal'&&<View style={s.pad}><View style={s.center}><Avatar/><Heading>{characters.find(c=>c.id===character)?.name}’s journey</Heading><Button secondary onPress={()=>go('character')}>Customize my explorer</Button></View><View style={[s.info,s.rowBody,{backgroundColor:t.subtle}]}>{[[completed,'pauris'],[totalStars,'stars'],[progress.coins,'coins']].map(([n,label])=><View key={label} style={[s.grow,s.center]}><Copy style={{fontSize:28,fontFamily:bold}}>{n}</Copy><Small>{label}</Small></View>)}</View><Heading>Your progress</Heading>{completed?Object.entries(progress.best).map(([n,count])=><Row key={n} title={`Pauri ${n}`} trailing={<Stars count={count}/>} onPress={()=>openPauri(Number(n))}/>):<Button onPress={()=>go('map')}>Explore your first pauri</Button>}<Heading>Recent practice</Heading>{attempts.slice(0,8).map((a,i)=><Row key={`${a.at}-${i}`} title={`Pauri ${a.pauri} · ${a.score}%`} subtitle={`Sample challenge ${attempts.length-i}`} onPress={()=>openPauri(a.pauri)} trailing={<Stars count={starsForScore(a.score)}/>}/>)}<Small>Progress is shared between both characters and saved on this browser.</Small></View>}
     </View></Scroll></View>
     {(screen==='practice'||screen==='story')&&<View style={[s.readingControls,{backgroundColor:t.surface,borderColor:t.separator,paddingBottom:Math.max(12,host.safeArea.bottom)}]}>

@@ -57,3 +57,5 @@ Latest refinement: [Historical journey, challenge mode and rewards](11-history-c
 - [Quieter visuals and production polish](15-production-polish.md): current illustration style, copy rules, reading controls and remaining native validation.
 
 16. [Word-level feedback](16-word-level-feedback.md): full-pauri review, coach interaction and backend alignment contract.
+
+17. [Expanded Nanak rewards](17-expanded-nanak-rewards.md): equipment slots, preview, unlock rules and demo mode.

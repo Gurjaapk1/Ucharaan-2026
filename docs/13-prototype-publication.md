@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 7 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 8 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_f68bc93755548191a2e335182fc3e136`
-- Deployment: `appgdep_6ad2a6c281c48191a84c1135dc3226b0`
-- Pushed Sites source commit: `adccbc299067e49ba6e701b36ad8492a18f0fad1`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_99e4cbae16588191986198f001e1cbd8`
+- Deployment: `appgdep_6ad2a8e5331481918c7daf9d710db508`
+- Pushed Sites source commit: `f5f2ea52072d2c74a749bca634130da9f08bff24`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-spelling-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-wardrobe-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -25,7 +25,7 @@ The prototype and updated design documentation are shared on `codex/v1-product-j
 - [Prototype source and run instructions](https://github.com/Gurjaapk1/Ucharaan-2026/tree/codex/v1-product-journey/prototype)
 - [React Native integration contract](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/prototype/NATIVE_INTEGRATION.md)
 - [Latest product decisions](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/docs/12-interactive-prototype.md)
-- [Design QA and verification](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/prototype/design-qa-word-feedback.md)
+- [Design QA and verification](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/prototype/design-qa-rewards.md)
 
 This is the design/reference branch. Native implementation should follow Avi's branch flow from `feature/kids-mode`; do not merge the browser preview runtime into the native app.
 
@@ -38,3 +38,5 @@ Version 5 simplifies the illustration style and copy, makes the whole-path view 
 Version 6 adds full-pauri word feedback after continuous recitation, a tappable practice coach, reference-line playback and exact-line retry. Scores and suggestions remain examples. The AI integration contract is in `docs/16-word-level-feedback.md`.
 
 Version 7 standardizes interface spelling to American English: practice. Build, runtime integrity and four Sites worker checks pass.
+
+Version 8 expands Nanak rewards into Clothing, Belongings and Actions, with isolated demo coins, preview sheets, independent equipment slots and free story/milestone unlocks. Nineteen tests pass. The live wardrobe and outfit preview were opened after deployment.

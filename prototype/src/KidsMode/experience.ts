@@ -1,3 +1,4 @@
+import {parseWardrobe} from './wardrobe.ts';
 import type {Progress, Stars} from './rewards';
 import type {Character} from './types';
 
@@ -16,6 +17,8 @@ function bounded(value:unknown,min:number,max:number):value is number {return ty
 export function parseExperience(value:unknown):Experience|null {
   if(!record(value)||value.version!==1||!record(value.progress))return null;
   const p=value.progress;
+  const wardrobe=p.wardrobe===undefined?undefined:parseWardrobe(p.wardrobe);
+  if(wardrobe===null)return null;
   if(!bounded(p.coins,0,1140)||!record(p.best)||!Array.isArray(p.owned)||typeof p.equipped!=='string')return null;
   const styles=['classic','sky','sunshine','river','garden'];
   const owned:string[]=[];
@@ -36,5 +39,5 @@ export function parseExperience(value:unknown):Experience|null {
     attempts.push({pauri:a.pauri,score:a.score,at:a.at});
   }
   return {version:1,kids:value.kids,night:value.night,meaning:value.meaning,illustrations:value.illustrations??true,textSize:value.textSize,character:value.character,
-    started:value.started,selected:value.selected,region:value.region,progress:{coins:p.coins,best,owned,equipped:p.equipped},attempts};
+    started:value.started,selected:value.selected,region:value.region,progress:{coins:p.coins,best,owned,equipped:p.equipped,...(wardrobe?{wardrobe}:{})},attempts};
 }

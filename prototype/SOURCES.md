@@ -51,3 +51,7 @@ The new home/settings icons are simple outline drawings for the web adapter. In 
 ## Quieter artwork revision
 
 `pauri-1-calm.jpg` and `journey-calm.jpg` are simplified edits of the prior generated panorama and region-one map. They preserve the landmark sequence while replacing dense 3D detail with broad painted shapes. JPEG exports reduce transfer size without changing the composition. These are interpretive prototype assets, not historical documentation or approved theological depictions.
+
+## Garden clothing variants
+
+`public/assets/prem-garden.png` and `sehaj-garden.png` were created with the built-in image-generation tool on October 16, 2026, from the respective existing character PNGs. Prompt: preserve face, turban, pose and full-body framing; change main clothing to muted sage green with cream embroidery; retain original accessories and shoes; transparent background, no new symbols or scenery. These are prototype wardrobe adaptations, pending Khalis review. New reward SVGs are simple original interface symbols, not depictions of verified historical artifacts.

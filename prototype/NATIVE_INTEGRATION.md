@@ -66,3 +66,7 @@ The polish revision adds a persisted `illustrations` display preference. Older s
 ## Word-level review
 
 `WordReview.tsx` renders the full pauri and coach. `wordFeedback.ts` preserves source offsets but supplies fixture scores and generic practice prompts only. Replace both fixture functions with confidence-aware backend results before production. See `docs/16-word-level-feedback.md` for alignment, timing and scoring requirements.
+
+## Wardrobe
+
+Reuse the slot model and pure transitions from `wardrobe.ts`. Map `Progress.wardrobe` into the existing kidsMode slice and migrate absent wardrobes to free defaults. Server-side entitlements and atomic coin transactions are required for cross-device use. `ExplorerPreview` uses native Animated, images and the host icon port. Replace simple body transforms and item symbols with reviewed animation/prop rigs for production. Keep temporary demo progress outside persisted state.

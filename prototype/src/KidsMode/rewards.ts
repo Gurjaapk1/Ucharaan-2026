@@ -1,3 +1,4 @@
+import type {Wardrobe} from './wardrobe';
 export type Stars = 0 | 1 | 2 | 3;
 export function starsForScore(score: number): Stars {
   if (!Number.isFinite(score) || score < 0 || score > 100) throw new Error('Score must be between 0 and 100');
@@ -6,7 +7,7 @@ export function starsForScore(score: number): Stars {
 export function coinAward(previous: Stars, next: Stars): number {
   return Math.max(0, next - previous) * 10;
 }
-export type Progress = { coins: number; best: Record<string, Stars>; owned: string[]; equipped: string };
+export type Progress = { coins: number; best: Record<string, Stars>; owned: string[]; equipped: string; wardrobe?:Wardrobe };
 export const initialProgress: Progress = {coins:0,best:{},owned:['classic','sky'],equipped:'classic'};
 export function completePauri(progress: Progress, pauri: number, score: number): Progress {
   const next = starsForScore(score);
