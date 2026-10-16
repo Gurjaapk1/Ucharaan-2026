@@ -1,12 +1,12 @@
 # Japji Sahib world map
 
-October 16, 2026. The user selected the map direction and requested a fuller game-like presentation inspired by Overcooked, with per-pauri practice routes, three-star mastery, a scorecard and Nana coins. React Native is the intended app technology. This replaces the prior recommendation to lead with the story-plus-mastery home screen. Detailed scoring and economy remain proposals.
+October 16, 2026. The user selected the map direction and requested a fuller game-like presentation inspired by Overcooked, with per-pauri practice routes, three-star mastery, a scorecard and Nanak coins. React Native is the intended app technology. This replaces the prior recommendation to lead with the story-plus-mastery home screen. Detailed scoring and economy remain proposals.
 
 [Open Paper](https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0). Eight new phone screens start below the earlier alternatives, followed by a complete-world board. [Screenshot and asset folder](../outputs/paper/world-map/).
 
 ## Experience
 
-The child enters an illustrated riverside world. Numbered pauri nodes sit on a winding path across bridges. Each node displays its earned stars. Tapping a node reveals the pauri's best mastery and two routes: focused verse practice or full-pauri recitation. A scorecard returns the child to a specific practice target or the map. Three-star mastery awards a larger one-time Nana coin bonus.
+The child enters an illustrated riverside world. Numbered pauri nodes sit on a winding path across bridges. Each node displays its earned stars. Tapping a node reveals the pauri's best mastery and two routes: focused verse practice or full-pauri recitation. A scorecard returns the child to a specific practice target or the map. Three-star mastery awards a larger one-time Nanak coin bonus.
 
 The full-world board includes all 38 pauris, grouped into six learning regions: Riverside 1–6, Fields 7–12, Grove 13–18, Hills 19–24, Lake 25–30 and Garden 31–38. Opening verses and closing salok remain part of the overall sequence, outside the 114 possible pauri stars. These regions are invented learning organization, not historical composition locations. The full-world board is an overview for the team; a phone should zoom into a region rather than squeeze 38 small targets onto one viewport.
 
@@ -36,9 +36,9 @@ These are candidate criteria, not calibrated rules. The first star mixes complet
 
 The mockup starts with 9 of 18 stars in the first region and 9 of 114 across all pauris. Pauris 1–6 show 3, 3, 1, 2, 0, 0. The Pauri 3 scorecard then illustrates moving from one to two stars. Map and overview are pre-attempt states, not the updated post-scorecard state. In the built app, that result would update those totals to 10. A separate three-star result shows the later milestone.
 
-## Nana coins
+## Nanak coins
 
-The user requested the name Nana coins. Confirm spelling before final copy approval. Proposed economy examples are a 240-coin starting balance, a one-time 20-coin second-star award, a resulting 260 balance, and a later one-time 30-coin third-star award. Reward previews show a 120-coin flag and 180-coin journal cover. These are illustrative prices and awards, not agreed economics.
+The user requested the name Nanak coins. The user subsequently confirmed this spelling. Proposed economy examples are a 240-coin starting balance, a one-time 20-coin second-star award, a resulting 260 balance, and a later one-time 30-coin third-star award. Reward previews show a 120-coin flag and 180-coin journal cover. These are illustrative prices and awards, not agreed economics.
 
 Stars are permanent mastery records. Coins are spendable cosmetic rewards. Coins never buy stars, access to bani, or a better assessment. A claimed milestone cannot pay again on repeated attempts or retries. No paid currency, cash value or purchasing flow is proposed. The final reward screen is a later state than the 260-coin shop example; its balance would be 290 before any spending.
 
@@ -65,3 +65,7 @@ Pauri 3's two displayed Gurmukhi lines and 14-line segmentation were checked aga
 Historical context remains available through the journal. A map world should not imply that its pauris were composed at its locations. The prior [history research](../research/history-framing-2026-10-16.md) still applies.
 
 Visual checks covered map label placement, 38 unique numbered nodes, Gurmukhi rendering, scorecard hierarchy, coin arithmetic and screen fit. The next decisions are star criteria, coin award values, cosmetic scope, and the amount of historical content available from the map. Test the map-to-practice-to-scorecard loop with children before expanding the playable content.
+
+## Subsequent refinement
+
+[History, challenge and rewards](11-history-challenge-and-rewards.md) supersedes the initial star ladder with the requested percentage-based direction and changes Challenge mode to sequential line recordings with a final rubric. The earlier terrain and continuous-recording concept remain historical design alternatives.

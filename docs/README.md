@@ -44,4 +44,6 @@ Repository context, eight Paper planning boards, nine mobile mockups, a review-n
 
 Latest exploration: six additional phone screens and two comparison boards explore history, pauri mastery and a hybrid. These options reopen the original reward economy and feedback timing; they are not approved scope changes.
 
-Latest direction: [Japji Sahib world map](10-japji-world-map.md) records the user-selected map experience, React Native constraint, eight expanded mockups, all 38 pauris, scorecards and Nana coins. This supersedes the earlier recommendation to lead with the hybrid home screen.
+Latest direction: [Japji Sahib world map](10-japji-world-map.md) records the user-selected map experience, React Native constraint, eight expanded mockups, all 38 pauris, scorecards and Nanak coins. This supersedes the earlier recommendation to lead with the hybrid home screen.
+
+Latest refinement: [Historical journey, challenge mode and rewards](11-history-challenge-and-rewards.md) records the Nanak coin correction, character onboarding, final pronunciation rubric, example percentage/star bands, historical chapter pairing and optional regional mini-games.
