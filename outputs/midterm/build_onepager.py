@@ -25,7 +25,7 @@ def para(text, x, top, width, style=body):
 
 def section(title, text, y, width=540):
     y = para(title, 36, y, width, heading)-4
-    return para(text, 36, y, width)-8
+    return para(text, 36, y, width)-6
 
 c.setFillColor(HexColor('#F9F7F1'))
 c.rect(0, 0, 612, 792, fill=1, stroke=0)
@@ -51,13 +51,13 @@ y = para('<b>Practice with support.</b> Read Gurmukhi, Roman-letter Punjabi and 
 y = para('<b>See progress.</b> Review word-level feedback. Earn stars and Nanak coins for clothing, belongings and character actions.', 36, y, 357)-8
 y = para('For Khalis Foundation, this tests a learning journey within Sundar Gutka. Success means children return and improve against an ustaad-reviewed standard.', 36, y, 357)-12
 image = ROOT / 'outputs/journey-regions/calm-v2/review/region-one-phone.png'
-c.drawImage(str(image), 423, start-220, width=108.76, height=220, mask='auto')
-y = min(y, start-232)
+c.drawImage(str(image), 423, start-200, width=98.88, height=200, mask='auto')
+y = min(y, start-212)
 y = section('Tech tools we used', 'JavaScript, React Native Web and Vite; BaniDB text and Khalis audio; Codex, Paper, ChatGPT Sites and AI-generated illustrations.', y)
 y = section('Links', '<link href="https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site" color="#176B81"><u>Try the live prototype</u></link>  |  <link href="https://github.com/Gurjaapk1/Ucharaan-2026/tree/codex/v1-product-journey" color="#176B81"><u>Review the code on GitHub</u></link>', y)
-y = section('Next steps and asks', 'Proposed: test with children, review content with an ustaad and connect voice-following. Ask: reviewers and test families. Final-submission scope needs team confirmation.', y)
-y = section('Working with the nonprofit', 'Project discussions shaped the focus on pronunciation, familiar book characters and rewards tied to mastery. Next, confirm the content-review process with Khalis Foundation.', y)
-y = section('Hackathon feedback', 'Team input pending: what worked well during Build Day and one change that would help the team finish.', y)
+y = section('Next steps and asks', 'Before the final submission, polish the full practice-to-rewards flow, test usability and advance the React Native voice-following integration. We welcome mentor help with speech alignment and access to test families.', y)
+y = section('Working with the nonprofit', 'Khalis Foundation gave the project a clear purpose: helping children connect with Gurbani. Its books, audio and Sundar Gutka app grounded our designs in familiar resources and kept learning at the center of rewards.', y)
+y = section('Hackathon feedback', 'Building around a real nonprofit need gave Build Day a clear focus. More time for user testing and targeted speech-technology mentorship would help turn the prototype into a dependable learning tool.', y)
 assert y >= 18, f'Content exceeds page: bottom={y}'
 c.save()
 print(f'Created one page; content bottom = {y:.1f} pt')
