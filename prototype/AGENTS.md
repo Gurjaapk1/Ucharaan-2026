@@ -96,3 +96,7 @@ Use American English spelling in interface copy: practice and practicing.
 ## Expanded Nanak rewards
 
 Use independent clothing, belonging and action slots. Preview does not spend coins. Confirmation unlocks and equips atomically; owned items equip free. Story and milestone unlocks cost no coins. Keep the 60-coin demo separate from saved progress. Preserve older wardrobe/frame saves. Use American English.
+
+## Reading support and final alignment
+
+Practice uses Gurmukhi, source-backed Roman transliteration, then English meaning. Recall hides all three until revealed. Final challenge progression must follow detected line completion, never elapsed time. Current timed playback remains a clearly labeled simulation until recording/alignment is connected.

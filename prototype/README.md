@@ -41,3 +41,5 @@ Opening Mool Mantar and closing Salok are not lesson nodes in this prototype. Th
 See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [current design QA](design-qa-polish.md).
 
 See [word-level feedback](../docs/16-word-level-feedback.md) for the proposed AI contract and current sample-data boundary.
+
+Practice and the memory walk include source-backed Roman-letter Punjabi between Gurmukhi and English meaning. The final app must advance on detected recitation completion; the current challenge remains timed demo playback. See `docs/18-pronunciation-and-live-following.md`.

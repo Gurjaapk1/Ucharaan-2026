@@ -70,3 +70,7 @@ The polish revision adds a persisted `illustrations` display preference. Older s
 ## Wardrobe
 
 Reuse the slot model and pure transitions from `wardrobe.ts`. Map `Progress.wardrobe` into the existing kidsMode slice and migrate absent wardrobes to free defaults. Server-side entitlements and atomic coin transactions are required for cross-device use. `ExplorerPreview` uses native Animated, images and the host icon port. Replace simple body transforms and item symbols with reviewed animation/prop rigs for production. Keep temporary demo progress outside persisted state.
+
+## Recitation-driven advancement
+
+Final line progression must consume streaming alignment and confirmed line-complete events, not the demonstration timer. Keep completion separate from pronunciation quality, hold during silence/uncertainty, and resolve repeated words by occurrence. See `docs/18-pronunciation-and-live-following.md`. Supply database-backed Roman transliteration alongside Gurmukhi and English meaning in practice.
