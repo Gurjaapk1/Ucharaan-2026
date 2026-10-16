@@ -4,7 +4,7 @@
 
 `Gurjaapk1/Ucharaan-2026` master commit `e949f2f1429c41882b639bcfaaa8133bd4ac5047` was fetched and inspected without checking it out or modifying it.
 
-- `src/theme/lightTheme.js`: navy #113979, gold #DEBB0A, surface #faf9f6.
+- `src/theme/lightTheme.js`: navy #113979, gold #DEBB0A, white surface, secondary surface #faf9f6.
 - `src/theme/typography.js` and `assets/fonts/BalooPaaji2-*.ttf`: app typography.
 - `images/sundar_gutka_icon.png` and `images/khalislogo150.png`: original project assets.
 - `src/common/constant.js`: reference audio base URL.
@@ -29,3 +29,17 @@ Lucide icons retain the included ISC license at `public/assets/LICENSE-lucide`. 
 ## Deliberate prototype choices
 
 38 pauris, six regions, all available for review; six other banis are previews. Coins reward newly earned stars at 10 coins per star. Three stars is 30 coins maximum per pauri. Cosmetic frames are the working V1 reward. Books, merchandise, coupons and gifts are unimplemented proposals, not promised benefits. Meaning scenes currently cover Pauri 1; historical games are excluded.
+
+## Source-aligned React Native Web revision
+
+- `src/HomeScreen/components/BaniHeader.jsx`, `src/HomeScreen/styles.js`: navy header, Punjabi title and fateh, original ornamental glyphs, settings placement.
+- `assets/fonts/GurbaniAkharTrue.ttf`: original header ornaments and Ik Onkar glyph.
+- `src/common/components/BaniList/BaniList.jsx`: full-width bani rows with dividers.
+- `src/Settings/styles/index.js`, `src/Settings/components/comon/listItemComponent.jsx`: grouped settings and trailing switches.
+- `src/common/components/BottomNavigation/style.js`: navy navigation and rounded white active item.
+- `src/ReaderScreen/styles/index.js`: uncluttered verse and translation presentation.
+- `src/theme/darkTheme.js`: dark surface and action colors. Learning feedback colors are new additions.
+- `src/KidsMode/bani-catalog.json`: selected names copied without retyping from the previously captured BaniDB `/v2/banis` response. This is a preview subset, not the complete native catalogue or its user-defined order.
+- React Native Web setup: https://necolas.github.io/react-native-web/docs/setup/ . The web package resolves `react-native` to `react-native-web` using an npm alias; all app-owned UI primitives use the native import path.
+
+The new home/settings icons are simple outline drawings for the web adapter. In the native adapter, use Sundar Gutka's existing icon components. No native simulator screenshot was available for pixel-level comparison. Layout fidelity is based on the inspected source, not a claim of an exact device render.

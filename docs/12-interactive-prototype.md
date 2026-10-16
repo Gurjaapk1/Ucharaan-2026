@@ -24,3 +24,11 @@ Native work must branch from `feature/kids-mode`, stay under `src/KidsMode/`, le
 Continuous challenge uses a four-second line timer and selectable sample scores. It does not record or assess the user's voice. Reference playback is real, using Sundar Gutka's public CDN. Progress is in memory and resets on reload. No accounts or child information are collected. Opening Mool Mantar and closing Salok are not yet lesson nodes. Character adaptations and meaning imagery need Khalis and educator review.
 
 See `prototype/README.md`, `prototype/SOURCES.md` and `prototype/design-qa.md` for controls, provenance and verification.
+
+## Source-aligned React Native Web update
+
+The current Site starts at a Sundar Gutka home preview. Open Settings, enable Kids Mode, and choose an explorer to enter the journey. The app-owned UI now uses React Native primitives under `prototype/src/KidsMode/`, rendered with React Native Web. The browser shell, scrolling, icon rendering and audio live behind adapters.
+
+The original navy header, Punjabi title, ornamental glyphs, full-width bani rows, grouped settings, reading typography and navigation treatment guide the revised design. Night mode, font sizing and English-meaning controls work in the preview. Journey, continuous demo challenge, rubric, stars, Nanak coins and cosmetic rewards remain.
+
+This is source-aligned rather than a verified pixel match to a native binary. The native integration contract identifies reusable files and the remaining Redux, navigation, database, audio and scoring work.

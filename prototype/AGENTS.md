@@ -69,3 +69,12 @@ When any text-entry control loses focus, dismiss the simulated keyboard. If the 
 - Fixed phone chrome should not animate with pushed screens. Screen content can animate; the status bar, camera cutout, and preview chrome should stay put.
 - Keep the keyboard below the home indicator/safe area layer in z-index, and above ordinary app UI while visible.
 - Keep the home indicator as the topmost safe-area layer in the z-index above everything else in the prototype.
+
+## Source-aligned React Native Web direction, October 16, 2026
+
+- User requested close visual alignment with the actual Sundar Gutka app, preserving the journey, characters and Nanak rewards.
+- App-owned UI lives in `src/KidsMode/` using React Native primitives and StyleSheet. `Prototype.tsx` is the web adapter; keep the protected phone runtime intact.
+- Use the original navy header, Baloo Paaji typography, GurbaniAkharTrue ornaments, full-width list rows, grouped settings, plain reading surfaces and navy navigation.
+- Start at the Sundar Gutka home preview. Kids Mode is off by default and enabled through Settings.
+- Shared components must not depend on browser globals, HTML, CSS classes, HTMLAudioElement or dynamic native asset imports. Keep those behind the host ports.
+- Preserve the demo boundary: no microphone, simulated scores, session-only progress, 10 coins per new star, no history mini-games.

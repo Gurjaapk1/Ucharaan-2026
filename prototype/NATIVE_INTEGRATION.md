@@ -20,7 +20,27 @@ Reuse `react-native-track-player`, `react-native-fs`, `useThemedStyles` and exis
 | Scorecard and retry | ResultsScreen | Scoring API response; line/word indices |
 | Rewards | RewardsScreen | Idempotent award and redemption actions |
 
-Reuse image assets and the reward calculations, but translate DOM/CSS into React Native views, images, pressables, scroll views and themed styles. Do not copy the web phone preview runtime into the app. The existing app remains untouched by this prototype.
+App-owned UI is now expressed with React Native primitives and StyleSheet under `prototype/src/KidsMode/`. Reuse those components, styles, content models and reward rules as a starting point. The UI no longer needs a wholesale DOM/CSS translation. The existing native app remains untouched.
+
+### Adapter boundary
+
+`types.ts` defines `HostPorts`. Provide native implementations as follows:
+
+| Port | Web preview | Native integration |
+| --- | --- | --- |
+| Scroll / HorizontalScroll | Retained MobileScroll / Carousel | React Native ScrollView, horizontal where appropriate |
+| Icon | CSS masks over SVG files | Existing Sundar Gutka icon components |
+| image(file) | `/assets/` URI | Static `require()` asset map, never dynamic require paths |
+| audio | HTMLAudioElement with per-line end time | Existing TrackPlayer utilities with progress subscription |
+| safeArea | Phone preview geometry | Existing safe-area context and platform conventions |
+
+`components.tsx` has stable shared controls; `styles.ts` contains RN styles. `KidsApp.tsx` is the interactive screen coordinator, not the production navigator. Split it into native routes and connect the persisted Redux slice when integrating. Keep the existing Home, Settings and Reader as the actual native shell; the preview re-creates only the relevant subset of them.
+
+Pass database-derived pauris through the `pauris` prop. Replace the demonstration timer and `lineScore()` with backend alignment and rubric results. `content.ts` sample scores must never be treated as a pronunciation model. Tie real coin awards to persisted, idempotent attempt IDs before introducing cross-device progress.
+
+Do not copy `Prototype.tsx`, `src/mobile/`, `prototype.css`, the web worker or the web `package.json` into the native app. The web package aliases `react-native` to `react-native-web@0.21.4`; native integration keeps the app's real React Native dependency. The web type check uses legacy `@types/react-native@0.72.8` for common native APIs. It is not a substitute for compiling against the team's actual native version.
+
+The Site preserves the preview runtime's status bar, so the top safe-area strip remains light. The actual app controls its native status bar. Catalogue coverage, Reader controls and settings are intentionally limited to the prototype's working paths. No claim of pixel-perfect equivalence or native build validation is made.
 
 ## Required production validation
 

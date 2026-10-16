@@ -1,4 +1,6 @@
-# Design QA
+# Original DOM prototype QA
+
+Historical baseline. See [current React Native Web QA](design-qa-rnw.md) for the current revision.
 
 final result: passed
 

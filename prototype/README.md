@@ -1,6 +1,6 @@
 # Uchaaran interactive prototype
 
-A React web prototype for reviewing a future Sundar Gutka Kids Mode. Choose Prem Singh or Sehaj Kaur, explore a bani world, open the Japji Sahib map, practise a line, complete a continuous demo challenge, and spend earned Nanak coins on character frames.
+A React Native Web prototype for reviewing a future Sundar Gutka Kids Mode. Start on the source-aligned Sundar Gutka home screen, open Settings, and turn on Kids Mode. Choose Prem Singh or Sehaj Kaur, explore a bani world, open the Japji Sahib map, practise a line, complete a continuous demo challenge, and spend earned Nanak coins on character frames.
 
 ## Run and verify
 
@@ -13,10 +13,15 @@ npm run test:sites
 node --experimental-strip-types --test tests/rewards.test.mjs
 ```
 
-The device picker switches between iPhone and Android presentations. The application is React DOM inside the retained Product Design mobile preview runtime, not a React Native build. No native dependencies or existing Sundar Gutka files were changed.
+The device picker switches between iPhone and Android presentations. The app-owned screens use React Native View, Text, Pressable, Image, Switch and StyleSheet, rendered through React Native Web. The outer phone preview and browser audio adapter use React DOM. The native Sundar Gutka source is unchanged. This has not been built or tested as an iOS/Android binary.
+
+## Shared source
+
+`src/KidsMode/` contains the app UI, theme tokens, reward rules, content types and host interfaces. `src/Prototype.tsx` supplies browser-only audio, icons, image paths, scrolling and safe-area adapters. Do not copy this prototype’s package.json into the native app: its `react-native` dependency deliberately aliases React Native Web. See the integration contract for native wiring.
 
 ## What works
 
+- Source-aligned Sundar Gutka bani list and Settings, Kids Mode off by default, working night mode, font size and translation controls.
 - Two freely selectable characters sharing one progress record and wardrobe.
 - Seven bani destinations, with Japji Sahib interactive and six explicitly marked as future previews.
 - 38 pauris in six learning regions. All nodes are open for design testing.
@@ -32,4 +37,4 @@ No microphone is used and no pronunciation is assessed. Scores and timing progre
 
 Opening Mool Mantar and closing Salok are not lesson nodes in this prototype. They must be handled explicitly in the production content plan. Illustrated regions do not assert where individual pauris were written. The character adaptations and meaning illustrations need Khalis and educator review.
 
-See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [design QA](design-qa.md).
+See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [current design QA](design-qa-rnw.md).
