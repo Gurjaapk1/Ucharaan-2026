@@ -238,3 +238,7 @@ Create one editable team-review canvas with four clearly titled groups:
 4. Validation and handoff: acceptance checks, five-minute demo, technical dependencies, and deferred ideas.
 
 Use separate visible labels for Requirement, Meeting decision, and Proposal. Preserve source links. Inspect every frame for clipped text and legibility before sharing. Paper file created and all eight boards visually inspected on October 16, 2026. The file URL is verified; teammate access permissions have not been tested or changed.
+
+## App mockup checkpoint, October 16, 2026
+
+The same Paper file now also contains nine kid-facing mobile mockups and a review-notes board beneath the eight planning boards. See [mockup notes and source](./paper/mockups/README.md). All screens visually reviewed; example state is illustrative and implementation has not started.
