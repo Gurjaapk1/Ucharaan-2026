@@ -13,3 +13,11 @@ test('saved cosmetics and star counts must be valid',()=>{
  const value=freshExperience();value.progress.best['1']=4;assert.equal(parseExperience(value),null);
  const other=freshExperience();other.progress.equipped='river';assert.equal(parseExperience(other),null);
 });
+
+// A display-only schema addition must preserve existing users' saved rewards.
+test('older snapshots retain progress and default illustrations on',()=>{
+ const value=freshExperience();value.progress.coins=20;delete value.illustrations;
+ const loaded=parseExperience(value);assert.equal(loaded?.illustrations,true);assert.equal(loaded?.progress.coins,20);
+ const quiet={...freshExperience(),illustrations:false};assert.equal(parseExperience(quiet)?.illustrations,false);
+ assert.equal(parseExperience({...quiet,illustrations:'false'}),null);
+});

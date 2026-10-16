@@ -59,3 +59,5 @@ The Site preserves the preview runtime's status bar, so the top safe-area strip 
 `StoryScene.tsx` uses React Native Animated, Image and AccessibilityInfo to pan across one illustration and respect reduced motion. Use the same landmark composition in overview, practice and challenge. `story.ts` holds proposed memory cues separately from scripture. The browser-only global alias shim remains outside the shared feature folder.
 
 `experience.ts` defines the current local snapshot and recent attempt shape. It is a prototype persistence boundary, not a replacement Redux store or server award ledger. Connect native state and migrations to the established application architecture. See `docs/14-visual-story-and-full-feature-preview.md` for the visual system and review criteria.
+
+The polish revision adds a persisted `illustrations` display preference. Older snapshots default it to true without clearing rewards. The reading action bar is a sibling of scrolling content and respects the host safe-area inset. Retain this layout in native navigation. The calm JPEG assets replace the earlier dense terrain on active screens.

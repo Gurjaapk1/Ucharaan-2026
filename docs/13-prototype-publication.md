@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 4 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 5 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_9fd93fa448408191a73beb84a7bf8705`
-- Deployment: `appgdep_6ad2a28b5ee08191a3d9c9f93c1cb345`
-- Pushed Sites source commit: `a8eabababfa16ec03c866024d71ca5a799d0d7ae`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_e93fc762db1481918ff8209ef0fca5b9`
+- Deployment: `appgdep_6ad2a59d9f6c81918acdd771e530ebc9`
+- Pushed Sites source commit: `672bab7515d73ce0201f22086e57f5fac2cf58d6`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-story-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-polish-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -25,10 +25,12 @@ The prototype and updated design documentation are shared on `codex/v1-product-j
 - [Prototype source and run instructions](https://github.com/Gurjaapk1/Ucharaan-2026/tree/codex/v1-product-journey/prototype)
 - [React Native integration contract](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/prototype/NATIVE_INTEGRATION.md)
 - [Latest product decisions](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/docs/12-interactive-prototype.md)
-- [Design QA and verification](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/prototype/design-qa-story.md)
+- [Design QA and verification](https://github.com/Gurjaapk1/Ucharaan-2026/blob/codex/v1-product-journey/prototype/design-qa-polish.md)
 
 This is the design/reference branch. Native implementation should follow Avi's branch flow from `feature/kids-mode`; do not merge the browser preview runtime into the native app.
 
-Version 4 uses shared React Native components rendered through React Native Web. Browser-only ports and remaining native integration work are documented in the integration contract. Old Sites checkout and archive remain as recovery material.
+Version 5 uses shared React Native components rendered through React Native Web. Browser-only ports and remaining native integration work are documented in the integration contract. Old Sites checkout and archive remain as recovery material.
 
-Version 4 adds the connected Pauri 1 story, matching region-one art, recall practice, slower audio, saved progress, attempt history and next-pauri continuation. The published story was opened and visually verified. Source and generated assets remain in the team repository; only compiled runtime assets are published.
+Version 5 adds the connected Pauri 1 story, matching region-one art, recall practice, slower audio, saved progress, attempt history and next-pauri continuation. The published story was opened and visually verified. Source and generated assets remain in the team repository; only compiled runtime assets are published.
+
+Version 5 simplifies the illustration style and copy, makes the whole-path view optional, adds a saved Illustrations toggle and keeps reading actions in a fixed bottom bar. See `docs/15-production-polish.md` for the current visual rules and before/after review.

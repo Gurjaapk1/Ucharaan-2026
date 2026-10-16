@@ -47,3 +47,7 @@ The new home/settings icons are simple outline drawings for the web adapter. In 
 ## Connected story artwork
 
 `pauri-1-story-panorama.png` and `journey-region-one.png` were generated for this prototype using the selected riverside terrain as the style reference. They share soft sculpted terrain, warm earth, quiet blue water and a continuous ochre path. The first is a six-stop interpretive memory walk within Pauri 1; the second is the outer map for Pauris 1–6. Neither depicts a Guru or claims a historical composition location. These are prototype art references pending educator and Khalis review. Earlier separate scene assets are retained as recovery/reference material.
+
+## Quieter artwork revision
+
+`pauri-1-calm.jpg` and `journey-calm.jpg` are simplified edits of the prior generated panorama and region-one map. They preserve the landmark sequence while replacing dense 3D detail with broad painted shapes. JPEG exports reduce transfer size without changing the composition. These are interpretive prototype assets, not historical documentation or approved theological depictions.

@@ -82,3 +82,7 @@ When any text-entry control loses focus, dismiss the simulated keyboard. If the 
 ## Connected story direction, October 16, 2026
 
 The user chose to polish Pauri 1 before expanding its visual system to all pauris. Use one connected panorama with stable line landmarks, not unrelated images. Reuse the same scene in overview, practice, recall and challenge. The imagery is a mnemonic proposal and must stay separate from canonical Gurbani and translation. The fuller prototype now stores non-sensitive progress locally; the previous session-only persistence rule is superseded. Keep sample scoring labelled and microphone capture off.
+
+## Quieter production presentation
+
+The user requested less busy imagery and clearer copy. Use broad painted shapes, muted colors and generous empty space. Show one supporting image per reading screen; the overview is optional. Keep scripture unchanged, interface copy literal, and reading controls fixed outside scrolling content. Preserve the persistent Illustrations preference and existing reward data. Current assets are `pauri-1-calm.jpg` and `journey-calm.jpg`.

@@ -25,9 +25,9 @@ These are proposed mnemonic associations, not alternative translations. A succes
 
 Canonical text and English meanings remain in `prototype/src/bani.json`, from the existing BaniDB export. The visual cue copy lives separately in `prototype/src/KidsMode/story.ts`. Never replace scripture with generated text inside an image.
 
-## Visual reference, version 1
+## Visual reference, current revision
 
-Use soft handcrafted 3D storybook illustration, inspired by the selected game map. Rounded tree canopies, earthen terraces, warm ochre paths, turquoise river, sage and wheat greens, soft morning light. Architecture is modest rural Punjab. Use consistent scale and a camera that looks gently down into the place.
+Use the quieter painted illustration direction in [production polish](15-production-polish.md). This supersedes the initial dense 3D treatment. Broad shapes, muted sage and ochre, open space and modest rural Punjab architecture preserve the landmarks while reducing visual noise.
 
 Keep the river and path continuous. The pool, tree, grain store, maze and threshold retain their geometry and location in every view. Keep focus areas around the horizontal middle. Background detail supports the landmarks without competing with the Gurbani.
 
@@ -39,7 +39,7 @@ The six outer-map nodes represent pauris. The six inner-story stops represent li
 
 1. Enter Kids Mode and choose an explorer. Returning learners keep their selection and progress on that browser.
 2. Open the Japji journey and select a pauri.
-3. For Pauri 1, choose Walk the story. See the whole place, then explore each landmark with its actual line and meaning.
+3. For Pauri 1, choose Walk the story. Explore each landmark with its actual line and meaning. The whole-place view is optional.
 4. Listen to the reference. Move forward or revisit a place. Practice can use slower reference audio.
 5. Turn on Practise from memory. The image remains; the Gurbani is hidden until Reveal the line. This is self-guided recall and does not grant stars.
 6. Start a continuous challenge. The scene follows the current line. Feedback appears at the end.

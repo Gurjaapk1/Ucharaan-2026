@@ -10,7 +10,7 @@ The October 16 revision turns the selected Paper direction into a testable React
 - Practice supports selecting and repeating individual lines.
 - Ten Nanak coins per newly earned star, with improvements paying only the difference. Existing mastery never decreases. Proposed thresholds are 60%, 80% and 95%, pending calibration.
 - V1 rewards are digital character frames and map-marker styles. Physical book rewards and discounts remain undecided.
-- No history mini-games. Pauri 1 has changing interpretive scene imagery; remaining pauris use a common landscape until content design is reviewed.
+- No history mini-games. Pauri 1 has a connected, quiet painted panorama. Other pauris remain text-first until their visual cues are reviewed.
 - Six regions are learning chapters in a Punjab-inspired landscape. They do not claim a historical composition location for each pauri.
 
 ## Avi's integration guidance

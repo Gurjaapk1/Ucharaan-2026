@@ -29,7 +29,7 @@ The device picker switches between iPhone and Android presentations. The app-own
 - Continuous challenge simulation with automatic progression every four seconds, pause/resume and a final line-by-line scorecard. Test score scenarios are available in Settings; the default demo gives 84% first and 96% on later attempts.
 - Ten Nanak coins per newly earned star. Higher scores pay only the improvement. Lower scores never remove stars. Redemption checks balance and avoids charging for an owned item.
 - Frame customization and matching map-marker colors. No physical rewards, purchases or discounts.
-- Pauri 1 has a connected six-stop memory walk, animated panorama, optional hidden words and slower reference audio. Region 1 has a matching illustrated map. Other pauris use a shared landscape. No history mini-games.
+- Pauri 1 has a connected six-stop memory walk, animated panorama, optional hidden words and slower reference audio. The map uses quieter painted terrain. Supporting pictures can be hidden in Settings; other pauris are text-first until their visual cues are developed. No history mini-games.
 - Browser-saved preferences, character, stars, coins, wardrobe and recent attempt history. Continue the selected pauri or move forward after a result.
 
 ## Limits
@@ -38,4 +38,4 @@ No microphone is used and no pronunciation is assessed. Scores and timing progre
 
 Opening Mool Mantar and closing Salok are not lesson nodes in this prototype. They must be handled explicitly in the production content plan. Illustrated regions do not assert where individual pauris were written. The character adaptations and meaning illustrations need Khalis and educator review.
 
-See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [current design QA](design-qa-story.md).
+See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [current design QA](design-qa-polish.md).
