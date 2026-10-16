@@ -31,7 +31,7 @@ Units:
 1. **KidsModeComponent** (Settings): the parent switch, plus a second switch "Check my child's pronunciation online", off by default, explaining that audio is sent for scoring and not kept.
 2. **Practice screen**: renders the selected panktis itself from `mv_Banis_Shabad` (Bani 2), one element per word using the same `split(" ")` indexing as `db.js`. Under each word: the transliteration from the app's existing Transliteration setting (`isTransliteration`, `transliterationLanguage`; the English scheme already drops unvoiced terminal sihari/aunkar, e.g. ਸੋਚਿ → `soch`), and a syllable respelling derived by fixed rules from the BaniDB IPA field (ਸੋਚੈ → `so-chai`), reviewed once by the ustaad. Sounds with no English approximation (ਣ, ੜ, aspirates, dental vs retroflex) show "listen" instead of a respelling. Tapping a word plays the chosen reciter's clip of it. Plays the reference track through the existing `react-native-track-player` and highlights the current word from the word timings. Taps are judged against the word's time window.
 3. **Recorder**: pending the iPhone spike (see Open decisions).
-4. **Challenge**: one continuous recording of a whole pauri (the prototype's chosen mode). Scored when the recording stops; the results screen shows a "checking…" state with a realistic estimate (about 1 s of compute per 1.5 s of audio on 2 vCPU). Live voice-following during recording is out of scope for V1: the aligner works on complete recordings.
+4. **Challenge**: one continuous recording of a whole pauri (the prototype's chosen mode). Scored when the recording stops; the results screen shows a "checking…" state. Measured so far: 3.7 s of compute per 5.6 s of audio on 4 laptop threads; the 2 vCPU figure is to be measured. Live voice-following during recording is out of scope for V1: the aligner works on complete recordings.
 5. **Feedback**: shows the pankti with the flagged word, plays the chosen reciter's clip for that word next to the child's own, shows the rule text if one exists, and offers a retry.
 6. **Progress**: practice history and words to revisit, in the persisted `kidsMode` state.
 7. **Scoring client**: one module modelled on `makeApiRequest` in `src/services/audioApi.js`.
@@ -59,23 +59,17 @@ Server rules: child audio is processed in memory and never written to disk, Blob
 
 Principle: a spectrum mixes what was said with who said it, the microphone and the speed. A child's formants sit 15-20% above an adult man's. So the service never compares raw spectra; it uses a speech model only for the one thing analytic features cannot do, which is to compare sounds across different voices.
 
-1. **Alignment.** Force-align the recording to the known text with the MMS aligner (torchaudio `MMS_FA`, CTC over Roman letters). The text is spelled the way the model was trained on (uroman-style letters) but following the recitation convention of BaniDB's English transliteration, which drops unvoiced terminal sihari/aunkar. Output: a time span and a confidence per word.
+1. **Alignment.** Force-align the recording to the known text with the MMS aligner (torchaudio `MMS_FA`, CTC over Roman letters). Output: a time span and a confidence per word. Spelling of the text is under test: the model was trained on uroman romanisation, while the spike used BaniDB's English scheme; the candidate is uroman-style letters following the recitation convention of the chosen reciter (whether terminal sihari/aunkar are voiced; two traditions exist and each reciter's convention is being measured).
 2. **Missed or wrong word (heuristic).** A word whose confidence falls far below the chosen reciter's confidence on the same word is marked `check`. The aligner assumes every word was spoken, so a skipped word is squeezed into a sliver with collapsed confidence rather than reported missing.
 3. **Sound comparison.** The child's word and the reciter's clip are compared with dynamic time warping over cosine distance on the model's layer-12 features, after subtracting each recording's mean feature (per-speaker centring). Tolerance per sound is a pooled magnitude calibrated from the three Japji reciters, scaled by word length, applied to whichever reciter the parent chose.
-4. **Vowel duration.** For each vowel, its duration as a fraction of its word, child vs reciter. Within-word ratios are speaker- and speed-invariant, and DTW discards duration, so this check covers matra length and addak.
+4. **Token duration.** For each letter token (vowels and consonants), its duration as a fraction of its word, child vs reciter. Within-word ratios are speaker- and speed-invariant, and DTW discards duration, so this check covers matra length and addak, whose cues are a longer consonant closure and a shortened following vowel.
 5. **Consonant check.** The text-based alignment score (goodness of pronunciation) catches gross consonant swaps (ਲਖ said as "rakh").
 6. **Decision.** A word is `check` if any of 2, 3 (with 4) or 5 exceeds its band; `unclear` if alignment confidence for the word is below the floor. `focus` is the `check` word with the largest margin.
 
 Calibration: the `check` threshold is set so that correct recordings by amateur adults and children are flagged on at most 10% of words, and that rate is reported. Until such recordings exist (teammates and children, phone microphone, quiet room: a correct pauri, a one-matra error, a skipped word), the sound-comparison layer is unvalidated and the spec says so.
 
-## Evidence so far (2026-10-16, spike-align/, Pauri 1, three reciters)
+Evidence and the adversarial review of every claim above live in the refutation run notes (`SUMMARY.md`, linked from the team notes); the spec carries conclusions only.
 
-- Alignment: 58 words of the salok and Pauri 1 in order, 0.08-0.76 s each, pauses between words; 47 words of Pauri 1 aligned as one block per reciter.
-- Miscue heuristic: ਲਖ confidence 0.80-0.97 intact, 0.12-0.25 with its audio deleted, 0.19-0.58 with another word's audio in its place.
-- Text-based confidence does not see matra swaps (ਸੋਚੈ→"sochi" barely moves) but sees consonant swaps (ਲਖ→"rakh": GOP 0 → -2.2 for all three reciters). Caveat under review: these numbers used BaniDB spelling, not the uroman spelling the model was trained on.
-- Sound comparison: same word across reciters vs matra minimal pairs, separation d′ = 2.20 with layer-12 centred features; the honest matra pair ਸੋਚਿ/ਸੋਚੀ separates at d′ ≈ 3 (confidence interval pending). Analytic features (MFCC or log-mel with normalisation, DTW) reach d′ ≈ 1.3 on pooled pairs and are negative on the honest pair: they detect vowel presence, not quality.
-- Phonology (sourced by the review): Punjabi short/long vowel pairs differ primarily in quality, with duration secondary; addak gemination lengthens the consonant by about 40% and shortens the following vowel; aspiration survives in heritage children while voiced stops devoice; English listeners merge dental and retroflex.
-- Not reusable: Azure pronunciation assessment covers Hindi but not Punjabi, and would replace the reciter's standard with Microsoft's.
 
 ## Ustaad page
 
