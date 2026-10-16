@@ -82,3 +82,7 @@ Final line progression must consume streaming alignment and confirmed line-compl
 ## Region terrain and pauri entry
 
 Bundle the six `public/assets/regions/*.jpg` images in the native asset resolver. `regions` in `KidsMode/content.js` supplies the filename, accessible description and percentage node centers. Use each region's `aspectRatio` to preserve registration. The last region is taller to fit eight stops. Each pauri entry reuses `StoryScene` in overview mode with a 3:1 container and contain sizing. No additional package is required.
+
+## Retired frames
+
+Character setup chooses Prem Singh or Sehaj Kaur without a frame selector. Avatar and map-node colors no longer read legacy frame equipment. `parseExperience` discards the retired top-level progress `owned` and `equipped` fields; nested `wardrobe.owned` and `wardrobe.equipped` remain active. Existing coin balances, stars, attempts and wardrobe items survive this migration.

@@ -24,7 +24,7 @@ The existing 10 coins per newly earned star remains unchanged. Both characters s
 
 Open Kids Mode, then Rewards. The Try rewards with 60 demo coins button starts an isolated, temporary wardrobe with a sample completed pauri. Buy the outfit and satchel, try the insufficient-balance state, finish a short story to unlock an item for free, and tap the character to preview an action. Return to my rewards restores the real saved wardrobe. Leaving the screen discards the temporary demo.
 
-Normal ownership, equipment and read stories persist in the existing version-1 browser save. Saves without a wardrobe receive free defaults without losing coins, stars or legacy frames. The parser checks item IDs, unique ownership and valid equipment slots. A production backend must enforce entitlement and transactions independently.
+Normal ownership, equipment and read stories persist in the existing version-1 browser save. Saves without a wardrobe receive free defaults without losing coins or stars. Retired frame fields are ignored and removed on the next save, while clothing, belongings and actions are retained. The parser checks item IDs, unique ownership and valid equipment slots. A production backend must enforce entitlement and transactions independently.
 
 ## Visual scope
 

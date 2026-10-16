@@ -24,8 +24,14 @@ test('milestones and stories unlock without spending or affecting mastery',()=>{
 });
 test('old saves retain rewards; new wardrobe survives reload and validates slots',()=>{
  const old=freshExperience();old.progress={...initialProgress,coins:20,owned:['classic','sky','river'],equipped:'river'};
- assert.deepEqual(parseExperience(old),old);
- const saved={...old,progress:unlockAndEquip(old.progress,'journey-bag')};
+ const migrated=parseExperience(old);
+ assert.deepEqual(migrated.progress,{coins:20,best:{}});
+ assert.equal('equipped' in migrated.progress,false);
+ assert.equal('owned' in migrated.progress,false);
+ const saved={...migrated,progress:unlockAndEquip(migrated.progress,'journey-bag')};
+ const legacyWithWardrobe={...saved,progress:{...saved.progress,owned:['classic','river'],equipped:'river'}};
+ assert.deepEqual(parseExperience(legacyWithWardrobe),saved);
+ assert.deepEqual(parseExperience(parseExperience(legacyWithWardrobe)),saved);
  assert.deepEqual(parseExperience(JSON.parse(JSON.stringify(saved))),saved);
  const invalid=freshWardrobe();invalid.equipped.clothing='ready';assert.equal(parseWardrobe(invalid),null);
  const invalidOwned=freshWardrobe();invalidOwned.owned.push('unknown');assert.equal(parseWardrobe(invalidOwned),null);

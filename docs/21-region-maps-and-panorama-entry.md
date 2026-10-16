@@ -6,12 +6,12 @@ Each of the six regions has a separate painted terrain. Numbered stops, three-st
 
 | Region | Pauris | Terrain and recurring landmarks |
 | --- | --- | --- |
-| The beginning | 1–6 | Golden fields, banyan tree, stone pool, grain shelter, open gate |
-| By the river | 7–12 | Riverbanks, reeds, quiet pond, reading pavilion |
-| Paths of listening | 13–18 | Rolling hills, sheltered paths, rooted tree, stone bridge |
-| An open horizon | 19–24 | Estuary, distant sea, layered hills, basin and garden |
-| A world of wonder | 25–30 | Orchard terraces, market, meal shelter, seedling garden |
-| Growing in grace | 31–38 | Cultivated gardens, pottery, mountain river, open workshop |
+| The beginning | 1–6 | Broad golden fields and quiet groves |
+| By the river | 7–12 | Broad riverbanks and sandy islands |
+| Paths of listening | 13–18 | Rolling hills, sheltered pass and stone bridge |
+| An open horizon | 19–24 | Estuary, distant sea and layered hills |
+| A world of wonder | 25–30 | Open terraced fields, stone walls and sparse trees |
+| Growing in grace | 31–38 | Gentle hills, quiet groves and a small waterfall |
 
 The motifs come from the corresponding pauri panoramas. Region labels describe the art rather than asserting that a pauri was composed at a particular historical place. These are proposed memory cues for educator review.
 
@@ -31,3 +31,5 @@ No speech alignment, scoring or reward behavior changes in this update.
 All six terrain images were visually inspected. Phone preview checks covered the first map, the eight-stop final map including its bottom stop after scrolling, entry previews for Pauris 31 and 38, and the transition from panorama to Pauri 31 line practice. The full panorama fits without cropping and the text and actions remain separate from the image.
 
 All 18 domain tests and four Sites worker tests pass. The production build and 28-file protected runtime check pass. Scripture data is unchanged. Screenshots are in `outputs/journey-regions/review/`. Site version 12 was published successfully with the existing public audience. Native device performance and educator approval remain unverified.
+
+The latest maps use the simpler style documented in [simpler maps and character rewards](22-simple-maps-and-no-frames.md).

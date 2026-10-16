@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 13 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 14 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_1a0647447b048191b51c12c4c2049b75`
-- Deployment: `appgdep_6ad2b3429edc8191a5ba6aec37d374c5`
-- Pushed Sites source commit: `5b35f7f4e29e9df3f59a193d2bb91369d8ae3554`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_31ec6c1ad7948191a051a3a5adbcb3e3`
+- Deployment: `appgdep_6ad2b416eadc8191b8c28135645f7fd5`
+- Pushed Sites source commit: `fc89ef89271425005d72ef333418f3c52943c86f`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-picture-copy-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-simple-maps-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -50,3 +50,5 @@ Version 11 adds 37 pauri panoramas to complete the 38-pauri learning journey. Op
 Version 12 adds six distinct region terrains and a full panorama on every pauri opening page. The final region has eight explicitly placed stops. All 22 domain and Sites tests pass, along with the production build and protected runtime check. See `docs/21-region-maps-and-panorama-entry.md`.
 
 Version 13 removes the generic memory-cue disclaimer from About this picture. The passage-specific visual explanation remains. Build, runtime integrity and four Sites checks pass.
+
+Version 14 removes cosmetic frames and simplifies all six region maps to the original quiet illustration style. Existing saved progress and wardrobe are preserved. Build, runtime integrity and 21 domain/Sites tests pass. See `docs/22-simple-maps-and-no-frames.md`.

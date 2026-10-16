@@ -6,16 +6,9 @@ export function starsForScore(score) {
 export function coinAward(previous, next) {
     return Math.max(0, next - previous) * 10;
 }
-export const initialProgress = { coins: 0, best: {}, owned: ['classic', 'sky'], equipped: 'classic' };
+export const initialProgress = { coins: 0, best: {} };
 export function completePauri(progress, pauri, score) {
     const next = starsForScore(score);
     const previous = progress.best[String(pauri)] ?? 0;
     return { ...progress, coins: progress.coins + coinAward(previous, next), best: { ...progress.best, [pauri]: next > previous ? next : previous } };
-}
-export function redeem(progress, item, cost) {
-    if (progress.owned.includes(item))
-        return { ...progress, equipped: item };
-    if (!Number.isInteger(cost) || cost < 0 || progress.coins < cost)
-        return progress;
-    return { ...progress, coins: progress.coins - cost, owned: [...progress.owned, item], equipped: item };
 }

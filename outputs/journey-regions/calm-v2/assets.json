@@ -1,0 +1,32 @@
+[
+  {
+    "file": "prototype/public/assets/regions/fields-calm.jpg",
+    "bytes": 353967,
+    "sha256": "2b17e20eb6eb2ba0ae796562308d90ff425fa45445e858533fe6d9573fb4eae5"
+  },
+  {
+    "file": "prototype/public/assets/regions/grace-calm.jpg",
+    "bytes": 387803,
+    "sha256": "4575b4acbdd8571934cfa583d4dfe17a1e43c365f06a13a77d734e653eb4e70b"
+  },
+  {
+    "file": "prototype/public/assets/regions/horizon-calm.jpg",
+    "bytes": 382806,
+    "sha256": "d2a104065abab719f421c98e3bd3b044a4368a6eb63e0e75943c8dd9381d7ba2"
+  },
+  {
+    "file": "prototype/public/assets/regions/paths-calm.jpg",
+    "bytes": 373452,
+    "sha256": "5524f74410d772179d2fdae53bb2a096c17093d6932536cd18992e34f73ac6d6"
+  },
+  {
+    "file": "prototype/public/assets/regions/river-calm.jpg",
+    "bytes": 390260,
+    "sha256": "ead5e22916ac47617b8564e3f1a78b511ddee7f995cc991201b4c635dce2615a"
+  },
+  {
+    "file": "prototype/public/assets/regions/wonder-calm.jpg",
+    "bytes": 395206,
+    "sha256": "8dd45d957d7f2c81cae793ebe2bf38855e55a1c1187bbcaee1ce5a6fc9a2cd19"
+  }
+]

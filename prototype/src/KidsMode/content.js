@@ -3,11 +3,11 @@ export const characters = [{ id: 'prem', name: 'Prem Singh' }, { id: 'sehaj', na
 export const regions = [
   {
     "name": "The beginning",
-    "place": "Fields and open gates",
+    "place": "Fields and quiet groves",
     "start": 1,
     "end": 6,
-    "image": "regions/fields.jpg",
-    "description": "Golden fields, a banyan tree, stone pool and open gate",
+    "image": "regions/fields-calm.jpg",
+    "description": "Broad golden fields, a quiet grove and distant river",
     "nodes": [
       [
         21,
@@ -41,8 +41,8 @@ export const regions = [
     "place": "Riverbanks and quiet groves",
     "start": 7,
     "end": 12,
-    "image": "regions/river.jpg",
-    "description": "Blue river, reeds, river steps and a quiet reading pavilion",
+    "image": "regions/river-calm.jpg",
+    "description": "Broad blue riverbanks, sandy islands and sparse trees",
     "nodes": [
       [
         21,
@@ -76,8 +76,8 @@ export const regions = [
     "place": "Bridges and sheltered paths",
     "start": 13,
     "end": 18,
-    "image": "regions/paths.jpg",
-    "description": "Rolling green hills, a stone bridge, rooted tree and sheltered paths",
+    "image": "regions/paths-calm.jpg",
+    "description": "Rolling green hills, a stone bridge and sheltered pass",
     "nodes": [
       [
         21,
@@ -111,8 +111,8 @@ export const regions = [
     "place": "Where rivers meet the sea",
     "start": 19,
     "end": 24,
-    "image": "regions/horizon.jpg",
-    "description": "Open estuary, layered hills, garden and distant sea",
+    "image": "regions/horizon-calm.jpg",
+    "description": "Open estuary, layered hills and distant sea",
     "nodes": [
       [
         21,
@@ -143,11 +143,11 @@ export const regions = [
   },
   {
     "name": "A world of wonder",
-    "place": "Orchards and shared courtyards",
+    "place": "Terraced fields and groves",
     "start": 25,
     "end": 30,
-    "image": "regions/wonder.jpg",
-    "description": "Terraced orchards, a market awning, meal shelter and seedling garden",
+    "image": "regions/wonder-calm.jpg",
+    "description": "Open terraced fields, stone walls and sparse trees",
     "nodes": [
       [
         21,
@@ -178,11 +178,11 @@ export const regions = [
   },
   {
     "name": "Growing in grace",
-    "place": "Gardens and the workshop",
+    "place": "Hills and the flowing river",
     "start": 31,
     "end": 38,
-    "image": "regions/grace.jpg",
-    "description": "Cultivated gardens, pottery shelter, mountains and an open workshop",
+    "image": "regions/grace-calm.jpg",
+    "description": "Gentle hills, quiet groves and a river with a small waterfall",
     "nodes": [
       [
         29.5,
@@ -219,13 +219,6 @@ export const regions = [
     ],
     "aspectRatio": 0.75
   }
-];
-export const collection = [
-    { id: 'classic', name: 'Classic explorer', cost: 0, color: '#c4d4ea' },
-    { id: 'sky', name: 'Sky frame', cost: 0, color: '#7daed1' },
-    { id: 'sunshine', name: 'Sunshine frame', cost: 10, color: '#d6ad32' },
-    { id: 'river', name: 'River explorer', cost: 20, color: '#3477bd' },
-    { id: 'garden', name: 'Garden explorer', cost: 30, color: '#65955d' },
 ];
 export function lineScore(score, index, lineCount) {
     return score < 95 && index < Math.floor(lineCount / 3) * 3 ? score + (index % 3 === 1 ? -16 : 8) : score;

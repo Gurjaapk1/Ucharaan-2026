@@ -95,7 +95,7 @@ Use American English spelling in interface copy: practice and practicing.
 
 ## Expanded Nanak rewards
 
-Use independent clothing, belonging and action slots. Preview does not spend coins. Confirmation unlocks and equips atomically; owned items equip free. Story and milestone unlocks cost no coins. Keep the 60-coin demo separate from saved progress. Preserve older wardrobe/frame saves. Use American English.
+Use independent clothing, belonging and action slots. Preview does not spend coins. Confirmation unlocks and equips atomically; owned items equip free. Story and milestone unlocks cost no coins. Keep the 60-coin demo separate from saved progress. Preserve older wardrobe saves, coin balances, stars and attempts. Use American English.
 
 ## Reading support and final alignment
 
@@ -112,3 +112,9 @@ The user requested expansion beyond Pauri 1. Keep one quiet panorama per pauri a
 ## Region terrain and entry previews
 
 Give each region its own quiet terrain using landmarks from its pauri panoramas. Preserve the winding game map and three-star system. Store exact node coordinates per region, including eight clearings for the final region. Show the complete panorama on the pauri opening page before Practice and Challenge; keep reading illustrations optional. Terrain labels must not imply historical composition locations.
+
+## Frame removal and map simplicity
+
+Frames are retired. Do not restore frame selection, frame purchases or cosmetic frame colors on avatars or map nodes. Character customization uses Clothing, Belongings and Actions. Ignore legacy frame ownership/equipment fields when loading older saves; retain their remaining progress and wardrobe.
+
+Match regional maps to the original `journey-calm.jpg`: broad muted painted shapes, sparse trees and only a few simple landmarks. Avoid dense crops, foliage, rocks or miniature architectural details. Keep distinct terrain, clear numbered stops and three-star mastery. About this picture contains only the passage-specific explanation, without a generic memory-cue disclaimer.
