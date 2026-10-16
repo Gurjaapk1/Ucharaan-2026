@@ -10,9 +10,9 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent.parent
 for name, filename in [('Arial', 'Arial.ttf'), ('ArialBold', 'Arial Bold.ttf')]:
     pdfmetrics.registerFont(TTFont(name, '/System/Library/Fonts/Supplemental/' + filename))
-c = canvas.Canvas(str(HERE / 'Uchaaran_Midterm.pdf'), pagesize=(612, 792))
+c = canvas.Canvas(str(HERE / 'Team12_Midterm.pdf'), pagesize=(612, 792))
 c.setTitle('Uchaaran | Build Day project one-pager')
-c.setAuthor('Uchaaran project team')
+c.setAuthor('Team 12: Avi Oberoi, Gurjaap Kalra, Mohkm Singh, Gurasees Bajaj')
 navy = '#142D4E'
 body = ParagraphStyle('body', fontName='Arial', fontSize=11, leading=14, textColor=HexColor(navy))
 heading = ParagraphStyle('heading', parent=body, fontName='ArialBold', fontSize=12, leading=15)
@@ -32,13 +32,14 @@ c.rect(0, 0, 612, 792, fill=1, stroke=0)
 c.setFillColor(HexColor(navy))
 c.rect(0, 677, 612, 115, fill=1, stroke=0)
 c.setFillColor(HexColor('#F5C768'))
-c.rect(36, 691, 38, 3, fill=1, stroke=0)
+c.rect(36, 682, 38, 3, fill=1, stroke=0)
 c.setFont('ArialBold', 28)
 c.setFillColor(HexColor('#FFFFFF'))
 c.drawString(36, 749, 'Uchaaran')
 white = ParagraphStyle('white', parent=body, textColor=HexColor('#FFFFFF'))
 para('A playful path to confident Gurbani pronunciation', 36, 735, 540, white)
-para('Partner: Khalis Foundation  |  Team and members: to confirm', 36, 712, 540, white)
+para('Team 12  |  Partner: Khalis Foundation', 36, 716, 540, white)
+para('Avi Oberoi, Gurjaap Kalra, Mohkm Singh, Gurasees Bajaj', 36, 700, 540, white)
 y = para('<b>Selected problem:</b> Help children build a lasting Gurbani practice through pronunciation support and meaningful progress.', 36, 662, 540)-12
 y = section('The problem, in our words', 'Children learning Gurbani can struggle to read Gurmukhi and know whether they are pronouncing a line correctly. Parents want to help, but may not have time or access to an ustaad for everyday practice.', y)
 y = section('What we built', 'A working browser prototype inspired by Sundar Gutka: 38 Japji Sahib pauris across six map regions, guided practice, challenge results and character rewards. Audio and saved progress work; pronunciation scores and coaching are simulated.', y)
