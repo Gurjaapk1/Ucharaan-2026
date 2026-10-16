@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 2 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 3 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_c066be53c92c8191a87b3d2978875267`
-- Deployment: `appgdep_6ad29f5e26dc81919d0bfaacd4ff205e`
-- Pushed Sites source commit: `a30116fdc4dd1bb0ab54b0453ade548bdec20028`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_34c6d6f5e72481918fb54da2599f9693`
+- Deployment: `appgdep_6ad29f9d90608191a54f377be4c03e66`
+- Pushed Sites source commit: `dba2030482610a047d2aec77d1c1810b07c911ac`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-rnw-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-rnw-fix-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -29,4 +29,4 @@ The prototype and updated design documentation are shared on `codex/v1-product-j
 
 This is the design/reference branch. Native implementation should follow Avi's branch flow from `feature/kids-mode`; do not merge the browser preview runtime into the native app.
 
-Version 2 uses shared React Native components rendered through React Native Web. Browser-only ports and remaining native integration work are documented in the integration contract. Old Sites checkout and archive remain as recovery material.
+Version 3 uses shared React Native components rendered through React Native Web. Browser-only ports and remaining native integration work are documented in the integration contract. Old Sites checkout and archive remain as recovery material.

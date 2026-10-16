@@ -30,3 +30,5 @@ The source-aligned web preview passes the exercised paths. This is not validatio
 Current captures are `qa/rnw-map.png`, `qa/rnw-android-map.png`, `qa/rnw-practice.png`, `qa/rnw-results.png`, `qa/rnw-rewards.png`, and `qa/rnw-night-settings.png`. Older unprefixed captures and `design-qa.md` document the prior DOM prototype and are not the current visual baseline.
 
 The baseline for the revision is the inspected Sundar Gutka source at `e949f2f1429c41882b639bcfaaa8133bd4ac5047`, especially HomeScreen, BaniList, Settings, ReaderScreen styles and theme files. Native simulator/store screenshots were not used for a pixel-level comparison. The preview intentionally shows a reduced catalogue and settings set.
+
+Final compatibility check found empty-string conditionals that produced React Native Web `View` text warnings. Replaced them with explicit boolean checks for status/error visibility. Re-ran the home, Settings, onboarding, map and practice path against the corrected dev build; the text warnings did not recur. All automated checks passed again.
