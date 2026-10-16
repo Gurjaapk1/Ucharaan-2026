@@ -26,4 +26,6 @@ The Uchaaran Helper's scores are checked against an ustaad's own judgement of th
 
 Start with the [team context index](docs/README.md) for the challenge, meeting decisions, V1 scope, user journey, scoring constraints, rewards, validation, and open decisions.
 
-[View the editable Paper designs](https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0) or browse the [mockup screenshots and notes](docs/07-paper-designs.md). Current state: planning and static mockups, with app implementation still pending.
+[View the editable Paper designs](https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0) or browse the [mockup screenshots and notes](docs/07-paper-designs.md). Current state: Paper designs and an interactive React web prototype in [prototype/](prototype/README.md). Native Kids Mode implementation remains separate; [integration boundaries](prototype/NATIVE_INTEGRATION.md) follow Avi’s skill on feature/kids-mode.
+
+[Try the live prototype](https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site). Anyone with the link can view it. Pronunciation scores are simulated; reference audio is real.

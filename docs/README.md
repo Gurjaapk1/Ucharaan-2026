@@ -47,3 +47,7 @@ Latest exploration: six additional phone screens and two comparison boards explo
 Latest direction: [Japji Sahib world map](10-japji-world-map.md) records the user-selected map experience, React Native constraint, eight expanded mockups, all 38 pauris, scorecards and Nanak coins. This supersedes the earlier recommendation to lead with the hybrid home screen.
 
 Latest refinement: [Historical journey, challenge mode and rewards](11-history-challenge-and-rewards.md) records the Nanak coin correction, character onboarding, final pronunciation rubric, example percentage/star bands, historical chapter pairing and optional regional mini-games.
+
+- [Interactive V1 prototype](12-interactive-prototype.md): current journeys, star-linked coins and Avi’s native integration boundaries.
+
+- [Published prototype and resumption](13-prototype-publication.md): share link, verified deployment, and source locations.
