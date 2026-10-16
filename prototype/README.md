@@ -29,7 +29,7 @@ The device picker switches between iPhone and Android presentations. The app-own
 - Continuous challenge simulation with automatic progression every four seconds, pause/resume and a full-pauri word-level scorecard with tappable scores, practice prompts, reference-line audio and direct line retry. Test score scenarios are available in Settings; the default demo gives 84% first and 96% on later attempts.
 - Ten Nanak coins per newly earned star. Higher scores pay only the improvement. Lower scores never remove stars. Redemption checks balance and avoids charging for an owned item.
 - Independent Clothing, Belongings and Actions slots, coin purchases, free milestone/story unlocks, preview before equipping, and saved ownership. An isolated 60-coin demo lets reviewers try the flow without changing their saved progress. Legacy frames and map colors remain available through character setup. No physical rewards, real-money purchases or discounts.
-- Pauri 1 has a connected six-stop memory walk, animated panorama, optional hidden words and slower reference audio. The map uses quieter painted terrain. Supporting pictures can be hidden in Settings; other pauris are text-first until their visual cues are developed. No history mini-games.
+- Pauri 1 has a connected six-stop memory walk, animated panorama, optional hidden words and slower reference audio. The map uses quieter painted terrain. Supporting pictures can be hidden in Settings; all other pauris now have four grouped visual landmarks. No history mini-games.
 - Browser-saved preferences, character, stars, coins, wardrobe and recent attempt history. Continue the selected pauri or move forward after a result.
 
 ## Limits
@@ -47,3 +47,5 @@ Practice and the memory walk include source-backed Roman-letter Punjabi between 
 ## JavaScript handoff
 
 All app-owned screens and logic use JavaScript and JSX. The protected phone-preview shell and Vite tooling still use TypeScript; keep those outside the native app. Run `npm run test:domain` directly with Node, with no TypeScript loader. See [JavaScript migration](../docs/19-javascript-handoff.md).
+
+All 38 pauris now have a connected panorama in Practice, Challenge and Walk the story. The gallery at `/art-review.html` includes opening and closing artwork, for 40 landscapes in total. See [artwork notes](../docs/20-complete-japji-artwork.md). These are mnemonic proposals for review.

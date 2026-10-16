@@ -35,3 +35,7 @@ Screenshots and verification are in [the polish QA report](../prototype/design-q
 ## Remaining production work
 
 The preview still simulates voice alignment and pronunciation scores. Real assessment, native builds, device accessibility testing and educator review remain separate work. Browser screenshots do not establish accessibility compliance or that the imagery improves recall. The native team should use its existing navigation, persisted Redux state, audio and safe-area infrastructure through the documented adapters.
+
+## Full-set expansion
+
+The October 16 expansion supersedes the earlier Pauri-1-only illustration scope above. All 38 pauris now have individual panoramas. The navigation map terrain is unchanged. See [full artwork set](20-complete-japji-artwork.md).

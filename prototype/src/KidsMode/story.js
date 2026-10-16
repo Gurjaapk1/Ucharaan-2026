@@ -1,3 +1,4 @@
+import plans from './story-plans.json' with { type: 'json' };
 // Mnemonic proposals, not translations or claims about historical locations.
 // Keep canonical Gurbani and supplied English meaning beside these cues.
 export const pauriOneStory = [
@@ -8,3 +9,15 @@ export const pauriOneStory = [
     { place: 'The misty threshold', cue: 'The question of truthful living', x: 0.847, reflection: 'At the threshold, pause with the question this line asks. The mist is only a visual cue.' },
     { place: 'The open path', cue: 'Walking in Hukam', x: 1, reflection: 'The path continues into the same world. Return to the full line and its meaning about Hukam.' },
 ];
+
+// Zero-based, inclusive ranges keep repeated refrains and related lines together.
+const firstStory = {
+    title: 'The open path', image: 'pauri-1-calm.jpg',
+    stops: pauriOneStory.map((stop, index) => ({ ...stop, start: index, end: index })),
+};
+export function storyForPauri(number) {
+    return number === 1 ? firstStory : plans[String(number)];
+}
+export function storyStopForLine(story, line) {
+    return story.stops.find(stop => line >= stop.start && line <= stop.end) ?? story.stops[0];
+}

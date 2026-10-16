@@ -74,3 +74,7 @@ Reuse the slot model and pure transitions from `wardrobe.js`. Map `Progress.ward
 ## Recitation-driven advancement
 
 Final line progression must consume streaming alignment and confirmed line-complete events, not the demonstration timer. Keep completion separate from pronunciation quality, hold during silence/uncertainty, and resolve repeated words by occurrence. See `docs/18-pronunciation-and-live-following.md`. Supply database-backed Roman transliteration alongside Gurmukhi and English meaning in practice.
+
+## Full artwork set
+
+`storyForPauri()` and `storyStopForLine()` use `story-plans.json` for all 38 pauris. Each inclusive line range maps to one camera position in a dedicated panorama. Bundle the JPEGs with a static native asset map. Preserve reduced motion and the Illustrations preference. The opening and Salok artwork stays in the review gallery until production lesson treatment is agreed. See `docs/20-complete-japji-artwork.md`.

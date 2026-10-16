@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 10 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 11 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_38456308d3d0819190247a8637f51326`
-- Deployment: `appgdep_6ad2aaaaee288191876a3fac5e064166`
-- Pushed Sites source commit: `41d64ce62ae8d20350e576b870cd6c2d398c7123`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_2a4fa50a5808819181eb1b7ceeda0e66`
+- Deployment: `appgdep_6ad2aeacd594819186fe69f9e23f0b8b`
+- Pushed Sites source commit: `4f18fbdc3920062500efa480b7db43fdb2a009ff`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-javascript-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-full-art-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -44,3 +44,5 @@ Version 8 expands Nanak rewards into Clothing, Belongings and Actions, with isol
 Version 9 adds Roman-letter Punjabi between Gurmukhi and English meaning in practice and memory walk. All 374 lesson lines are source-matched; prior text, translations and timestamps are unchanged. Build, protected runtime and Sites tests pass. Final recitation-following requirements are in `docs/18-pronunciation-and-live-following.md`; live speech alignment is not implemented.
 
 Version 10 converts app-owned code to JavaScript/JSX while retaining the protected TypeScript preview shell. All 19 tests and the production build pass. See `docs/19-javascript-handoff.md`.
+
+Version 11 adds 37 pauri panoramas to complete the 38-pauri learning journey. Opening and Salok illustrations bring the review gallery to 40 landscapes: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site/art-review.html . All 374 lesson lines map to visual stops. Build, 21 tests and runtime integrity pass. The artwork remains an interpretive proposal for educator review. See `docs/20-complete-japji-artwork.md`.

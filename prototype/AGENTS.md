@@ -104,3 +104,7 @@ Practice uses Gurmukhi, source-backed Roman transliteration, then English meanin
 ## App source language
 
 Keep app-owned source in `src/KidsMode/`, `src/Prototype.jsx`, and browser adapters in JavaScript/JSX to match the native team. Preserve the protected TypeScript preview runtime. Do not reintroduce TypeScript into the reusable feature.
+
+## Full Japji artwork
+
+The user requested expansion beyond Pauri 1. Keep one quiet panorama per pauri and explicit inclusive line ranges in `story-plans.json`. Shared landmarks may cover related lines. All art is an interpretive memory aid, not a literal theological image or a historical itinerary. Keep scripture outside images, no depictions of God or Gurus, and keep Pauri 38 sacred coin imagery separate from Nanak reward currency.
