@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 12 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 13 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_710028bb0b848191a2ccb99492896df9`
-- Deployment: `appgdep_6ad2b2ee904881918879950e9e4e857b`
-- Pushed Sites source commit: `8c169e2fe029fc84c1772e97505d88d7e228fa5c`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_1a0647447b048191b51c12c4c2049b75`
+- Deployment: `appgdep_6ad2b3429edc8191a5ba6aec37d374c5`
+- Pushed Sites source commit: `5b35f7f4e29e9df3f59a193d2bb91369d8ae3554`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-regions-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-picture-copy-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -48,3 +48,5 @@ Version 10 converts app-owned code to JavaScript/JSX while retaining the protect
 Version 11 adds 37 pauri panoramas to complete the 38-pauri learning journey. Opening and Salok illustrations bring the review gallery to 40 landscapes: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site/art-review.html . All 374 lesson lines map to visual stops. Build, 21 tests and runtime integrity pass. The artwork remains an interpretive proposal for educator review. See `docs/20-complete-japji-artwork.md`.
 
 Version 12 adds six distinct region terrains and a full panorama on every pauri opening page. The final region has eight explicitly placed stops. All 22 domain and Sites tests pass, along with the production build and protected runtime check. See `docs/21-region-maps-and-panorama-entry.md`.
+
+Version 13 removes the generic memory-cue disclaimer from About this picture. The passage-specific visual explanation remains. Build, runtime integrity and four Sites checks pass.

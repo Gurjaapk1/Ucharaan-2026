@@ -153,7 +153,7 @@ export default function KidsApp({ pauris, host }) {
         <Copy style={[s.verse, { fontSize: textSize }]}>{current.text}</Copy>
         <Copy style={{ fontSize: 19, lineHeight: 29, marginBottom: 12, color: t.text }}>{current.transliteration}</Copy>{meaning && <Copy style={s.translation}>{current.translation}</Copy>}
         <Row expanded={showCue} title="About this picture" onPress={() => setShowCue(v => !v)} trailing={<Copy>{showCue ? '−' : '+'}</Copy>}/>
-        {showCue && <Small>{storyStop.reflection} The picture is a memory cue, not a translation.</Small>}
+        {showCue && <Small>{storyStop.reflection}</Small>}
         {illustrations && <Button secondary onPress={() => setShowOverview(v => !v)}>{showOverview ? 'Show this place' : 'Show the whole path'}</Button>}
         {audio.error.length > 0 && <Copy style={{ color: t.retryText }}>{audio.error}</Copy>}
       </View>}
