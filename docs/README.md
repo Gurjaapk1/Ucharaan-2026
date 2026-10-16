@@ -55,3 +55,5 @@ Latest refinement: [Historical journey, challenge mode and rewards](11-history-c
 - [Connected Pauri 1 story and fuller preview](14-visual-story-and-full-feature-preview.md): visual system, recall flow, persistence and limits.
 
 - [Quieter visuals and production polish](15-production-polish.md): current illustration style, copy rules, reading controls and remaining native validation.
+
+16. [Word-level feedback](16-word-level-feedback.md): full-pauri review, coach interaction and backend alignment contract.

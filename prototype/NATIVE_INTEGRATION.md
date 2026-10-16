@@ -28,6 +28,7 @@ App-owned UI is now expressed with React Native primitives and StyleSheet under 
 
 | Port | Web preview | Native integration |
 | --- | --- | --- |
+| Sheet | Retained phone BottomSheet with scrolling | Accessible native modal/sheet with safe areas |
 | Scroll / HorizontalScroll | Retained MobileScroll / Carousel | React Native ScrollView, horizontal where appropriate |
 | Icon | CSS masks over SVG files | Existing Sundar Gutka icon components |
 | image(file) | `/assets/` URI | Static `require()` asset map, never dynamic require paths |
@@ -61,3 +62,7 @@ The Site preserves the preview runtime's status bar, so the top safe-area strip 
 `experience.ts` defines the current local snapshot and recent attempt shape. It is a prototype persistence boundary, not a replacement Redux store or server award ledger. Connect native state and migrations to the established application architecture. See `docs/14-visual-story-and-full-feature-preview.md` for the visual system and review criteria.
 
 The polish revision adds a persisted `illustrations` display preference. Older snapshots default it to true without clearing rewards. The reading action bar is a sibling of scrolling content and respects the host safe-area inset. Retain this layout in native navigation. The calm JPEG assets replace the earlier dense terrain on active screens.
+
+## Word-level review
+
+`WordReview.tsx` renders the full pauri and coach. `wordFeedback.ts` preserves source offsets but supplies fixture scores and generic practice prompts only. Replace both fixture functions with confidence-aware backend results before production. See `docs/16-word-level-feedback.md` for alignment, timing and scoring requirements.

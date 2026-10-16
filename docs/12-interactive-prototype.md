@@ -36,3 +36,7 @@ This is source-aligned rather than a verified pixel match to a native binary. Th
 ## Pauri 1 reference revision
 
 The user selected Pauri 1 for the first polished visual sequence. Its six lines now share a connected panoramic place, with stable landmarks, an explorable story mode and optional recall practice. The first region has matching map art. Recent attempts, next-pauri continuation and local persistence support a fuller test loop. Sample-score controls are now in Settings. See [the visual story specification](14-visual-story-and-full-feature-preview.md).
+
+## Word-level challenge feedback
+
+The result now displays the full pauri with tappable word scores. Red underlined words open a practice coach with example guidance, slower reference-line audio and exact-line retry. Recitation remains continuous. See [the feedback contract](16-word-level-feedback.md); no microphone or AI assessment is connected.

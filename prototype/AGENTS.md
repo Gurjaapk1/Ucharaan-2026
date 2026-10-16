@@ -86,3 +86,7 @@ The user chose to polish Pauri 1 before expanding its visual system to all pauri
 ## Quieter production presentation
 
 The user requested less busy imagery and clearer copy. Use broad painted shapes, muted colors and generous empty space. Show one supporting image per reading screen; the overview is optional. Keep scripture unchanged, interface copy literal, and reading controls fixed outside scrolling content. Preserve the persistent Illustrations preference and existing reward data. Current assets are `pauri-1-calm.jpg` and `journey-calm.jpg`.
+
+## Word-level feedback
+
+Keep uninterrupted recitation followed by full-pauri word feedback. Preserve original text and occurrence offsets. Mark demo scores and suggestions explicitly. Red words also need an underline; provide a sequential review action. Reference audio is line-level until verified word timings exist.

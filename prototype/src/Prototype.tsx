@@ -1,6 +1,6 @@
 import './browser-native-compat';
 import { useCallback, useEffect, useMemo, useRef, useState, type PropsWithChildren } from 'react';
-import { Carousel, MobileScroll, useMobileDevice } from './mobile';
+import { BottomSheet, Carousel, MobileScroll, useMobileDevice } from './mobile';
 import KidsApp from './KidsMode/KidsApp';
 import type { HostPorts, IconName } from './KidsMode/types';
 import pauris from './bani.json';
@@ -9,6 +9,11 @@ const storage={load:()=>{try{return parseExperience(JSON.parse(localStorage.getI
 
 const referenceAudio = 'https://gurbani-audios-c4abhzghhnccd5gj.z01.azurefd.net/audios/BhaiJarnailSingh/JapjiSahib.m4a';
 const image = (file: string) => ({uri:`/assets/${file}`});
+function Sheet({children,...props}:PropsWithChildren<{open:boolean;onOpenChange:(open:boolean)=>void;title:string}>) {
+  const {device}=useMobileDevice();
+  // MobileScroll is absolutely positioned; give it a bounded sheet viewport.
+  return <BottomSheet {...props} snap={0.86}><div style={{position:'relative',height:Math.round(device.geometry.screen.height*0.86)-90}}><MobileScroll className="kids-scroll">{children}</MobileScroll></div></BottomSheet>;
+}
 function Scroll({children}:PropsWithChildren) {return <MobileScroll className="kids-scroll">{children}</MobileScroll>;}
 function HorizontalScroll({children}:PropsWithChildren) {return <Carousel ariaLabel="Choose journey region">{children}</Carousel>;}
 function Icon({name,color,size=22}:{name:IconName;color:string;size?:number}) {
@@ -31,6 +36,6 @@ export default function Prototype() {
     void audio.play().then(()=>{if(id===request.current)setPlaying(true);}).catch(()=>{if(id===request.current){setError('Audio could not load. Please try again.');setPlaying(false);}});
   },[]);
   useEffect(()=>()=>{player.current?.pause();},[]);
-  const host=useMemo<HostPorts>(()=>({Scroll,HorizontalScroll,Icon,image,storage,audio:{playing,error,listen,stop},statusBarBackground:'#ffffff',safeArea:{top:device.geometry.safeArea.top,bottom:device.platform==='ios'?device.geometry.safeArea.bottom:8}}),[device,playing,error,listen,stop]);
+  const host=useMemo<HostPorts>(()=>({Sheet,Scroll,HorizontalScroll,Icon,image,storage,audio:{playing,error,listen,stop},statusBarBackground:'#ffffff',safeArea:{top:device.geometry.safeArea.top,bottom:device.platform==='ios'?device.geometry.safeArea.bottom:8}}),[device,playing,error,listen,stop]);
   return <div className="uchaaran"><audio ref={player} src={referenceAudio} preload="none" onTimeUpdate={()=>{if(player.current&&player.current.currentTime>=end.current){player.current.pause();setPlaying(false);}}} onError={()=>{setError('Reference audio is currently unavailable.');setPlaying(false);}}/><KidsApp pauris={pauris} host={host}/></div>;
 }
