@@ -6,6 +6,8 @@ The user-provided final guidelines ask for one page explaining the problem, the 
 
 The page distinguishes working audio, journey, rewards and browser persistence from simulated pronunciation feedback. Native speech alignment and scoring remain future integration work. No deployment, user-impact results, nonprofit acceptance or completed licensing review is claimed.
 
-Validation: rendered and visually inspected; one page; document text is at least 11 pt; San Francisco is embedded; both link annotations are present. Rebuild from the project root with Python and ReportLab: `python3 outputs/final-submission/build_onepager.py`.
+Validation: rendered and visually inspected; one page; document text is at least 11 pt; San Francisco is embedded; all three link annotations are present. Rebuild from the project root with Python and ReportLab: `python3 outputs/final-submission/build_onepager.py`.
 
 Only the PDF is prepared here. The final submission's video and code ZIP are separate deliverables. Nothing has been submitted to the organizers.
+
+Added a design-evolution paragraph based on the project discussion and design notes, plus the user-supplied Paper link. The Paper file sharing permissions were not changed.
