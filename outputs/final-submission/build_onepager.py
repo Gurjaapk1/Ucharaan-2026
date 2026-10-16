@@ -43,13 +43,13 @@ text('Team 12 · Khalis Foundation',36,689,540,11,14,'#D6E5EC')
 text('Avi Oberoi, Gurjaap Kalra, Mohkm Singh, Gurasees Bajaj',36,673,540,11,14,'#D6E5EC')
 
 bold('Help children say it, then connect with it.',36,637,18)
-text('Learning Gurbani asks children to navigate unfamiliar script, sounds and meaning. Uchaaran pairs pronunciation practice with a playful journey, so families have a clear path for learning together.',36,609,540,11,15)
+text('Designed for grades 6 to 8, Uchaaran helps children navigate the script, sounds and meaning of Gurbani. Engagement brings them back; pronunciation practice gives each visit a purpose.',36,609,540,11,15)
 
 bold('Engagement that serves learning',36,562,16)
-text('A map of 38 Japji Sahib pauris across six regions gives children a visible path. Prem Singh and Sehaj Kaur make it personal; stars and Nanak coins turn mastery into clothing, belongings and character actions.',36,536,337)
+text('Choose a bani, open a pauri and build mastery line by line. Japji Sahib spans 38 pauris in six regions. Prem Singh and Sehaj Kaur, stars and Nanak coins make progress personal through character rewards.',36,536,337)
 
 bold('Understanding alongside pronunciation',36,458,16)
-text('Gurmukhi, Roman-letter Punjabi and English meaning sit beside reference audio. Children can listen, recite and revisit a word while exploring the meaning of the shabad. Pronunciation stays the primary goal.',36,432,337)
+text('Listen, recite, review and retry. Gurmukhi, Roman-letter Punjabi and reference audio support pronunciation; word feedback guides the next practice. English meaning adds a path into understanding the shabad.',36,432,337)
 
 image=ROOT/'outputs/journey-regions/calm-v2/review/region-one-phone.png'
 C.drawImage(str(image),414,360,width=111,height=224.5,mask='auto')
