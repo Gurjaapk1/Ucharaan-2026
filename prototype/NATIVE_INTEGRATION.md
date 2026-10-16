@@ -78,3 +78,7 @@ Final line progression must consume streaming alignment and confirmed line-compl
 ## Full artwork set
 
 `storyForPauri()` and `storyStopForLine()` use `story-plans.json` for all 38 pauris. Each inclusive line range maps to one camera position in a dedicated panorama. Bundle the JPEGs with a static native asset map. Preserve reduced motion and the Illustrations preference. The opening and Salok artwork stays in the review gallery until production lesson treatment is agreed. See `docs/20-complete-japji-artwork.md`.
+
+## Region terrain and pauri entry
+
+Bundle the six `public/assets/regions/*.jpg` images in the native asset resolver. `regions` in `KidsMode/content.js` supplies the filename, accessible description and percentage node centers. Use each region's `aspectRatio` to preserve registration. The last region is taller to fit eight stops. Each pauri entry reuses `StoryScene` in overview mode with a 3:1 container and contain sizing. No additional package is required.

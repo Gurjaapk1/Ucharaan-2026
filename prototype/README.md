@@ -49,3 +49,5 @@ Practice and the memory walk include source-backed Roman-letter Punjabi between 
 All app-owned screens and logic use JavaScript and JSX. The protected phone-preview shell and Vite tooling still use TypeScript; keep those outside the native app. Run `npm run test:domain` directly with Node, with no TypeScript loader. See [JavaScript migration](../docs/19-javascript-handoff.md).
 
 All 38 pauris now have a connected panorama in Practice, Challenge and Walk the story. The gallery at `/art-review.html` includes opening and closing artwork, for 40 landscapes in total. See [artwork notes](../docs/20-complete-japji-artwork.md). These are mnemonic proposals for review.
+
+The six journey regions now have separate terrains. Every pauri opens with a complete panorama before Practice and Challenge. See [terrain and entry behavior](../docs/21-region-maps-and-panorama-entry.md).

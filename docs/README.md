@@ -65,3 +65,5 @@ Latest refinement: [Historical journey, challenge mode and rewards](11-history-c
 19. [JavaScript handoff](19-javascript-handoff.md): reusable JS/JSX source and retained preview tooling.
 
 20. [Complete Japji artwork](20-complete-japji-artwork.md): forty landscapes, line-group cues and review gallery.
+
+- [Region maps and pauri panorama previews](21-region-maps-and-panorama-entry.md)

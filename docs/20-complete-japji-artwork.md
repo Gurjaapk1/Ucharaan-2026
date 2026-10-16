@@ -26,7 +26,7 @@ The existing BaniDB text and meanings in `prototype/src/bani.json` provided the 
 
 The new coverage checks verify all 38 pauris, every line, ordered camera movement and a distinct existing image for each pauri. Existing scoring, wardrobe and persistence tests remain in place. The protected phone runtime is unchanged.
 
-Every generated image was inspected in a contact sheet. These are complete prototype assets, not educator-approved illustrations. Review whether the metaphors help recall without distorting meaning, especially Pauris 16, 18, 26, 30 and 34–38. Child comprehension and native-device rendering remain untested. The six map regions still use the existing navigation terrain; these new panoramas belong to the learning screens. Live speech alignment remains simulated.
+Every generated image was inspected in a contact sheet. These are complete prototype assets, not educator-approved illustrations. Review whether the metaphors help recall without distorting meaning, especially Pauris 16, 18, 26, 30 and 34–38. Child comprehension and native-device rendering remain untested. The six map regions now have distinct terrain derived from these panoramas. See [region maps and pauri previews](21-region-maps-and-panorama-entry.md). Live speech alignment remains simulated.
 
 Local browser verification reached Pauri 38 from region six, opened its memory walk, jumped to the fourth landmark at line six, and advanced to line seven with the correct final action. The image, Gurmukhi, transliteration and English meaning rendered together without overlap. The gallery index also opened Pauri 38 and the closing Salok correctly. Evidence: `outputs/japji-art/review/pauri-38-phone.png`.
 

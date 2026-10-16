@@ -108,3 +108,7 @@ Keep app-owned source in `src/KidsMode/`, `src/Prototype.jsx`, and browser adapt
 ## Full Japji artwork
 
 The user requested expansion beyond Pauri 1. Keep one quiet panorama per pauri and explicit inclusive line ranges in `story-plans.json`. Shared landmarks may cover related lines. All art is an interpretive memory aid, not a literal theological image or a historical itinerary. Keep scripture outside images, no depictions of God or Gurus, and keep Pauri 38 sacred coin imagery separate from Nanak reward currency.
+
+## Region terrain and entry previews
+
+Give each region its own quiet terrain using landmarks from its pauri panoramas. Preserve the winding game map and three-star system. Store exact node coordinates per region, including eight clearings for the final region. Show the complete panorama on the pauri opening page before Practice and Challenge; keep reading illustrations optional. Terrain labels must not imply historical composition locations.

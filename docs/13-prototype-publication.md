@@ -2,15 +2,15 @@
 
 Live URL: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site
 
-Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 11 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
+Published successfully October 16, 2026. User explicitly selected anyone-with-link sharing; Sites confirmed public access. Version 12 now opens into the source-aligned Sundar Gutka home screen. Enable Kids Mode in Settings to reach the journey.
 
 - Site project: `appgprj_6ad297e1c9a08191a4c59d00aa49a007`
-- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_2a4fa50a5808819181eb1b7ceeda0e66`
-- Deployment: `appgdep_6ad2aeacd594819186fe69f9e23f0b8b`
-- Pushed Sites source commit: `4f18fbdc3920062500efa480b7db43fdb2a009ff`
+- Saved version: `appgprj_6ad297e1c9a08191a4c59d00aa49a007~appgver_710028bb0b848191a2ccb99492896df9`
+- Deployment: `appgdep_6ad2b2ee904881918879950e9e4e857b`
+- Pushed Sites source commit: `8c169e2fe029fc84c1772e97505d88d7e228fa5c`
 - Team source: `prototype/` in this project, tracked as ordinary files.
 - Separate Sites deployment checkout: `tmp/sites-rnw-source/`, preserved with its clean source Git history. It contains the exact deployed source. This keeps nested deployment Git metadata out of the team's project source.
-- Build archive: `tmp/uchaaran-full-art-site.tar.gz`, unchanged after deployment.
+- Build archive: `tmp/uchaaran-regions-site.tar.gz`, unchanged after deployment.
 
 ## Resume a prototype revision
 
@@ -46,3 +46,5 @@ Version 9 adds Roman-letter Punjabi between Gurmukhi and English meaning in prac
 Version 10 converts app-owned code to JavaScript/JSX while retaining the protected TypeScript preview shell. All 19 tests and the production build pass. See `docs/19-javascript-handoff.md`.
 
 Version 11 adds 37 pauri panoramas to complete the 38-pauri learning journey. Opening and Salok illustrations bring the review gallery to 40 landscapes: https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site/art-review.html . All 374 lesson lines map to visual stops. Build, 21 tests and runtime integrity pass. The artwork remains an interpretive proposal for educator review. See `docs/20-complete-japji-artwork.md`.
+
+Version 12 adds six distinct region terrains and a full panorama on every pauri opening page. The final region has eight explicitly placed stops. All 22 domain and Sites tests pass, along with the production build and protected runtime check. See `docs/21-region-maps-and-panorama-entry.md`.
