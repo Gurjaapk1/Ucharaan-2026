@@ -1,0 +1,54 @@
+{
+  "fileId": "01M533NG24KGRMXNQQ6EX5Z1BJ",
+  "url": "https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0",
+  "screens": [
+    {
+      "id": "TL-0",
+      "name": "Japji world • Enter the map"
+    },
+    {
+      "id": "VO-0",
+      "name": "Pauri 3 • Choose your practice route"
+    },
+    {
+      "id": "ZN-0",
+      "name": "Verse practice • Select a focus"
+    },
+    {
+      "id": "120-0",
+      "name": "Full pauri • Recitation session"
+    },
+    {
+      "id": "135-0",
+      "name": "Scorecard • New mastery milestone"
+    },
+    {
+      "id": "165-0",
+      "name": "Focused pronunciation • Pauri 3 line 2"
+    },
+    {
+      "id": "17F-0",
+      "name": "Nana coins • Personalize your journey"
+    },
+    {
+      "id": "1M6-0",
+      "name": "Three-star mastery • Reward and next destination"
+    }
+  ],
+  "overview": [
+    {
+      "id": "14Q-0",
+      "name": "Japji Sahib • Complete world and mastery rules"
+    }
+  ],
+  "assets": [
+    {
+      "id": "TX-0",
+      "name": "riverside-terrain"
+    },
+    {
+      "id": "14V-0",
+      "name": "world-terrain"
+    }
+  ]
+}

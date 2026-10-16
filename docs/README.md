@@ -43,3 +43,5 @@ The text in these topic files is the maintained context handoff. The earlier [co
 Repository context, eight Paper planning boards, nine mobile mockups, a review-notes board, and local screenshot backups exist. No application code has been built in this project work. No scoring engine, runtime, backend, or deployment has been chosen. Team approval of the designs remains open.
 
 Latest exploration: six additional phone screens and two comparison boards explore history, pauri mastery and a hybrid. These options reopen the original reward economy and feedback timing; they are not approved scope changes.
+
+Latest direction: [Japji Sahib world map](10-japji-world-map.md) records the user-selected map experience, React Native constraint, eight expanded mockups, all 38 pauris, scorecards and Nana coins. This supersedes the earlier recommendation to lead with the hybrid home screen.
