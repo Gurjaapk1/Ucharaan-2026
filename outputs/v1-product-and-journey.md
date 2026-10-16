@@ -2,7 +2,7 @@
 
 Product document and user journey for team review. October 16, 2026.
 
-This is a proposed product specification, not an implemented or validated app. Paper canvas creation is pending tool availability. Screen descriptions below specify layout and behavior; they are not rendered mockups.
+This is a proposed product specification, not an implemented or validated app. The [editable Paper review file](https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0) contains eight visually reviewed boards, including nine annotated screen concepts. These are planning wireframes, not a working prototype.
 
 ## Purpose
 
@@ -237,4 +237,4 @@ Create one editable team-review canvas with four clearly titled groups:
 3. Screen storyboard: the nine screens above, using consistent mobile frames and explicit illustrative-data labels.
 4. Validation and handoff: acceptance checks, five-minute demo, technical dependencies, and deferred ideas.
 
-Use separate visible labels for Requirement, Meeting decision, and Proposal. Preserve source links. Inspect every frame for clipped text and legibility before sharing. Paper file creation, rendered visual inspection, and a verified share link are still pending.
+Use separate visible labels for Requirement, Meeting decision, and Proposal. Preserve source links. Inspect every frame for clipped text and legibility before sharing. Paper file created and all eight boards visually inspected on October 16, 2026. The file URL is verified; teammate access permissions have not been tested or changed.
