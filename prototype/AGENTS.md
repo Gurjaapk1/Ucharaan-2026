@@ -78,3 +78,7 @@ When any text-entry control loses focus, dismiss the simulated keyboard. If the 
 - Start at the Sundar Gutka home preview. Kids Mode is off by default and enabled through Settings.
 - Shared components must not depend on browser globals, HTML, CSS classes, HTMLAudioElement or dynamic native asset imports. Keep those behind the host ports.
 - Preserve the demo boundary: no microphone, simulated scores, session-only progress, 10 coins per new star, no history mini-games.
+
+## Connected story direction, October 16, 2026
+
+The user chose to polish Pauri 1 before expanding its visual system to all pauris. Use one connected panorama with stable line landmarks, not unrelated images. Reuse the same scene in overview, practice, recall and challenge. The imagery is a mnemonic proposal and must stay separate from canonical Gurbani and translation. The fuller prototype now stores non-sensitive progress locally; the previous session-only persistence rule is superseded. Keep sample scoring labelled and microphone capture off.

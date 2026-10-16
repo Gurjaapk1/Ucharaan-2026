@@ -21,7 +21,7 @@ Native work must branch from `feature/kids-mode`, stay under `src/KidsMode/`, le
 
 ## Honest prototype limits
 
-Continuous challenge uses a four-second line timer and selectable sample scores. It does not record or assess the user's voice. Reference playback is real, using Sundar Gutka's public CDN. Progress is in memory and resets on reload. No accounts or child information are collected. Opening Mool Mantar and closing Salok are not yet lesson nodes. Character adaptations and meaning imagery need Khalis and educator review.
+Continuous challenge uses a four-second line timer and selectable sample scores. It does not record or assess the user's voice. Reference playback is real, using Sundar Gutka's public CDN. Progress, wardrobe and preferences persist in this browser; there is no cross-device sync. No accounts or child information are collected. Opening Mool Mantar and closing Salok are not yet lesson nodes. Character adaptations and meaning imagery need Khalis and educator review.
 
 See `prototype/README.md`, `prototype/SOURCES.md` and `prototype/design-qa.md` for controls, provenance and verification.
 
@@ -32,3 +32,7 @@ The current Site starts at a Sundar Gutka home preview. Open Settings, enable Ki
 The original navy header, Punjabi title, ornamental glyphs, full-width bani rows, grouped settings, reading typography and navigation treatment guide the revised design. Night mode, font sizing and English-meaning controls work in the preview. Journey, continuous demo challenge, rubric, stars, Nanak coins and cosmetic rewards remain.
 
 This is source-aligned rather than a verified pixel match to a native binary. The native integration contract identifies reusable files and the remaining Redux, navigation, database, audio and scoring work.
+
+## Pauri 1 reference revision
+
+The user selected Pauri 1 for the first polished visual sequence. Its six lines now share a connected panoramic place, with stable landmarks, an explorable story mode and optional recall practice. The first region has matching map art. Recent attempts, next-pauri continuation and local persistence support a fuller test loop. Sample-score controls are now in Settings. See [the visual story specification](14-visual-story-and-full-feature-preview.md).

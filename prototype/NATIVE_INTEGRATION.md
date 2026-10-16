@@ -31,7 +31,8 @@ App-owned UI is now expressed with React Native primitives and StyleSheet under 
 | Scroll / HorizontalScroll | Retained MobileScroll / Carousel | React Native ScrollView, horizontal where appropriate |
 | Icon | CSS masks over SVG files | Existing Sundar Gutka icon components |
 | image(file) | `/assets/` URI | Static `require()` asset map, never dynamic require paths |
-| audio | HTMLAudioElement with per-line end time | Existing TrackPlayer utilities with progress subscription |
+| audio | HTMLAudioElement with per-line end time and playback rate | Existing TrackPlayer utilities with progress subscription |
+| storage | Validated versioned localStorage snapshot | Existing persisted kidsMode Redux slice |
 | safeArea | Phone preview geometry | Existing safe-area context and platform conventions |
 
 `components.tsx` has stable shared controls; `styles.ts` contains RN styles. `KidsApp.tsx` is the interactive screen coordinator, not the production navigator. Split it into native routes and connect the persisted Redux slice when integrating. Keep the existing Home, Settings and Reader as the actual native shell; the preview re-creates only the relevant subset of them.
@@ -52,3 +53,9 @@ The Site preserves the preview runtime's status bar, so the top safe-area strip 
 - Verify parental controls and local-only recording behavior with opt-in off.
 - Grades 6–8 are the skill's target audience. Test whether the chosen book-character direction feels appropriate to that age group.
 - Remove team AGENTS.md, CLAUDE.md and .agents tooling from final upstream feature PRs as Avi specifies.
+
+## Pauri 1 story reference
+
+`StoryScene.tsx` uses React Native Animated, Image and AccessibilityInfo to pan across one illustration and respect reduced motion. Use the same landmark composition in overview, practice and challenge. `story.ts` holds proposed memory cues separately from scripture. The browser-only global alias shim remains outside the shared feature folder.
+
+`experience.ts` defines the current local snapshot and recent attempt shape. It is a prototype persistence boundary, not a replacement Redux store or server award ledger. Connect native state and migrations to the established application architecture. See `docs/14-visual-story-and-full-feature-preview.md` for the visual system and review criteria.

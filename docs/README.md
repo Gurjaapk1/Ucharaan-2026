@@ -20,7 +20,7 @@ We are designing a Kids Mode experience for Sundar Gutka that helps children pra
 
 ## What is settled and what is proposed
 
-The challenge brief supplies requirements. The meeting supplies initial team priorities. Detailed product behavior, botanical styling, nature rewards, economy amounts, and screen layouts are proposals for review. Visual inspection confirms layout only. No app functionality or model quality has been validated.
+The challenge brief supplies requirements. The meeting supplies initial team priorities. Detailed product behavior, botanical styling, nature rewards, economy amounts, and screen layouts are proposals for review. Visual inspection confirms layout only. Prototype interactions have been tested; pronunciation model quality has not been validated.
 
 The text in these topic files is the maintained context handoff. The earlier [combined product draft](../outputs/v1-product-and-journey.md) is preserved as the planning artifact from which they were organized. Prefer the topic files for subsequent context updates and keep the combined draft consistent when its scope changes.
 
@@ -40,7 +40,7 @@ The text in these topic files is the maintained context handoff. The earlier [co
 
 ## Current delivery state
 
-Repository context, eight Paper planning boards, nine mobile mockups, a review-notes board, and local screenshot backups exist. No application code has been built in this project work. No scoring engine, runtime, backend, or deployment has been chosen. Team approval of the designs remains open.
+Repository context, eight Paper planning boards, nine mobile mockups, a review-notes board, and local screenshot backups exist. A React Native Web reference prototype is now published on ChatGPT Sites. The pronunciation backend remains outside the prototype. Team approval of the designs remains open.
 
 Latest exploration: six additional phone screens and two comparison boards explore history, pauri mastery and a hybrid. These options reopen the original reward economy and feedback timing; they are not approved scope changes.
 
@@ -51,3 +51,5 @@ Latest refinement: [Historical journey, challenge mode and rewards](11-history-c
 - [Interactive V1 prototype](12-interactive-prototype.md): current journeys, star-linked coins and Avi’s native integration boundaries.
 
 - [Published prototype and resumption](13-prototype-publication.md): share link, verified deployment, and source locations.
+
+- [Connected Pauri 1 story and fuller preview](14-visual-story-and-full-feature-preview.md): visual system, recall flow, persistence and limits.

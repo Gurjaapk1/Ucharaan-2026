@@ -10,7 +10,7 @@ npm run dev -- --host 127.0.0.1 --port 4173
 npm run build
 npm run check:runtime
 npm run test:sites
-node --experimental-strip-types --test tests/rewards.test.mjs
+node --experimental-strip-types --test tests/rewards.test.mjs tests/experience.test.mjs
 ```
 
 The device picker switches between iPhone and Android presentations. The app-owned screens use React Native View, Text, Pressable, Image, Switch and StyleSheet, rendered through React Native Web. The outer phone preview and browser audio adapter use React DOM. The native Sundar Gutka source is unchanged. This has not been built or tested as an iOS/Android binary.
@@ -26,15 +26,16 @@ The device picker switches between iPhone and Android presentations. The app-own
 - Seven bani destinations, with Japji Sahib interactive and six explicitly marked as future previews.
 - 38 pauris in six learning regions. All nodes are open for design testing.
 - Practice with Gurmukhi, BaniDB English meaning, selectable lines and real reference audio using the existing Sundar Gutka CDN and bundled line timings.
-- Continuous challenge simulation with automatic progression every four seconds, pause/resume and a final line-by-line scorecard. Example scores can be selected before starting.
+- Continuous challenge simulation with automatic progression every four seconds, pause/resume and a final line-by-line scorecard. Test score scenarios are available in Settings; the default demo gives 84% first and 96% on later attempts.
 - Ten Nanak coins per newly earned star. Higher scores pay only the improvement. Lower scores never remove stars. Redemption checks balance and avoids charging for an owned item.
 - Frame customization and matching map-marker colors. No physical rewards, purchases or discounts.
-- Pauri 1 uses three changing visual metaphors; other pauris use a shared landscape. No history mini-games.
+- Pauri 1 has a connected six-stop memory walk, animated panorama, optional hidden words and slower reference audio. Region 1 has a matching illustrated map. Other pauris use a shared landscape. No history mini-games.
+- Browser-saved preferences, character, stars, coins, wardrobe and recent attempt history. Continue the selected pauri or move forward after a result.
 
 ## Limits
 
-No microphone is used and no pronunciation is assessed. Scores and timing progression are simulated. Progress is in memory and resets on page reload. No child information, analytics, accounts or recordings are stored or transmitted. Audio playback streams public reference audio from Khalis. The proposed star thresholds are 60%, 80% and 95%, pending ustaad calibration. The larger map is a design preview; the native hackathon scope starts with the first pauris.
+No microphone is used and no pronunciation is assessed. Scores and timing progression are simulated. Progress and preferences are saved in this browser, not synced across devices. Clearing site data resets them. No personal child profile, analytics, account or recording is collected. Audio playback streams public reference audio from Khalis. The proposed star thresholds are 60%, 80% and 95%, pending ustaad calibration. The larger map is a design preview; the native hackathon scope starts with the first pauris.
 
 Opening Mool Mantar and closing Salok are not lesson nodes in this prototype. They must be handled explicitly in the production content plan. Illustrated regions do not assert where individual pauris were written. The character adaptations and meaning illustrations need Khalis and educator review.
 
-See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [current design QA](design-qa-rnw.md).
+See [sources](SOURCES.md), [native integration](NATIVE_INTEGRATION.md), and [current design QA](design-qa-story.md).

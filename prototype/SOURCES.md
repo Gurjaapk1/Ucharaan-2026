@@ -43,3 +43,7 @@ Lucide icons retain the included ISC license at `public/assets/LICENSE-lucide`. 
 - React Native Web setup: https://necolas.github.io/react-native-web/docs/setup/ . The web package resolves `react-native` to `react-native-web` using an npm alias; all app-owned UI primitives use the native import path.
 
 The new home/settings icons are simple outline drawings for the web adapter. In the native adapter, use Sundar Gutka's existing icon components. No native simulator screenshot was available for pixel-level comparison. Layout fidelity is based on the inspected source, not a claim of an exact device render.
+
+## Connected story artwork
+
+`pauri-1-story-panorama.png` and `journey-region-one.png` were generated for this prototype using the selected riverside terrain as the style reference. They share soft sculpted terrain, warm earth, quiet blue water and a continuous ochre path. The first is a six-stop interpretive memory walk within Pauri 1; the second is the outer map for Pauris 1–6. Neither depicts a Guru or claims a historical composition location. These are prototype art references pending educator and Khalis review. Earlier separate scene assets are retained as recovery/reference material.
