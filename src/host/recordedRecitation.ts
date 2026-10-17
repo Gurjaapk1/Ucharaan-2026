@@ -52,9 +52,9 @@ const SESSION_SETTLE_MS = 350;
 function describeAudioError(caught: unknown): string {
   const message = (caught as Error)?.message ?? String(caught);
   if (message.includes(INSUFFICIENT_PRIORITY)) {
-    return 'Another app is using the microphone. Close it (or end any call) and try again.';
+    return 'Something else is using the microphone. Close it and try again.';
   }
-  return message || 'Could not open the microphone';
+  return message || 'We could not turn on the microphone.';
 }
 
 const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -215,16 +215,22 @@ export function useRecordedRecitation(pauris: Pauri[]) {
 
     const pauri = pauris.find(p => p.number === pauriRef.current);
     const uri = recorder.uri;
-    if (!pauri || !uri) return { retry: 'Nothing was recorded. Please try again.' };
+    if (!pauri || !uri) return { retry: 'We did not hear anything. Try again.' };
 
     const seqs = seqsForPauri(pauris, pauri.number);
-    if (manifest && !seqs.every(seq => manifest.lines[reciter]?.[String(seq)])) {
-      return { retry: 'Online checking does not cover this pauri yet. Try Pauri 1.' };
-    }
-
     const lineIndex = lineRef.current;
     const seq = seqs[lineIndex];
-    if (seq === undefined) return { retry: 'That line is not in the recording.' };
+    if (seq === undefined) return { retry: 'We could not find that line. Try again.' };
+
+    // Only this line is scored, so only this line needs covering — and an
+    // empty line map means the service publishes no coverage information at
+    // all. The demo server returns `"lines": {}` and scores whatever it is
+    // sent, so treating that as "nothing is covered" rejected every line
+    // before it was ever tried.
+    const covered = manifest?.lines[reciter];
+    if (covered && Object.keys(covered).length > 0 && !covered[String(seq)]) {
+      return { retry: 'This line is not ready yet. Try Pauri 1.' };
+    }
 
     setChecking(true);
     try {
@@ -232,7 +238,7 @@ export function useRecordedRecitation(pauris: Pauri[]) {
       const response = await scoreRecording(uri, { bani: BANI, reciter, seqs: [seq] });
       if (response.status === 'unclear') {
         return {
-          retry: 'We could not hear that clearly. Find a quiet place and say the line again.',
+          retry: 'We could not hear you. Find a quiet spot and say it again.',
         };
       }
 
@@ -275,7 +281,7 @@ export function useRecordedRecitation(pauris: Pauri[]) {
         : 0;
       return { review, score };
     } catch (caught) {
-      const message = (caught as Error)?.message ?? 'That recitation could not be checked.';
+      const message = (caught as Error)?.message ?? 'We could not check that. Try again.';
       setError(message);
       return { retry: message };
     } finally {

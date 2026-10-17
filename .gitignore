@@ -38,3 +38,12 @@ yarn-error.*
 # large model artefacts
 public/models/
 public/ort/
+
+# Python virtual environments and build artefacts.
+# The demo scorer's venv alone is ~660 MB across 23k files.
+.venv/
+venv/
+ENV/
+__pycache__/
+*.py[cod]
+*.egg-info/

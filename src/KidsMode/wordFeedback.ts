@@ -50,11 +50,23 @@ export function sampleWordReview(pauri:Pauri,lineScores:readonly number[]):Revie
     return {text:line.text,score,tokens};
   });
 }
+/**
+ * What the child reads when they tap a word.
+ *
+ * Written for a five-year-old: one short sentence at a time, words they
+ * already know, and the word itself named so the advice is concrete. No
+ * "reference", no "pronunciation", no instruction longer than a breath.
+ */
 export function practicePrompt(word:WordFeedback):{title:string;tip:string;steps:string[]} {
-  const focus=word.focus==='ending'?'word ending':word.focus==='beginning'?'first sound':'whole word';
+  const tip=
+    word.focus==='ending'
+      ? `Listen to the end of ${word.text}. Then say it slowly.`
+      : word.focus==='beginning'
+        ? `Listen to how ${word.text} starts. Then say it slowly.`
+        : `Listen to ${word.text}. Then say it the same way.`;
   return {
-    title:word.score<80?`Practice the ${focus}`:'Keep this word clear',
-    tip:word.focus==='ending'?`Listen closely to how ${word.text} ends in the reference. Repeat the ending without rushing.`:word.focus==='beginning'?`Listen to the first sound in ${word.text}. Begin the word clearly, then join it to the rest.`:`Listen to ${word.text} as one word. Repeat it slowly, then at the reference pace.`,
-    steps:[`Find ${word.text} in the reference line.`,`Repeat ${word.text} on its own.`,`Recite the full line, keeping that word clear.`],
+    title:word.score<80?`Let\u2019s try ${word.text} again`:`You said ${word.text} well!`,
+    tip,
+    steps:['Listen to the word.','Say it out loud.','Now say the whole line.'],
   };
 }

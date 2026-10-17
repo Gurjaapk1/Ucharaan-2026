@@ -20,11 +20,8 @@ import {
   type AudioStreamBuffer,
 } from 'expo-audio';
 
-import { dtw } from '../scoring/dsp/dtw';
 import { Resampler } from '../scoring/dsp/resample';
-import { posteriorgram } from '../scoring/conformer';
 import { scoreSamplesWithWarpSearch } from '../scoring/localScorer';
-import { referencePosteriors } from '../scoring/referencePosteriors';
 import { requestWebMicrophone, useWebAudioStream } from './webAudioStream';
 import { scoreLine, type Features } from '../scoring/localScorer';
 import { referenceFeatures } from '../scoring/reference';
@@ -98,18 +95,6 @@ export interface LiveRecitation {
 /** Flip on to trace the capture path in the console. */
 const DEBUG = true;
 
-/**
- * Score with the IndicConformer model rather than cepstral features.
- *
- * The model asks what sounds were made, which barely depends on who made
- * them; MFCCs describe spectral shape, which depends on the speaker a great
- * deal. Both are kept so the two can be compared on real recitations — the
- * synthetic tests disagreed about which wins, and only a real voice settles it.
- */
-const USE_CONFORMER = true;
-
-/** Cost at which a conformer-scored line reads as zero. */
-const POSTERIOR_ZERO_COST = 0.55;
 
 export function useLiveRecitation(): LiveRecitation {
   const [granted, setGranted] = useState(false);
@@ -182,40 +167,6 @@ export function useLiveRecitation(): LiveRecitation {
       resultsRef.current = [...resultsRef.current, result];
       setResults(resultsRef.current);
 
-      // The model path is asynchronous, so the cepstral score above lands
-      // first and is replaced when the model finishes. The child sees a score
-      // immediately rather than waiting on inference.
-      if (USE_CONFORMER) {
-        const expected = referencePosteriors(pauriRef.current, index);
-        if (expected) {
-          posteriorgram(samples)
-            .then(heard => {
-              if (heard.length === 0) return;
-              const { normalisedCost } = dtw(heard, expected);
-              if (!Number.isFinite(normalisedCost)) return;
-              const ratio = Math.min(1, normalisedCost / POSTERIOR_ZERO_COST);
-              const modelScore = Math.round((1 - ratio) * 100);
-              if (DEBUG) {
-                console.log('[rec] conformer', {
-                  line: index,
-                  mfcc: score,
-                  model: modelScore,
-                  cost: normalisedCost.toFixed(4),
-                });
-              }
-              resultsRef.current = resultsRef.current.map(r =>
-                r.lineIndex === index
-                  ? { ...r, score: modelScore, cost: normalisedCost }
-                  : r,
-              );
-              setResults(resultsRef.current);
-            })
-            .catch(caught => {
-              // Keep the cepstral score rather than failing the line.
-              if (DEBUG) console.log('[rec] conformer failed', caught);
-            });
-        }
-      }
     }
 
     lineRef.current = index + 1;
