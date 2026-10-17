@@ -8,3 +8,8 @@ export const setKidsScoringOptIn = (value) => ({
 });
 
 export const setKidsReciter = (id) => ({ type: actionTypes.KIDS_MODE_SET_RECITER, value: id });
+
+export const recordKidsResult = (pauri, stars) => ({
+  type: actionTypes.KIDS_MODE_RECORD_RESULT,
+  value: { pauri, stars },
+});

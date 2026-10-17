@@ -3,6 +3,7 @@ import { View } from "react-native";
 import PropTypes from "prop-types";
 import { SettingsIconComponent } from "@common/components";
 import { constant, STRINGS, CustomText, useTheme, useThemedStyles, SafeArea } from "@common";
+import KidsModeEntry from "../../KidsMode/KidsModeEntry";
 import createStyles from "../styles";
 
 const BaniHeader = ({ navigate }) => {
@@ -35,6 +36,7 @@ const BaniHeader = ({ navigate }) => {
             color={theme.staticColors.WHITE_COLOR}
           />
         </View>
+        <KidsModeEntry navigate={navigate} />
       </View>
     </SafeArea>
   );
