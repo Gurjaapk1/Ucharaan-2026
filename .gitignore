@@ -34,3 +34,7 @@ android/.gradle/
 npm-debug.*
 yarn-debug.*
 yarn-error.*
+
+# large model artefacts
+public/models/
+public/ort/

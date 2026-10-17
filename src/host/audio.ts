@@ -62,8 +62,16 @@ export function useReferenceAudio(trackUrl: string = REFERENCE_AUDIO): AudioPort
       setError('');
       endRef.current = end;
       player.pause();
-      player
-        .seekTo(start, SEEK_TOLERANCE_MS, SEEK_TOLERANCE_MS)
+
+      // Claim the session for playback every time, not just once at mount.
+      // Recording leaves iOS in a play-and-record category that routes audio
+      // to the earpiece, so playback appears to start — the control even flips
+      // to "Pause reference" — while nothing is audible.
+      setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true })
+        .catch(() => {
+          // Not fatal on its own; the seek below still decides the outcome.
+        })
+        .then(() => player.seekTo(start, SEEK_TOLERANCE_MS, SEEK_TOLERANCE_MS))
         .then(() => {
           player.setPlaybackRate(rate);
           player.play();

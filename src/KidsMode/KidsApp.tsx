@@ -63,14 +63,30 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
 
   const main = ['world','map','rewards','journal'].includes(screen);
   const reading = screen==='reader' || screen==='practice' || screen==='challenge';
-  function go(next: Screen) { audio.stop(); setRunning(false); setNotice(''); setScreen(next); }
+  function go(next: Screen) {
+    audio.stop();
+    // Abandoning a challenge mid-recording would otherwise leave iOS in
+    // play-and-record, which silently routes later playback to the earpiece.
+    if (recitation?.isRecording) void recitation.stop();
+    setRunning(false); setNotice(''); setScreen(next);
+  }
   function openPauri(n: number) { setRegion(Math.max(0,regions.findIndex(r=>n>=r.start&&n<=r.end))); setSelected(n); setLine(0); go('pauri'); }
   function settings() { setSettingsReturn(screen); go('settings'); }
   async function finishRecitation() {
     if(!recitation||checking)return;
     setChecking(true);
     const result=await recitation.stop().finally(()=>setChecking(false));
-    if(result&&'retry' in result){setRetry(result.retry);setRunning(false);setScreen('ready');return;}
+    if(result&&'retry' in result){
+      // Only this line failed. Stay on it rather than losing the whole pauri.
+      setNotice(result.retry);
+      if(!(await recitation.start(selected,pauri.lines.length))){setRetry(result.retry);setRunning(false);setScreen('ready');}
+      return;
+    }
+    if(result&&'nextLine' in result){
+      // That line is scored and the microphone has already moved on.
+      setLine(result.nextLine);
+      return;
+    }
     if(!result){setNotice(recitation.error??'That recitation could not be scored.');setRunning(false);setScreen('ready');return;}
     setMeasured(result.review); setScore(result.score);
     setAttempts(a=>[{pauri:selected,score:result.score,at:Date.now()},...a].slice(0,50));
@@ -195,6 +211,10 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
       {screen==='ready'&&<View style={s.pad}><View style={[s.center,{paddingVertical:22}]}><Icon name="mic" color={t.primary} size={44}/></View><Heading>Recite Pauri {selected}</Heading><Copy>Follow each line without stopping. Review your pronunciation at the end.</Copy>{retry.length>0&&<View accessibilityLiveRegion="polite" style={[s.info,{backgroundColor:t.retry}]}><Copy style={{color:t.retryText}}>{retry}</Copy></View>}<Button onPress={async()=>{
         setMeasured(null);setRetry('');
         if(recitation){
+          // Release the reference player first. iOS will not hand over the
+          // microphone while the session is still set up for playback, and
+          // refuses with AVAudioSessionErrorCodeInsufficientPriority.
+          audio.stop();
           if(!recitation.granted&&!(await recitation.requestPermission())){setNotice('Uchaaran Helper needs the microphone to hear your recitation.');return;}
           if(!(await recitation.start(selected,pauri.lines.length))){setNotice(recitation.error??'Could not start recording.');return;}
           setLine(0);setTick(0);setRunning(true);setScreen('challenge');return;
@@ -203,9 +223,9 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
       }}>{retry?'Try again':'Begin challenge'}</Button><Small>{remote?'Your recitation is sent for checking when you finish. The audio is not kept.':recitation?'Your voice is recorded on this device and compared with the ustaad\u2019s recording. Nothing is uploaded.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
       {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&story&&!remote&&<StoryScene pauri={selected} line={line} host={host}/>}{remote?<View style={{paddingVertical:16,gap:10}}>{pauri.lines.map((l,i)=><Copy key={i} style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{l.text}</Copy>)}</View>:<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>}{recitation?<>
         <View style={[s.track,{backgroundColor:t.separator,marginTop:10}]}><View style={{height:4,width:`${Math.round(recitation.level*100)}%`,backgroundColor:recitation.isRecording?t.primary:t.separator}}/></View>
-        {!remote&&<View style={[s.inline,{justifyContent:'center',paddingVertical:8}]}>{pauri.lines.map((_,i)=>{const r=recitation.lineScores.find(x=>x.lineIndex===i);return <View key={i} style={[s.chip,{backgroundColor:r?(r.score<80?t.retry:t.success):t.subtle,borderColor:t.separator}]}><Copy style={{fontSize:13,lineHeight:lineFor(13),color:r?(r.score<80?t.retryText:t.successText):t.secondary}}>{r?`${r.score}%`:i+1}</Copy></View>;})}</View>}
-        {checking?<View accessibilityLiveRegion="polite" style={[s.center,{paddingVertical:12,gap:8}]}><ActivityIndicator color={t.primary}/><Copy style={{fontFamily:bold}}>Checking\u2026</Copy><Small>This may take a moment.</Small></View>:<Button onPress={finishRecitation}>{remote?'Finish and check':'Finish and see my score'}</Button>}
-        <Small>{remote?(recitation.isRecording?'Recording \u00b7 sent for checking when you finish':checking?'Checking your recitation':'Not recording'):recitation.isRecording?'Listening \u00b7 recorded and scored on this device only':'Not recording'}</Small>
+        {<View style={[s.inline,{justifyContent:'center',paddingVertical:8}]}>{pauri.lines.map((_,i)=>{const r=recitation.lineScores.find(x=>x.lineIndex===i);return <View key={i} style={[s.chip,{backgroundColor:r?(r.score<80?t.retry:t.success):t.subtle,borderColor:t.separator}]}><Copy style={{fontSize:13,lineHeight:lineFor(13),color:r?(r.score<80?t.retryText:t.successText):t.secondary}}>{r?`${r.score}%`:i+1}</Copy></View>;})}</View>}
+        {checking?<View accessibilityLiveRegion="polite" style={[s.center,{paddingVertical:12,gap:8}]}><ActivityIndicator color={t.primary}/><Copy style={{fontFamily:bold}}>Checking line {line+1}\u2026</Copy><Small>This may take a moment.</Small></View>:<Button onPress={finishRecitation}>{line>=pauri.lines.length-1?'Finish and see my score':`Done with line ${line+1}`}</Button>}
+        <Small>{remote?(recitation.isRecording?`Recording line ${line+1} of ${pauri.lines.length} \u00b7 checked when you finish the line`:checking?'Checking this line':'Not recording'):recitation.isRecording?'Listening \u00b7 recorded and scored on this device only':'Not recording'}</Small>
         {recitation.error?<Copy style={{color:t.retryText}}>{recitation.error}</Copy>:null}
       </>:<>
         <Button secondary onPress={()=>setRunning(v=>!v)}>{running?'Pause challenge':'Resume challenge'}</Button><Small>Demo playback · No voice recorded or assessed</Small>

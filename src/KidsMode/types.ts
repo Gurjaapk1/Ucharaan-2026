@@ -26,8 +26,20 @@ export type HostPorts = {
     granted: boolean;
     requestPermission: () => Promise<boolean>;
     start: (pauriNumber: number, lineCount: number) => Promise<boolean>;
-    /** `retry` means no score: the service heard too little, or could not be reached. */
-    stop: () => Promise<{review: ReviewedLine[]; score: number} | {retry: string} | null>;
+    /**
+     * Finish the current line.
+     *
+     * `nextLine` means that line is scored and recording has moved on to the
+     * next one; `review` means the pauri is complete; `retry` means this line
+     * got no score — the service heard too little or could not be reached —
+     * and the child should say it again.
+     */
+    stop: () => Promise<
+      | {review: ReviewedLine[]; score: number}
+      | {nextLine: number; lineScore: number}
+      | {retry: string}
+      | null
+    >;
     isRecording: boolean;
     /** 0-1 input level, for a meter. */
     level: number;

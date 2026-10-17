@@ -6,6 +6,7 @@
  */
 
 import { Platform } from 'react-native';
+import { File } from 'expo-file-system';
 
 import {
   BANI,
@@ -13,7 +14,10 @@ import {
   REQUEST_TIMEOUT_MS,
   SCORING_API_KEY,
   SCORING_BASE_URL,
+  SCORING_CONFIGURED,
+  SCORING_DEBUG,
   SCORING_MOCK,
+  SCORING_URL_PLACEHOLDER,
 } from './config';
 import { mockManifest, mockScore } from './mock';
 import {
@@ -64,16 +68,69 @@ async function appendAudio(form: FormData, fileUri: string): Promise<void> {
     form.append('audio', blob, `recitation.${ext}`);
     return;
   }
+
   const ext = (fileUri.split('?')[0].split('.').pop() ?? 'm4a').toLowerCase();
-  // React Native's FormData uploads a file given {uri, name, type}; DOM typings do not know it.
-  form.append('audio', {
-    uri: fileUri,
-    name: `recitation.${ext}`,
-    type: MIME[ext] ?? 'application/octet-stream',
-  } as unknown as Blob);
+  const name = `recitation.${ext}`;
+  const type = MIME[ext] ?? 'application/octet-stream';
+
+  // The legacy React Native {uri, name, type} part is rejected here: Expo's
+  // fetch serialises multipart itself and accepts only a string, a Blob, or an
+  // object exposing bytes() — anything else throws "Unsupported FormDataPart
+  // implementation" before a request is ever made.
+  try {
+    const file = new File(fileUri);
+    log('audio part', {
+      uri: fileUri,
+      name,
+      type,
+      kind: 'expo-file',
+      hasBytes: typeof (file as unknown as { bytes?: unknown }).bytes === 'function',
+      size: (file as unknown as { size?: number }).size,
+    });
+    form.append('audio', file as unknown as Blob, name);
+    return;
+  } catch (caught) {
+    log('expo File part rejected, falling back to bytes', {
+      error: (caught as Error)?.message ?? String(caught),
+    });
+    // Older runtimes without a Blob-compatible File: send the bytes directly.
+  }
+
+  const bytes = await new File(fileUri).arrayBuffer();
+  form.append('audio', new Blob([bytes], { type }), name);
+}
+
+/** Console tracing for the scoring path; quiet unless SCORING_DEBUG is on. */
+function log(message: string, detail?: unknown): void {
+  if (!SCORING_DEBUG) return;
+  if (detail === undefined) console.log(`[scoring] ${message}`);
+  else console.log(`[scoring] ${message}`, detail);
+}
+
+if (SCORING_DEBUG) {
+  log('config', {
+    baseUrl: SCORING_BASE_URL,
+    configured: SCORING_CONFIGURED,
+    apiKey: SCORING_API_KEY ? 'set' : 'absent',
+    timeoutMs: REQUEST_TIMEOUT_MS,
+  });
+  if (!SCORING_CONFIGURED) {
+    console.warn(
+      `[scoring] EXPO_PUBLIC_SCORING_URL is not set, so requests go to ${SCORING_URL_PLACEHOLDER} ` +
+        'and will always fail. Set it in .env and restart the dev server ' +
+        '(Expo inlines these at bundle time).',
+    );
+  }
 }
 
 async function request(path: string, init: RequestInit): Promise<Response> {
+  // Fail with the real reason rather than a network error nobody can action.
+  if (!SCORING_CONFIGURED) {
+    throw new ScoringError(
+      'The checking service is not configured yet (EXPO_PUBLIC_SCORING_URL is unset).',
+    );
+  }
+
   const headers: Record<string, string> = { Accept: 'application/json' };
   if (SCORING_API_KEY) headers['X-Api-Key'] = SCORING_API_KEY;
 
@@ -81,13 +138,29 @@ async function request(path: string, init: RequestInit): Promise<Response> {
   for (let attempt = 0; ; attempt++) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+    const url = `${SCORING_BASE_URL}${path}`;
+    const startedAt = Date.now();
+    log(`request attempt ${attempt + 1}`, { url, method: init.method ?? 'GET' });
     try {
-      return await fetch(`${SCORING_BASE_URL}${path}`, {
+      const response = await fetch(url, {
         ...init,
         headers,
         signal: controller.signal,
       });
+      log('response', {
+        url,
+        status: response.status,
+        ok: response.ok,
+        ms: Date.now() - startedAt,
+      });
+      return response;
     } catch (caught) {
+      log(`attempt ${attempt + 1} failed`, {
+        url,
+        ms: Date.now() - startedAt,
+        aborted: controller.signal.aborted,
+        error: (caught as Error)?.message ?? String(caught),
+      });
       if (attempt >= 1) {
         throw new ScoringError(
           controller.signal.aborted

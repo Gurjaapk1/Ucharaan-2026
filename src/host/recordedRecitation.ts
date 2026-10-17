@@ -30,11 +30,34 @@ import { BANI, DEFAULT_RECITER } from '../scoring/config';
 import type { Manifest, ScoreResponse } from '../scoring/types';
 
 export type RecordedOutcome =
+  /** Every line is done; the pauri's review is ready. */
   | { review: ReviewedLine[]; score: number }
-  /** No score: shown as a prompt to try again. */
+  /** This line is scored and recording has begun on the next one. */
+  | { nextLine: number; lineScore: number }
+  /** No score for this line: the child should recite it again. */
   | { retry: string };
 
 const OPTIONS = { ...RecordingPresets.HIGH_QUALITY, isMeteringEnabled: true };
+
+/**
+ * iOS refuses the microphone when something else holds the audio input.
+ * 561017449 is '!pri', AVAudioSessionErrorCodeInsufficientPriority — usually
+ * our own reference player, since the session is still set up for playback.
+ */
+const INSUFFICIENT_PRIORITY = '561017449';
+
+/** Give the audio session a moment to change category before retrying. */
+const SESSION_SETTLE_MS = 350;
+
+function describeAudioError(caught: unknown): string {
+  const message = (caught as Error)?.message ?? String(caught);
+  if (message.includes(INSUFFICIENT_PRIORITY)) {
+    return 'Another app is using the microphone. Close it (or end any call) and try again.';
+  }
+  return message || 'Could not open the microphone';
+}
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 type ManifestLine = Manifest['lines'][string][string];
 
@@ -106,6 +129,15 @@ export function useRecordedRecitation(pauris: Pauri[]) {
   const [checking, setChecking] = useState(false);
   const pauriRef = useRef<number | null>(null);
   const [manifest, setManifest] = useState<Manifest | null>(null);
+  // Line-by-line: each line is recorded and scored on its own, so a fumbled
+  // line can be repeated without losing the rest of the pauri.
+  const lineRef = useRef(0);
+  const lineCountRef = useRef(0);
+  const perLineRef = useRef<Map<number, { score: number; words: ScoreResponse['words'] }>>(
+    new Map(),
+  );
+  const [lineScores, setLineScores] = useState<{ lineIndex: number; score: number }[]>([]);
+  const [currentLine, setCurrentLine] = useState(0);
 
   // Scoring still works without it; only clips, bands and the coverage check are lost.
   useEffect(() => {
@@ -134,21 +166,42 @@ export function useRecordedRecitation(pauris: Pauri[]) {
     }
   }, []);
 
-  const start = useCallback(
-    async (pauriNumber: number) => {
-      setError(null);
-      pauriRef.current = pauriNumber;
+  /** Begin capturing one line; used by start() and by the advance in stop(). */
+  const beginRecording = useCallback(async () => {
+    for (let attempt = 0; attempt < 2; attempt++) {
       try {
         await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
+        if (attempt > 0) await wait(SESSION_SETTLE_MS);
         await recorder.prepareToRecordAsync();
         recorder.record();
         return true;
       } catch (caught) {
-        setError((caught as Error)?.message ?? 'Could not open the microphone');
-        return false;
+        const message = describeAudioError(caught);
+        console.log(`[recitation] begin attempt ${attempt + 1} failed`, {
+          raw: (caught as Error)?.message ?? String(caught),
+          shown: message,
+        });
+        if (attempt >= 1) {
+          setError(message);
+          return false;
+        }
       }
+    }
+    return false;
+  }, [recorder]);
+
+  const start = useCallback(
+    async (pauriNumber: number, lineCount = 0) => {
+      setError(null);
+      pauriRef.current = pauriNumber;
+      lineCountRef.current = lineCount;
+      lineRef.current = 0;
+      perLineRef.current = new Map();
+      setLineScores([]);
+      setCurrentLine(0);
+      return beginRecording();
     },
-    [recorder],
+    [beginRecording],
   );
 
   const stop = useCallback(async (): Promise<RecordedOutcome | null> => {
@@ -169,17 +222,56 @@ export function useRecordedRecitation(pauris: Pauri[]) {
       return { retry: 'Online checking does not cover this pauri yet. Try Pauri 1.' };
     }
 
+    const lineIndex = lineRef.current;
+    const seq = seqs[lineIndex];
+    if (seq === undefined) return { retry: 'That line is not in the recording.' };
+
     setChecking(true);
     try {
-      const response = await scoreRecording(uri, { bani: BANI, reciter, seqs });
+      // One line at a time: the service takes a range, so this is a range of one.
+      const response = await scoreRecording(uri, { bani: BANI, reciter, seqs: [seq] });
       if (response.status === 'unclear') {
         return {
-          retry: 'We could not hear that clearly. Find a quiet place and try again.',
+          retry: 'We could not hear that clearly. Find a quiet place and say the line again.',
         };
       }
-      const review = toReview(pauri, response, manifest, reciter, seqs);
-      const score = response.lineScores.length
-        ? Math.round(response.lineScores.reduce((n, s) => n + s, 0) / response.lineScores.length)
+
+      const lineScore = response.lineScores[0] ?? 0;
+      // The service numbers words within the range it was given — index 0 here
+      // — so re-key them onto this line's position in the pauri.
+      perLineRef.current.set(lineIndex, {
+        score: lineScore,
+        words: response.words.map(w => ({ ...w, lineIndex })),
+      });
+      setLineScores(
+        [...perLineRef.current.entries()]
+          .map(([i, r]) => ({ lineIndex: i, score: r.score }))
+          .sort((a, b) => a.lineIndex - b.lineIndex),
+      );
+
+      const next = lineIndex + 1;
+      if (next < lineCountRef.current) {
+        lineRef.current = next;
+        setCurrentLine(next);
+        // Keep the microphone open so the child carries straight on.
+        await beginRecording();
+        return { nextLine: next, lineScore };
+      }
+
+      // Last line: assemble the pauri from every line's verdicts, through the
+      // same toReview so clips and star bands still come from the manifest.
+      const gathered = perLineRef.current;
+      const combined: ScoreResponse = {
+        status: 'ok',
+        lineScores: pauri.lines.map((_, i) => gathered.get(i)?.score ?? 0),
+        words: pauri.lines.flatMap((_, i) => gathered.get(i)?.words ?? []),
+        provider: 'service',
+        focus: null,
+      };
+      const review = toReview(pauri, combined, manifest, reciter, seqs);
+      const heard = [...gathered.values()].map(r => r.score);
+      const score = heard.length
+        ? Math.round(heard.reduce((n, v) => n + v, 0) / heard.length)
         : 0;
       return { review, score };
     } catch (caught) {
@@ -189,7 +281,7 @@ export function useRecordedRecitation(pauris: Pauri[]) {
     } finally {
       setChecking(false);
     }
-  }, [recorder, pauris, manifest, reciter]);
+  }, [recorder, pauris, manifest, reciter, beginRecording]);
 
   // Metering is dBFS, roughly -60 (quiet room) to 0.
   const metering = state.metering ?? -160;
@@ -200,10 +292,10 @@ export function useRecordedRecitation(pauris: Pauri[]) {
     stop,
     isRecording: state.isRecording,
     level: Math.max(0, Math.min(1, (metering + 60) / 60)),
-    currentLine: 0,
-    lineScores: [],
+    currentLine,
+    lineScores,
     error,
     checking,
-    following: false,
+    following: true,
   };
 }

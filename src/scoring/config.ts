@@ -8,9 +8,24 @@
 /** Score on the team's service; false falls back to the on-device MFCC scorer. */
 export const USE_SERVICE = true;
 
+/** The placeholder the base URL falls back to when nothing is configured. */
+export const SCORING_URL_PLACEHOLDER = 'https://SET-ME.example';
+
 export const SCORING_BASE_URL = (
-  process.env.EXPO_PUBLIC_SCORING_URL || 'https://SET-ME.example'
+  process.env.EXPO_PUBLIC_SCORING_URL || SCORING_URL_PLACEHOLDER
 ).replace(/\/+$/, '');
+
+/**
+ * True when no scoring URL was supplied.
+ *
+ * Worth distinguishing: an unset URL fails exactly like an unreachable server,
+ * and reporting it as a network problem sends people looking at the service
+ * when the setting was simply never filled in.
+ */
+export const SCORING_CONFIGURED = SCORING_BASE_URL !== SCORING_URL_PLACEHOLDER;
+
+/** Trace scoring requests to the console. */
+export const SCORING_DEBUG = true;
 
 export const SCORING_API_KEY = process.env.EXPO_PUBLIC_SCORING_API_KEY ?? '';
 
