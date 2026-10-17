@@ -4,6 +4,8 @@ export type WordFeedback = {
   id:string; text:string; lineIndex:number; wordIndex:number;
   start:number; end:number; score:number;
   focus:'ending'|'beginning'|'whole-word';
+  // Set when the scoring service judged the word; the UI then shows the state, not a number.
+  state?:'like'|'check'|'unclear'; reasons?:string[]; practise?:boolean;
 };
 export type ReviewToken = {kind:'separator';text:string}|{kind:'word';text:string;feedback:WordFeedback};
 export type ReviewedLine = {text:string;score:number;tokens:ReviewToken[]};

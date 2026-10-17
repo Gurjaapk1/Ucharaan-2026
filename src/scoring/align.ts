@@ -12,7 +12,7 @@ import {
   type ReviewToken,
   type ReviewedLine,
 } from '../KidsMode/wordFeedback';
-import type { ScoreResponse } from './types';
+import type { ScoreResponse, WordScore } from './types';
 
 /** Below this a word is shown as needing practice. Calibrate against ustaad judgement. */
 export const PRACTICE_THRESHOLD = 80;
@@ -36,10 +36,13 @@ export function toReviewedLines(
   lines: { text: string }[],
   response: ScoreResponse,
 ): ReviewedLine[] {
-  const byWord = new Map<string, number>();
+  const byWord = new Map<string, WordScore>();
   for (const word of response.words) {
-    byWord.set(`${word.lineIndex}:${word.wordIndex}`, word.score);
+    byWord.set(`${word.lineIndex}:${word.wordIndex}`, word);
   }
+  const focus = response.focus
+    ? `${response.focus.lineIndex}:${response.focus.wordIndex}`
+    : null;
 
   return lines.map((line, lineIndex) => {
     const lineScore = response.lineScores[lineIndex] ?? 0;
@@ -50,19 +53,23 @@ export function toReviewedLines(
       if (!part.word) return { kind: 'separator', text: part.text };
 
       const index = wordIndex++;
-      const score = byWord.get(`${lineIndex}:${index}`) ?? lineScore;
+      const id = `${lineIndex}:${index}`;
+      const scored = byWord.get(id);
       return {
         kind: 'word',
         text: part.text,
         feedback: {
-          id: `${lineIndex}:${index}`,
+          id,
           text: part.text,
           lineIndex,
           wordIndex: index,
           start: part.start,
           end: part.end,
-          score,
+          score: scored?.score ?? lineScore,
           focus: focusFor(),
+          ...(scored?.state
+            ? { state: scored.state, reasons: scored.reasons ?? [], practise: id === focus }
+            : {}),
         },
       };
     });

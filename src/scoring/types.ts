@@ -27,12 +27,17 @@ export interface ScoreRequest {
   audio: { uri: string; mimeType: string };
 }
 
+/** The service's per-word verdict; it never returns a fine-grained number. */
+export type WordState = 'like' | 'check' | 'unclear';
+
 /** A score for one word, located by its position in the reference text. */
 export interface WordScore {
   lineIndex: number;
   wordIndex: number;
-  /** 0-100, matching WordFeedback.score in the UI. */
-  score: number;
+  /** 0-100, matching WordFeedback.score in the UI. Absent when only a state is known. */
+  score?: number;
+  state?: WordState;
+  reasons?: string[];
 }
 
 export interface ScoreResponse {
@@ -41,6 +46,24 @@ export interface ScoreResponse {
   words: WordScore[];
   /** Which provider produced this, for logging and calibration. */
   provider: string;
+  /** 'unclear' means no score at all: no speech, too noisy, or alignment too weak. */
+  status?: 'ok' | 'unclear';
+  /** The word most worth practising, if any. */
+  focus?: { lineIndex: number; wordIndex: number } | null;
+}
+
+/** Wire shape of `POST /v1/score`. */
+export interface ServiceScoreResponse {
+  status: 'ok' | 'unclear';
+  lines: {
+    seq: number;
+    /** Duration-weighted share of `like` words, 0-1. */
+    share_like?: number;
+    /** Name used in the spec's example; accepted until the service settles on one. */
+    share_like_reciter?: number;
+    words: { idx: number; state: WordState; reasons?: string[] }[];
+  }[];
+  focus: { seq: number; idx: number } | null;
 }
 
 export class ScoringError extends Error {
