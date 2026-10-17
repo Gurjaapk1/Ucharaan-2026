@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Image, Pressable, Switch, Text, View } from 'react-native';
+import { ActivityIndicator, Image, Pressable, Switch, Text, View } from 'react-native';
 import {Avatar,Button,Copy,Heading,Row,Section,Small,Stars,UIProvider} from './components';
 import {s} from './styles';
 import { coinAward, completePauri, initialProgress, redeem, starsForScore } from './rewards';
@@ -42,10 +42,14 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
   const [score, setScore] = useState(84);
   // Set only when the challenge was actually recorded and scored on device.
   const [measured, setMeasured] = useState<import('./wordFeedback').ReviewedLine[]|null>(null);
+  const [checking, setChecking] = useState(false);
+  // Persistent, unlike `notice`: an unclear recording must be retried, not missed.
+  const [retry, setRetry] = useState('');
   const [award, setAward] = useState(0);
   const [notice, setNotice] = useState('');
   const t = night ? dark : light;
   const {Scroll, Icon, audio, recitation} = host;
+  const remote = recitation?.following===false;
   const pauri = pauris[selected-1];
   const current = pauri.lines[line] ?? pauri.lines[0];
   const stars = starsForScore(score);
@@ -63,8 +67,10 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
   function openPauri(n: number) { setRegion(Math.max(0,regions.findIndex(r=>n>=r.start&&n<=r.end))); setSelected(n); setLine(0); go('pauri'); }
   function settings() { setSettingsReturn(screen); go('settings'); }
   async function finishRecitation() {
-    if(!recitation)return;
-    const result=await recitation.stop();
+    if(!recitation||checking)return;
+    setChecking(true);
+    const result=await recitation.stop().finally(()=>setChecking(false));
+    if(result&&'retry' in result){setRetry(result.retry);setRunning(false);setScreen('ready');return;}
     if(!result){setNotice(recitation.error??'That recitation could not be scored.');setRunning(false);setScreen('ready');return;}
     setMeasured(result.review); setScore(result.score);
     setAttempts(a=>[{pauri:selected,score:result.score,at:Date.now()},...a].slice(0,50));
@@ -186,27 +192,27 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
         {showLines&&pauri.lines.map((l,i)=><Row key={i} title={recall?`Line ${i+1}`:`${i+1}. ${l.text}`} onPress={()=>{audio.stop();setLine(i);setShowLines(false);}} trailing={<Copy>{i===line?'✓':''}</Copy>}/>)}
         {audio.error.length>0&&<Copy style={{color:t.retryText}}>{audio.error}</Copy>}
       </View>}
-      {screen==='ready'&&<View style={s.pad}><View style={[s.center,{paddingVertical:22}]}><Icon name="mic" color={t.primary} size={44}/></View><Heading>Recite Pauri {selected}</Heading><Copy>Follow each line without stopping. Review your pronunciation at the end.</Copy><Button onPress={async()=>{
-        setMeasured(null);
+      {screen==='ready'&&<View style={s.pad}><View style={[s.center,{paddingVertical:22}]}><Icon name="mic" color={t.primary} size={44}/></View><Heading>Recite Pauri {selected}</Heading><Copy>Follow each line without stopping. Review your pronunciation at the end.</Copy>{retry.length>0&&<View accessibilityLiveRegion="polite" style={[s.info,{backgroundColor:t.retry}]}><Copy style={{color:t.retryText}}>{retry}</Copy></View>}<Button onPress={async()=>{
+        setMeasured(null);setRetry('');
         if(recitation){
           if(!recitation.granted&&!(await recitation.requestPermission())){setNotice('Uchaaran Helper needs the microphone to hear your recitation.');return;}
           if(!(await recitation.start(selected,pauri.lines.length))){setNotice(recitation.error??'Could not start recording.');return;}
           setLine(0);setTick(0);setRunning(true);setScreen('challenge');return;
         }
         if(autoScore)setScore(attempts.some(a=>a.pauri===selected)?96:84);setLine(0);setTick(0);setRunning(true);setScreen('challenge');
-      }}>Begin challenge</Button><Small>{recitation?'Your voice is recorded on this device and compared with the ustaad\u2019s recording. Nothing is uploaded.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
-      {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&story&&<StoryScene pauri={selected} line={line} host={host}/>}<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>{recitation?<>
+      }}>{retry?'Try again':'Begin challenge'}</Button><Small>{remote?'Your recitation is sent for checking when you finish. The audio is not kept.':recitation?'Your voice is recorded on this device and compared with the ustaad\u2019s recording. Nothing is uploaded.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
+      {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&story&&!remote&&<StoryScene pauri={selected} line={line} host={host}/>}{remote?<View style={{paddingVertical:16,gap:10}}>{pauri.lines.map((l,i)=><Copy key={i} style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{l.text}</Copy>)}</View>:<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>}{recitation?<>
         <View style={[s.track,{backgroundColor:t.separator,marginTop:10}]}><View style={{height:4,width:`${Math.round(recitation.level*100)}%`,backgroundColor:recitation.isRecording?t.primary:t.separator}}/></View>
-        <View style={[s.inline,{justifyContent:'center',paddingVertical:8}]}>{pauri.lines.map((_,i)=>{const r=recitation.lineScores.find(x=>x.lineIndex===i);return <View key={i} style={[s.chip,{backgroundColor:r?(r.score<80?t.retry:t.success):t.subtle,borderColor:t.separator}]}><Copy style={{fontSize:13,lineHeight:lineFor(13),color:r?(r.score<80?t.retryText:t.successText):t.secondary}}>{r?`${r.score}%`:i+1}</Copy></View>;})}</View>
-        <Button onPress={finishRecitation}>Finish and see my score</Button>
-        <Small>{recitation.isRecording?'Listening \u00b7 recorded and scored on this device only':'Not recording'}</Small>
+        {!remote&&<View style={[s.inline,{justifyContent:'center',paddingVertical:8}]}>{pauri.lines.map((_,i)=>{const r=recitation.lineScores.find(x=>x.lineIndex===i);return <View key={i} style={[s.chip,{backgroundColor:r?(r.score<80?t.retry:t.success):t.subtle,borderColor:t.separator}]}><Copy style={{fontSize:13,lineHeight:lineFor(13),color:r?(r.score<80?t.retryText:t.successText):t.secondary}}>{r?`${r.score}%`:i+1}</Copy></View>;})}</View>}
+        {checking?<View accessibilityLiveRegion="polite" style={[s.center,{paddingVertical:12,gap:8}]}><ActivityIndicator color={t.primary}/><Copy style={{fontFamily:bold}}>Checking\u2026</Copy><Small>This may take a moment.</Small></View>:<Button onPress={finishRecitation}>{remote?'Finish and check':'Finish and see my score'}</Button>}
+        <Small>{remote?(recitation.isRecording?'Recording \u00b7 sent for checking when you finish':checking?'Checking your recitation':'Not recording'):recitation.isRecording?'Listening \u00b7 recorded and scored on this device only':'Not recording'}</Small>
         {recitation.error?<Copy style={{color:t.retryText}}>{recitation.error}</Copy>:null}
       </>:<>
         <Button secondary onPress={()=>setRunning(v=>!v)}>{running?'Pause challenge':'Resume challenge'}</Button><Small>Demo playback · No voice recorded or assessed</Small>
       </>}</View>}
       {screen==='results'&&<View style={s.pad}>
         <Heading>Challenge complete</Heading>
-        <View style={s.rowBody}><View style={s.grow}><Copy style={{fontFamily:bold,fontSize:44,lineHeight:lineFor(44)}}>{score}%</Copy><Small>{measured?'Compared with the ustaad\u2019s recording on this device':'Example pronunciation score'}</Small></View><Stars count={stars} large/></View>
+        <View style={s.rowBody}><View style={s.grow}><Copy style={{fontFamily:bold,fontSize:44,lineHeight:lineFor(44)}}>{score}%</Copy><Small>{measured?(remote?'Share of words like the reciter\u2019s':'Compared with the ustaad\u2019s recording on this device'):'Example pronunciation score'}</Small></View><Stars count={stars} large/></View>
         <View style={[s.info,{backgroundColor:t.action,marginVertical:4}]}><Copy style={{fontFamily:bold}}>{award?`+${award} Nanak coins`:'Best score kept'}</Copy><Small>{award?'10 coins for each new star':'Improve your best star count to earn more coins.'}</Small></View>
         <WordReview pauri={pauri} score={score} measured={measured} textSize={textSize} onPractice={index=>{setLine(index);setRecall(false);go('practice');}}/>
         <Button onPress={()=>{if(selected<38)openPauri(selected+1);else go('map');}}>{selected<38?'Continue to the next pauri':'Return to the journey'}</Button>

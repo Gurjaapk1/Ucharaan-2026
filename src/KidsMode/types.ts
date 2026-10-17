@@ -24,7 +24,8 @@ export type HostPorts = {
     granted: boolean;
     requestPermission: () => Promise<boolean>;
     start: (pauriNumber: number, lineCount: number) => Promise<boolean>;
-    stop: () => Promise<{review: ReviewedLine[]; score: number} | null>;
+    /** `retry` means no score: the service heard too little, or could not be reached. */
+    stop: () => Promise<{review: ReviewedLine[]; score: number} | {retry: string} | null>;
     isRecording: boolean;
     /** 0-1 input level, for a meter. */
     level: number;
@@ -33,6 +34,10 @@ export type HostPorts = {
     /** Scores for lines already finished, as they land. */
     lineScores: {lineIndex: number; score: number}[];
     error: string | null;
+    /** The recording is with the scoring service (3-10 s). */
+    checking?: boolean;
+    /** False when the pauri is recorded whole and scored at the end, with no line following. */
+    following?: boolean;
   };
   statusBarBackground?: string;
   safeArea: {top: number; bottom: number};
