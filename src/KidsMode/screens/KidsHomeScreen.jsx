@@ -32,6 +32,11 @@ const KidsHomeScreen = ({ navigation }) => {
           title={STRINGS.KIDS_OPEN_JOURNEY}
           onPress={() => navigation.navigate("KidsJourney")}
         />
+        <KidsButton
+          secondary
+          title={STRINGS.KIDS_MY_PROGRESS}
+          onPress={() => navigation.navigate("KidsProgress")}
+        />
       </View>
     </SafeArea>
   );

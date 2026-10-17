@@ -12,7 +12,9 @@ import HomeScreen from "../HomeScreen";
 import ChallengeScreen from "../KidsMode/screens/ChallengeScreen";
 import JourneyScreen from "../KidsMode/screens/JourneyScreen";
 import KidsHomeScreen from "../KidsMode/screens/KidsHomeScreen";
+import ParentSummaryScreen from "../KidsMode/screens/ParentSummaryScreen";
 import PracticeScreen from "../KidsMode/screens/PracticeScreen";
+import ProgressScreen from "../KidsMode/screens/ProgressScreen";
 import ResultsScreen from "../KidsMode/screens/ResultsScreen";
 import ReaderScreen from "../ReaderScreen";
 import Settings from "../Settings";
@@ -127,6 +129,8 @@ const Navigation = () => {
         <Stack.Screen name="KidsPractice" component={PracticeScreen} />
         <Stack.Screen name="KidsChallenge" component={ChallengeScreen} />
         <Stack.Screen name="KidsResults" component={ResultsScreen} />
+        <Stack.Screen name="KidsProgress" component={ProgressScreen} />
+        <Stack.Screen name="KidsParentSummary" component={ParentSummaryScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

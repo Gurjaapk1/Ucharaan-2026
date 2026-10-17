@@ -1,6 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import { ListItem, Icon } from "@rneui/themed";
 import useTheme from "@common/context";
 import useThemedStyles from "@common/hooks/useThemedStyles";
@@ -13,7 +14,15 @@ const KidsModeSetting = () => {
   const styles = useThemedStyles(createStyles);
   const { enabled, scoringOptIn } = useSelector((state) => state.kidsMode);
   const dispatch = useDispatch();
-  const { KIDS_MODE, KIDS_SCORING_OPT_IN, KIDS_SCORING_OPT_IN_INFO } = STRINGS;
+  // Settings renders this without props, so it finds the navigator itself.
+  const navigation = useNavigation();
+  const {
+    KIDS_MODE,
+    KIDS_SCORING_OPT_IN,
+    KIDS_SCORING_OPT_IN_INFO,
+    KIDS_PARENT_SUMMARY,
+    KIDS_PARENT_SUMMARY_INFO,
+  } = STRINGS;
 
   return (
     <>
@@ -50,6 +59,27 @@ const KidsModeSetting = () => {
             value={scoringOptIn}
             onValueChange={(value) => dispatch(setKidsScoringOptIn(value))}
           />
+        </ListItem>
+      )}
+      {enabled && (
+        <ListItem
+          bottomDivider
+          containerStyle={styles.containerNightStyles}
+          onPress={() => navigation.navigate("KidsParentSummary")}
+        >
+          <View style={styles.iconContainerStyle}>
+            <Icon
+              name="clipboard-text-outline"
+              type="material-community"
+              size={26}
+              color={theme.colors.primaryText}
+            />
+          </View>
+          <ListItem.Content>
+            <ListItemTitle title={KIDS_PARENT_SUMMARY} style={styles.listItemTitle} />
+            <CustomText style={styles.titleInfoStyle}>{KIDS_PARENT_SUMMARY_INFO}</CustomText>
+          </ListItem.Content>
+          <ListItem.Chevron />
         </ListItem>
       )}
     </>

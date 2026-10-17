@@ -6,7 +6,7 @@ import { getMockDispatch, setMockState } from "@common/test-utils/mocks/react-re
 
 import useRecorder from "../hooks/useRecorder";
 import { scoreRecording } from "../scoring/client";
-import { recordKidsResult } from "../state/actions";
+import { recordKidsAttempt } from "../state/progressActions";
 
 import ChallengeScreen from "./ChallengeScreen";
 
@@ -27,6 +27,9 @@ jest.mock("@common", () => {
   });
 });
 jest.mock("../hooks/useKidsHeader", () => () => null);
+jest.mock("../state/progressActions", () => ({
+  recordKidsAttempt: jest.fn((value) => ({ type: "KIDS_MODE_RECORD_ATTEMPT", value })),
+}));
 jest.mock("../hooks/useRecorder", () => jest.fn());
 jest.mock("../data/japji", () => ({ PAURI_SEQS: { 1: [5, 6, 7, 8, 9, 10] } }));
 jest.mock("../hooks/usePauriLines", () => () => [
@@ -106,7 +109,12 @@ describe("ChallengeScreen", () => {
       seqs: [5, 6, 7, 8, 9, 10],
       optedIn: true,
     });
-    expect(getMockDispatch()).toHaveBeenCalledWith(recordKidsResult(1, 2));
+    expect(recordKidsAttempt).toHaveBeenCalledWith({
+      pauri: 1,
+      result: expect.objectContaining({ stars: 2 }),
+      uri: URI,
+    });
+    expect(getMockDispatch()).toHaveBeenCalledWith(recordKidsAttempt.mock.results[0].value);
     const [route, params] = navigation.replace.mock.calls[0];
     expect(route).toBe("KidsResults");
     expect(params).toMatchObject({ pauri: 1, award: 20, result: { score: 85, stars: 2 } });

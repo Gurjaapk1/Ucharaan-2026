@@ -14,6 +14,7 @@ jest.mock("@common", () => {
       KIDS_STARS: "stars",
       KIDS_COINS: "Nanak coins",
       KIDS_OPEN_JOURNEY: "Open my journey",
+      KIDS_MY_PROGRESS: "My progress",
     },
     StatusBarComponent: () => null,
   });
@@ -29,5 +30,7 @@ describe("KidsHomeScreen", () => {
     expect(getByText("2 stars · 20 Nanak coins")).toBeTruthy();
     fireEvent.press(getByText("Open my journey"));
     expect(navigation.navigate).toHaveBeenCalledWith("KidsJourney");
+    fireEvent.press(getByText("My progress"));
+    expect(navigation.navigate).toHaveBeenCalledWith("KidsProgress");
   });
 });

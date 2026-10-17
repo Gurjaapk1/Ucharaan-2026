@@ -15,6 +15,7 @@ jest.mock("@common", () => {
       KIDS_MODE: "Kids Mode",
       KIDS_SCORING_OPT_IN: "Check pronunciation online",
       KIDS_SCORING_OPT_IN_INFO: "Recordings are sent for checking and not kept.",
+      KIDS_PARENT_SUMMARY: "Parent summary",
     },
     ListItemTitle: ({ title }) => <Text>{title}</Text>,
     // The real switch animates on mount, which logs act() warnings and keeps timers alive.
@@ -27,10 +28,17 @@ jest.mock("@common", () => {
 // @rneui/themed ships untranspiled ESM, which this Jest config does not transform.
 jest.mock("@rneui/themed", () => {
   const { View } = require("react-native");
-  const ListItem = ({ children }) => <View>{children}</View>;
+  const { Pressable } = require("react-native");
+  const ListItem = ({ children, onPress }) => <Pressable onPress={onPress}>{children}</Pressable>;
   ListItem.Content = ({ children }) => <View>{children}</View>;
+  ListItem.Chevron = () => null;
   return { ListItem, Icon: () => null };
 });
+
+const mockNavigate = jest.fn();
+jest.mock("@react-navigation/native", () => ({
+  useNavigation: () => ({ navigate: mockNavigate }),
+}));
 
 const kidsMode = { enabled: false, scoringOptIn: false, reciter: null, progress: {} };
 
@@ -44,6 +52,7 @@ describe("KidsModeSetting", () => {
     const { getAllByText, queryByText, getAllByRole } = render(<KidsModeSetting />);
     expect(getAllByText("Kids Mode")).toHaveLength(2);
     expect(queryByText("Check pronunciation online")).toBeNull();
+    expect(queryByText("Parent summary")).toBeNull();
     expect(getAllByRole("switch")).toHaveLength(1);
   });
 
@@ -60,5 +69,12 @@ describe("KidsModeSetting", () => {
     expect(getByText("Check pronunciation online")).toBeTruthy();
     fireEvent(getAllByRole("switch")[1], "valueChange", true);
     expect(getMockDispatch()).toHaveBeenCalledWith(setKidsScoringOptIn(true));
+  });
+
+  it("opens the parent summary when enabled", () => {
+    setMockState({ kidsMode: { ...kidsMode, enabled: true } });
+    const { getByText } = render(<KidsModeSetting />);
+    fireEvent.press(getByText("Parent summary"));
+    expect(mockNavigate).toHaveBeenCalledWith("KidsParentSummary");
   });
 });

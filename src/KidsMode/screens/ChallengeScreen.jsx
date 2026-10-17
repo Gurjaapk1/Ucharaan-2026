@@ -13,8 +13,8 @@ import usePauriLines from "../hooks/usePauriLines";
 import useRecorder from "../hooks/useRecorder";
 import { fetchManifest, scoreRecording } from "../scoring/client";
 import { toReview } from "../scoring/review";
-import { recordKidsResult } from "../state/actions";
 import { bestStars, coinAward } from "../state/progress";
+import { recordKidsAttempt } from "../state/progressActions";
 import createStyles from "./styles";
 
 // The service aligns a complete recitation, so the whole pauri is one recording sent on stop.
@@ -59,7 +59,7 @@ const ChallengeScreen = ({ navigation, route }) => {
         return;
       }
       const result = toReview(lines, response, manifest, reciter);
-      dispatch(recordKidsResult(pauri, result.stars));
+      dispatch(recordKidsAttempt({ pauri, result, uri }));
       navigation.replace("KidsResults", { pauri, result, award: coinAward(best, result.stars) });
     } catch (error) {
       logError(error);
