@@ -2,7 +2,9 @@
 
 The Kids Mode PRs live in branches of this repo that contain the full Khalis app (bare React Native 0.78, JavaScript). Testing a PR means building the Khalis app with that branch and walking its checklist on a phone. The Expo demo app is not involved here.
 
-Branches: `master` = Khalis `dev` untouched · `feature/kids-mode` = PR 1 (merged, reviewed) · `kids/screens` = PR 2 (done) + PR 3 (work in progress). PR 4 is not built yet.
+Branches: `master` = Khalis `dev` untouched · `feature/kids-mode` = PR 1 (merged, reviewed) · `kids/screens` = PR 2 (done) + PR 3 (being finished) · `kids/progress` = PR 4 (being built).
+
+**Build once, from the newest branch, and walk the checklists in order.** The PRs stack (PR 3 contains PRs 1 and 2), so one build of `kids/screens` (later `kids/progress`) is the whole feature and is what you demo. Sections 1-3 below are the checklists for that single build; the per-PR `git checkout` lines are only for bisecting when a bullet fails (e.g. a PR 2 bullet failing on the tip: check out `95ca6bc`, PR 2 alone, to see whether PR 3 caused it).
 
 ## 0. One-time setup (about an hour the first time)
 
