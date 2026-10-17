@@ -148,6 +148,13 @@ export function toScoreResponse(
   };
 }
 
+/** The pauri's percent: the mean of its line percents, 0 when no line was scored. */
+export function pauriScore(lineScores: number[]): number {
+  return lineScores.length
+    ? Math.round(lineScores.reduce((n, s) => n + s, 0) / lineScores.length)
+    : 0;
+}
+
 /** Absolute URL for a manifest path such as `ggs/5/words/0.wav`. */
 export function referenceUrl(path: string): string {
   return `${SCORING_BASE_URL}/reference/${path}`;

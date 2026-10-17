@@ -22,6 +22,7 @@ import { tokenizeLine, type ReviewedLine } from '../KidsMode/wordFeedback';
 import { toReviewedLines } from '../scoring/align';
 import {
   fetchManifest,
+  pauriScore,
   referenceUrl,
   scoreRecording,
   seqsForPauri,
@@ -178,10 +179,7 @@ export function useRecordedRecitation(pauris: Pauri[]) {
         };
       }
       const review = toReview(pauri, response, manifest, reciter, seqs);
-      const score = response.lineScores.length
-        ? Math.round(response.lineScores.reduce((n, s) => n + s, 0) / response.lineScores.length)
-        : 0;
-      return { review, score };
+      return { review, score: pauriScore(response.lineScores) };
     } catch (caught) {
       const message = (caught as Error)?.message ?? 'That recitation could not be checked.';
       setError(message);
