@@ -124,3 +124,7 @@ Match regional maps to the original `journey-calm.jpg`: broad muted painted shap
 Show all six Japji Sahib regions in one vertical scroll, with clear region headings and pauri numbers progressing top to bottom. The painted clearing coordinates are traversed in reverse order to follow the downward scroll without flipping the artwork. Do not restore the region-switching tab rail. Keep each terrain, three-star mastery and direct pauri entry. Reuse the existing quiet artwork unless new connecting artwork is explicitly needed.
 
 Recall practice line selection must show the actual Gurmukhi phrase, not numbered placeholder labels. Keep the main recall prompt hidden until revealed.
+
+## One unified Japji Sahib world
+
+The map is one illustrated canvas with one uninterrupted winding path and all 38 pauris. Remove region headings, separators and standalone terrain panels from the child-facing map. The six-region metadata can remain for content organization. Keep pauri numbers, stars and a compact continue action. Journey artwork and tap coordinates come from journey-map.json and scripts/build-journey-map.mjs. The host Scroll positionKey preserves map position across pauri visits; native integration should supply the equivalent scroll offset restoration.
