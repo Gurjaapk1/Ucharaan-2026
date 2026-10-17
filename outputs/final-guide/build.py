@@ -50,7 +50,7 @@ para('Recordings are processed privately in Azure. Temporary server recordings a
 para('Ready for handover',30,94,552,12,16,navy,True)
 para('MIT source, setup and ML maintenance docs are included. Khalis supplies hosting and credentials; costs depend on usage. An ongoing technical owner remains to be named.',30,74,552,11,13)
 # Link strip lives on a separate final row.
-links=[('Watch demo','https://www.loom.com/share/8f0b7638963c4f4588720084fd15776c'),('Try the app','https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site'),('View code','https://github.com/Gurjaapk1/Ucharaan-2026/tree/codex/submission-ready'),('Design process','https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0')]
+links=[('Watch demo','https://www.loom.com/share/8f0b7638963c4f4588720084fd15776c'),('Try the app','https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site'),('View code','https://github.com/Gurjaapk1/Ucharaan-2026/tree/main'),('Design process','https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0')]
 for i,(label,url) in enumerate(links):
  x=30+i*141;box(x,14,129,23,teal if i==0 else '#EDF2F4',5);para(label+' ↗',x+10,32,112,11,14,'#FFFFFF' if i==0 else teal,True);c.linkURL(url,(x,14,x+129,37),relative=0)
 c.save()
