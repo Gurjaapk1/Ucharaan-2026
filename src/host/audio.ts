@@ -12,6 +12,7 @@ import {
   setAudioModeAsync,
   useAudioPlayer,
   useAudioPlayerStatus,
+  type AudioPlayer,
 } from 'expo-audio';
 
 /** Japji Sahib, recited by Bhai Jarnail Singh — the prototype's reference. */
@@ -101,4 +102,34 @@ export function useReferenceAudio(trackUrl: string = REFERENCE_AUDIO): AudioPort
   useEffect(() => () => player.pause(), [player]);
 
   return { playing, error, listen, stop };
+}
+
+/**
+ * Word clips from the scoring service. A second player, because the reference
+ * port above only seeks within the one Bhai Jarnail Singh track.
+ */
+export function useClipPlayer() {
+  const player: AudioPlayer = useAudioPlayer(null);
+  const status = useAudioPlayerStatus(player);
+  const [error, setError] = useState('');
+
+  const play = useCallback(
+    (url: string) => {
+      setError('');
+      try {
+        player.replace({ uri: url });
+        player.play();
+      } catch {
+        setError('This word\u2019s recording is unavailable.');
+      }
+    },
+    [player],
+  );
+  const stop = useCallback(() => player.pause(), [player]);
+
+  useEffect(() => {
+    if (status.error) setError('This word\u2019s recording is unavailable.');
+  }, [status.error]);
+
+  return { playing: status.playing, error, play, stop };
 }

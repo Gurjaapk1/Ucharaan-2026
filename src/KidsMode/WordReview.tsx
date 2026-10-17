@@ -10,7 +10,7 @@ import type {Pauri} from './types';
 
 export function WordReview({pauri,score,textSize,onPractice,measured}:{pauri:Pauri;score:number;textSize:number;onPractice:(line:number)=>void;measured?:ReviewedLine[]|null}) {
   const {t,host}=useUI();
-  const {Sheet,audio}=host;
+  const {Sheet,audio,clip}=host;
   // Real scores when the recitation was actually heard; fixtures otherwise.
   const review=useMemo(()=>measured??sampleWordReview(pauri,pauri.lines.map((_,i)=>lineScore(score,i,pauri.lines.length))),[measured,pauri,score]);
   const words=review.flatMap(line=>line.tokens.flatMap(token=>token.kind==='word'?[token.feedback]:[]));
@@ -28,7 +28,9 @@ export function WordReview({pauri,score,textSize,onPractice,measured}:{pauri:Pau
   const [selected,setSelected]=useState<WordFeedback|null>(null);
   const prompt=selected?practicePrompt(selected):null;
   const currentLine=selected?pauri.lines[selected.lineIndex]:null;
-  function close(){audio.stop();setSelected(null);}
+  function close(){audio.stop();clip?.stop();setSelected(null);}
+  // The reciter's own word, next to the line from the Bhai Jarnail Singh track.
+  const clipButton=(word:WordFeedback)=>clip&&word.clip?<Button secondary onPress={()=>{audio.stop();clip.play(word.clip!);}}>Hear the reciter say {word.text}</Button>:null;
   return <>
     <Heading>Your pauri, word by word</Heading>
     <Small>{judged?'Tap a word for a practice tip.':'Tap a word for its score and a practice tip.'}</Small>
@@ -42,10 +44,10 @@ export function WordReview({pauri,score,textSize,onPractice,measured}:{pauri:Pau
     </View>}
     <Small>{judged?`${flagged.length} words to check`:`Example feedback · ${flagged.length} words to practice`}</Small>
     {judged&&<Small>Extra or skipped speech may not be detected; listen and compare.</Small>}
-    {practise&&<View style={[s.info,{backgroundColor:t.retry,gap:6}]}><Small>Practise this word</Small><Copy style={{fontFamily:bold,fontSize:textSize,lineHeight:lineFor(textSize),color:t.retryText}}>{practise.text}</Copy><Small>Line {practise.lineIndex+1}</Small><Button onPress={()=>{audio.stop();setSelected(practise);}}>Practise this word</Button></View>}
+    {practise&&<View style={[s.info,{backgroundColor:t.retry,gap:6}]}><Small>Practise this word</Small><Copy style={{fontFamily:bold,fontSize:textSize,lineHeight:lineFor(textSize),color:t.retryText}}>{practise.text}</Copy><Small>Line {practise.lineIndex+1}</Small><Button onPress={()=>{audio.stop();setSelected(practise);}}>Practise this word</Button>{clipButton(practise)}</View>}
     {flagged.length>0&&!practise&&<Button secondary onPress={()=>setSelected(flagged[0])}>Review words to practice</Button>}
     <View style={{gap:22,marginVertical:12}}>{review.map((line,lineIndex)=><View key={lineIndex} style={{gap:7}}>
-      <View style={s.rowBody}><View style={s.grow}><Small>Line {lineIndex+1}</Small></View>{judged&&<Stars count={starsForScore(line.score)}/>}<Small>{line.score}%</Small></View>
+      <View style={s.rowBody}><View style={s.grow}><Small>Line {lineIndex+1}</Small></View>{judged&&<Stars count={line.stars??starsForScore(line.score)}/>}<Small>{line.score}%</Small></View>
       <Text style={[s.text,{fontSize:textSize,lineHeight:lineFor(textSize),color:t.text}]}>{line.tokens.map((token,index)=>token.kind==='separator'?<Text key={index}>{token.text}</Text>:<Text key={index} accessible accessibilityRole="button" accessibilityLabel={wordLabel(token.feedback)} onPress={()=>{audio.stop();setSelected(token.feedback);}} style={wordStyle(token.feedback)}>{token.text}</Text>)}</Text>
     </View>)}</View>
     <Sheet open={selected!==null} onOpenChange={open=>{if(!open)close();}} title="Practice coach">
@@ -55,6 +57,8 @@ export function WordReview({pauri,score,textSize,onPractice,measured}:{pauri:Pau
         <Heading>{judged?(selected.state==='check'?'Listen and compare':'Keep this word clear'):prompt.title}</Heading>
         <Copy>{prompt.tip}</Copy>
         <View style={{gap:8}}>{prompt.steps.map((step,i)=><Copy key={step}>{i+1}. {step}</Copy>)}</View>
+        {clipButton(selected)}
+        {clip&&clip.error.length>0&&selected.clip&&<Copy style={{color:t.retryText}}>{clip.error}</Copy>}
         <Button onPress={()=>audio.playing?audio.stop():audio.listen(currentLine.start,currentLine.end,0.8)}>{audio.playing?'Pause reference':'Hear reference line'}</Button>
         <Small>Bhai Jarnail Singh · Slower playback</Small>
         <Button secondary onPress={()=>{const line=selected.lineIndex;close();onPractice(line);}}>Practice this line</Button>

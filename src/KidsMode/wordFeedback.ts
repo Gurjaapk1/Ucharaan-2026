@@ -6,9 +6,12 @@ export type WordFeedback = {
   focus:'ending'|'beginning'|'whole-word';
   // Set when the scoring service judged the word; the UI then shows the state, not a number.
   state?:'like'|'check'|'unclear'; reasons?:string[]; practise?:boolean;
+  /** The chosen reciter saying this word. */
+  clip?:string;
 };
 export type ReviewToken = {kind:'separator';text:string}|{kind:'word';text:string;feedback:WordFeedback};
-export type ReviewedLine = {text:string;score:number;tokens:ReviewToken[]};
+/** `stars` comes from the service's bands when it scored the line. */
+export type ReviewedLine = {text:string;score:number;tokens:ReviewToken[];stars?:number};
 
 // Preserve whitespace, Gurmukhi combining marks and verse markers verbatim.
 // start/end are UTF-16 offsets into the unchanged source line, end exclusive.

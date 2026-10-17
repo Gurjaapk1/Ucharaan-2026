@@ -25,7 +25,7 @@ import {
 } from './src/KidsMode/experience';
 import type { HostPorts, Pauri } from './src/KidsMode/types';
 import pauris from './src/bani.json';
-import { useReferenceAudio } from './src/host/audio';
+import { useClipPlayer, useReferenceAudio } from './src/host/audio';
 import { Icon } from './src/host/icons';
 import { image } from './src/host/images';
 import { HorizontalScroll, Scroll, Sheet } from './src/host/layout';
@@ -57,6 +57,7 @@ function Shell() {
     GurbaniAkharTrue: require('./assets/fonts/GurbaniAkharTrue.ttf'),
   });
   const audio = useReferenceAudio();
+  const clip = useClipPlayer();
   const recitation = useRecitationPort();
 
   // HostPorts.storage.load() is synchronous, but device storage is not.
@@ -97,11 +98,12 @@ function Shell() {
       image,
       storage: { load: () => saved, save },
       audio,
+      clip,
       recitation,
       statusBarBackground: '#ffffff',
       safeArea: { top: insets.top, bottom: insets.bottom },
     };
-  }, [saved, save, audio, recitation, insets.top, insets.bottom]);
+  }, [saved, save, audio, clip, recitation, insets.top, insets.bottom]);
 
   if (!host || !fontsLoaded) {
     return (

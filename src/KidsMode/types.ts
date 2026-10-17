@@ -15,6 +15,8 @@ export type HostPorts = {
   image: (file: string) => ImageSourcePropType;
   storage: {load:()=>Experience;save:(value:Experience)=>boolean};
   audio: { playing: boolean; error: string; listen: (start: number, end: number, rate?: number) => void; stop: () => void };
+  /** Plays a single word clip from the scoring service's reference store. */
+  clip?: { playing: boolean; error: string; play: (url: string) => void; stop: () => void };
   /**
    * Live recitation. Absent on the web prototype, which has no microphone
    * access and simulates the challenge; present on device, where the child's

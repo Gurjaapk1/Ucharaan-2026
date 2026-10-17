@@ -17,10 +17,16 @@ import {
 } from 'expo-audio';
 
 import type { Pauri } from '../KidsMode/types';
-import type { ReviewedLine } from '../KidsMode/wordFeedback';
+import { tokenizeLine, type ReviewedLine } from '../KidsMode/wordFeedback';
 import { toReviewedLines } from '../scoring/align';
-import { scoreRecording, seqsForPauri } from '../scoring/client';
+import {
+  fetchManifest,
+  referenceUrl,
+  scoreRecording,
+  seqsForPauri,
+} from '../scoring/client';
 import { BANI, DEFAULT_RECITER } from '../scoring/config';
+import type { Manifest, ScoreResponse } from '../scoring/types';
 
 export type RecordedOutcome =
   | { review: ReviewedLine[]; score: number }
@@ -29,6 +35,68 @@ export type RecordedOutcome =
 
 const OPTIONS = { ...RecordingPresets.HIGH_QUALITY, isMeteringEnabled: true };
 
+type ManifestLine = Manifest['lines'][string][string];
+
+/**
+ * Service word idx -> on-screen word index, matched by Gurmukhi in order, so a
+ * difference in how the two sides split a line cannot shift every highlight.
+ */
+function wordIndexMap(text: string, line: ManifestLine | undefined): Map<number, number> {
+  const onScreen = tokenizeLine(text).filter(p => p.word).map(p => p.text);
+  const map = new Map<number, number>();
+  if (!line) return map;
+  let from = 0;
+  for (const word of line.words) {
+    const at = onScreen.indexOf(word.gurmukhi, from);
+    if (at >= 0) {
+      map.set(word.idx, at);
+      from = at + 1;
+    }
+  }
+  return map;
+}
+
+function starsFor(percent: number, bands: number[]): number {
+  return bands.filter(band => percent >= band).length;
+}
+
+/** Re-index words to the screen, then attach clips and star bands from the manifest. */
+function toReview(
+  pauri: Pauri,
+  response: ScoreResponse,
+  manifest: Manifest | null,
+  reciter: string,
+  seqs: number[],
+): ReviewedLine[] {
+  const lines = seqs.map(seq => manifest?.lines[reciter]?.[String(seq)]);
+  const maps = pauri.lines.map((line, i) => wordIndexMap(line.text, lines[i]));
+  const remap = (lineIndex: number, idx: number) => maps[lineIndex]?.get(idx) ?? idx;
+  const review = toReviewedLines(pauri.lines, {
+    ...response,
+    words: response.words.map(w => ({ ...w, wordIndex: remap(w.lineIndex, w.wordIndex) })),
+    focus: response.focus
+      ? { ...response.focus, wordIndex: remap(response.focus.lineIndex, response.focus.wordIndex) }
+      : null,
+  });
+  if (!manifest) return review;
+
+  return review.map((line, lineIndex) => {
+    const clips = new Map<number, string>();
+    for (const word of lines[lineIndex]?.words ?? []) {
+      clips.set(remap(lineIndex, word.idx), referenceUrl(word.clip_url));
+    }
+    return {
+      ...line,
+      stars: starsFor(line.score, manifest.star_bands),
+      tokens: line.tokens.map(token =>
+        token.kind === 'word' && clips.has(token.feedback.wordIndex)
+          ? { ...token, feedback: { ...token.feedback, clip: clips.get(token.feedback.wordIndex) } }
+          : token,
+      ),
+    };
+  });
+}
+
 export function useRecordedRecitation(pauris: Pauri[]) {
   const recorder = useAudioRecorder(OPTIONS);
   const state = useAudioRecorderState(recorder, 100);
@@ -36,6 +104,16 @@ export function useRecordedRecitation(pauris: Pauri[]) {
   const [error, setError] = useState<string | null>(null);
   const [checking, setChecking] = useState(false);
   const pauriRef = useRef<number | null>(null);
+  const [manifest, setManifest] = useState<Manifest | null>(null);
+
+  // Scoring still works without it; only clips, bands and the coverage check are lost.
+  useEffect(() => {
+    fetchManifest().then(setManifest).catch(() => {});
+  }, []);
+  const reciter =
+    !manifest || manifest.reciters.includes(DEFAULT_RECITER)
+      ? DEFAULT_RECITER
+      : manifest.reciters[0] ?? DEFAULT_RECITER;
 
   useEffect(() => {
     getRecordingPermissionsAsync()
@@ -83,19 +161,20 @@ export function useRecordedRecitation(pauris: Pauri[]) {
     const uri = recorder.uri;
     if (!pauri || !uri) return { retry: 'Nothing was recorded. Please try again.' };
 
+    const seqs = seqsForPauri(pauris, pauri.number);
+    if (manifest && !seqs.every(seq => manifest.lines[reciter]?.[String(seq)])) {
+      return { retry: 'Online checking does not cover this pauri yet. Try Pauri 1.' };
+    }
+
     setChecking(true);
     try {
-      const response = await scoreRecording(uri, {
-        bani: BANI,
-        reciter: DEFAULT_RECITER,
-        seqs: seqsForPauri(pauris, pauri.number),
-      });
+      const response = await scoreRecording(uri, { bani: BANI, reciter, seqs });
       if (response.status === 'unclear') {
         return {
           retry: 'We could not hear that clearly. Find a quiet place and try again.',
         };
       }
-      const review = toReviewedLines(pauri.lines, response);
+      const review = toReview(pauri, response, manifest, reciter, seqs);
       const score = response.lineScores.length
         ? Math.round(response.lineScores.reduce((n, s) => n + s, 0) / response.lineScores.length)
         : 0;
@@ -107,7 +186,7 @@ export function useRecordedRecitation(pauris: Pauri[]) {
     } finally {
       setChecking(false);
     }
-  }, [recorder, pauris]);
+  }, [recorder, pauris, manifest, reciter]);
 
   // Metering is dBFS, roughly -60 (quiet room) to 0.
   const metering = state.metering ?? -160;
