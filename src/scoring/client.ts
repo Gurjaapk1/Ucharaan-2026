@@ -8,13 +8,17 @@
 import { Platform } from 'react-native';
 
 import {
+  BANI,
   FIRST_PAURI_SEQ,
   REQUEST_TIMEOUT_MS,
   SCORING_API_KEY,
   SCORING_BASE_URL,
+  SCORING_MOCK,
 } from './config';
+import { mockManifest, mockScore } from './mock';
 import {
   ScoringError,
+  type Manifest,
   type ScoreResponse,
   type ServiceScoreResponse,
 } from './types';
@@ -137,11 +141,39 @@ export function toScoreResponse(
   };
 }
 
+/** Absolute URL for a manifest path such as `ggs/5/words/0.wav`. */
+export function referenceUrl(path: string): string {
+  return `${SCORING_BASE_URL}/reference/${path}`;
+}
+
+let manifestCache: Promise<Manifest> | null = null;
+
+/** The reciters, word clips and star bands; fetched once per app session. */
+export function fetchManifest(): Promise<Manifest> {
+  if (SCORING_MOCK) return Promise.resolve(mockManifest());
+  manifestCache ??= request(`/v1/manifest?bani=${BANI}`, { method: 'GET' })
+    .then(async response => {
+      if (!response.ok) throw new ScoringError(`Manifest unavailable (${response.status})`, response.status);
+      return (await response.json()) as Manifest;
+    })
+    .catch(caught => {
+      // A failed fetch is retried next time rather than cached.
+      manifestCache = null;
+      throw caught;
+    });
+  return manifestCache;
+}
+
 /** Send one recording for scoring against the chosen reciter. */
 export async function scoreRecording(
   fileUri: string,
   opts: { bani: number; reciter: string; seqs: number[] },
 ): Promise<ScoreResponse> {
+  if (SCORING_MOCK) {
+    // Long enough to see the "Checking…" state.
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    return toScoreResponse(mockScore(opts.seqs), opts.seqs);
+  }
   const form = new FormData();
   form.append('bani', String(opts.bani));
   form.append('reciter', opts.reciter);

@@ -75,3 +75,24 @@ export class ScoringError extends Error {
     this.status = status;
   }
 }
+
+/** Wire shape of `GET /v1/manifest`; URLs are relative to `{BASE}/reference/`. */
+export interface Manifest {
+  bani: number;
+  reciters: string[];
+  /** reciter -> seq (a string key in JSON) -> line. */
+  lines: Record<string, Record<string, {
+    pankti_url: string;
+    words: {
+      idx: number;
+      gurmukhi: string;
+      roman: string;
+      start_s: number;
+      end_s: number;
+      clip_url: string;
+      rule: string | null;
+    }[];
+  }>>;
+  /** Percent of `like` needed for 1, 2 and 3 stars. */
+  star_bands: number[];
+}
