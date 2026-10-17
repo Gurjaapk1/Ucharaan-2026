@@ -7,6 +7,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { Platform } from 'react-native';
 import {
   RecordingPresets,
   getRecordingPermissionsAsync,
@@ -116,6 +117,8 @@ export function useRecordedRecitation(pauris: Pauri[]) {
       : manifest.reciters[0] ?? DEFAULT_RECITER;
 
   useEffect(() => {
+    // On web this check falls through to a getUserMedia prompt, so ask only when the child begins.
+    if (Platform.OS === 'web') return;
     getRecordingPermissionsAsync()
       .then(({ granted: already }) => setGranted(already))
       .catch(() => setGranted(false));
