@@ -26,7 +26,7 @@ Response: per line `share_like` and per word `state` = `like` | `check` | `uncle
 ```sh
 git switch native/v1-product-journey && git pull
 npm ci
-EXPO_PUBLIC_SCORING_URL=https://fall-topics-wing-calibration.trycloudflare.com EXPO_PUBLIC_SCORING_API_KEY=uchaaran-demo npx expo start -c
+EXPO_PUBLIC_SCORING_URL=https://increase-pressing-officials-aged.trycloudflare.com EXPO_PUBLIC_SCORING_API_KEY=uchaaran-demo npx expo start -c
 ```
 That URL is the scoring server already running on Avi's laptop tonight (verified from outside). Open in Expo Go on the iPhone. To serve the scorer on the Mac instead (section 1), use `EXPO_PUBLIC_SCORING_URL=http://<mac-lan-ip>:8000` with the Mac's LAN IP, not localhost: the phone must reach the server.
 
