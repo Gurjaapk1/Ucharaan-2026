@@ -21,7 +21,7 @@ yarn install --frozen-lockfile
 cd ios && bundle exec pod install && cd ..
 ```
 
-Point the scoring client at the server (needed from PR 3 on): in `src/common/constant.js` set `KIDS_SCORING_URL` to the current server URL (ask Avi; the Azure URL once deployed, else the tunnel URL in DEMO-SETUP.md) and `KIDS_SCORING_API_KEY` to `uchaaran-demo`. Do not commit that edit.
+Point the scoring client at the server (needed from PR 3 on): in `src/common/constant.js` set `KIDS_SCORING_URL` to `https://uchaaran-score.gentlebush-095e8f60.westus.azurecontainerapps.io` and `KIDS_SCORING_API_KEY` to `uchaaran-demo`. The server is always on (Azure); see DEMO-SETUP.md. Do not commit that edit.
 
 Run: `yarn ios --device` (or open `ios/SundarGutka.xcworkspace` in Xcode, pick your iPhone, press Run). Metro starts in a terminal; JavaScript edits reload live; native changes (PR 3 adds a recorder library and permissions) need a rebuild.
 
