@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {tokenizeLine,sampleWordReview,practicePrompt} from '../src/KidsMode/wordFeedback.ts';
-import {lineScore} from '../src/KidsMode/content.ts';
+import {tokenizeLine,sampleWordReview,practicePrompt} from '../src/KidsMode/wordFeedback.js';
+import {lineScore} from '../src/KidsMode/content.js';
 const pauris=JSON.parse(await readFile(new URL('../src/bani.json',import.meta.url),'utf8'));
 
 test('word review preserves every Gurbani line, combining mark and source offset',()=>{

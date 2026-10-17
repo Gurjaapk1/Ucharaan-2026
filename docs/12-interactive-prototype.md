@@ -40,3 +40,5 @@ The user selected Pauri 1 for the first polished visual sequence. Its six lines 
 ## Word-level challenge feedback
 
 The result now displays the full pauri with tappable word scores. Red underlined words open a practice coach with example guidance, slower reference-line audio and exact-line retry. Recitation remains continuous. See [the feedback contract](16-word-level-feedback.md); no microphone or AI assessment is connected.
+
+The expanded reward collection now includes clothing, belongings and actions. See [reward behavior and scope](17-expanded-nanak-rewards.md).

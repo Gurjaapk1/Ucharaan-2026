@@ -1,0 +1,32 @@
+[
+  {
+    "file": "prototype/public/assets/regions/fields.jpg",
+    "bytes": 441310,
+    "sha256": "f8772fe6c9bf7d83b14d171896b5ff72b2edc0f712bbad929d0c3a8161fe0a33"
+  },
+  {
+    "file": "prototype/public/assets/regions/grace.jpg",
+    "bytes": 504039,
+    "sha256": "78ef57668bf1de9e27010a422a865bf3601d5a95767a36c5509e1d7c15156cb0"
+  },
+  {
+    "file": "prototype/public/assets/regions/horizon.jpg",
+    "bytes": 475771,
+    "sha256": "26b8dfd391b8f11d0f28b5da7855dfef7ca88fbd988d722071947f5961c84f32"
+  },
+  {
+    "file": "prototype/public/assets/regions/paths.jpg",
+    "bytes": 501406,
+    "sha256": "1119f0de07d5f75401c195f7611c114e97d768fc19f7d18a9ff8aab0be3169aa"
+  },
+  {
+    "file": "prototype/public/assets/regions/river.jpg",
+    "bytes": 448112,
+    "sha256": "79f7c6d5ec9bfac5b8a9fb8dd1d10b818a5990e5bad315e736069afc17200f30"
+  },
+  {
+    "file": "prototype/public/assets/regions/wonder.jpg",
+    "bytes": 575843,
+    "sha256": "5e41cd54846b26cd808c50e63f4d9758ee3d497e3e81973f11cdd5c48e749f9f"
+  }
+]

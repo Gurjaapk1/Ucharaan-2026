@@ -57,3 +57,14 @@ Latest refinement: [Historical journey, challenge mode and rewards](11-history-c
 - [Quieter visuals and production polish](15-production-polish.md): current illustration style, copy rules, reading controls and remaining native validation.
 
 16. [Word-level feedback](16-word-level-feedback.md): full-pauri review, coach interaction and backend alignment contract.
+
+17. [Expanded Nanak rewards](17-expanded-nanak-rewards.md): equipment slots, preview, unlock rules and demo mode.
+
+18. [Pronunciation and live following](18-pronunciation-and-live-following.md): reading order and recitation-driven line completion.
+
+19. [JavaScript handoff](19-javascript-handoff.md): reusable JS/JSX source and retained preview tooling.
+
+20. [Complete Japji artwork](20-complete-japji-artwork.md): forty landscapes, line-group cues and review gallery.
+
+- [Region maps and pauri panorama previews](21-region-maps-and-panorama-entry.md)
+- [Simpler maps and character rewards without frames](22-simple-maps-and-no-frames.md)

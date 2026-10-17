@@ -92,3 +92,35 @@ The user requested less busy imagery and clearer copy. Use broad painted shapes,
 Keep uninterrupted recitation followed by full-pauri word feedback. Preserve original text and occurrence offsets. Mark demo scores and suggestions explicitly. Red words also need an underline; provide a sequential review action. Reference audio is line-level until verified word timings exist.
 
 Use American English spelling in interface copy: practice and practicing.
+
+## Expanded Nanak rewards
+
+Use independent clothing, belonging and action slots. Preview does not spend coins. Confirmation unlocks and equips atomically; owned items equip free. Story and milestone unlocks cost no coins. Keep the 60-coin demo separate from saved progress. Preserve older wardrobe saves, coin balances, stars and attempts. Use American English.
+
+## Reading support and final alignment
+
+Practice uses Gurmukhi, source-backed Roman transliteration, then English meaning. Recall hides all three until revealed. Final challenge progression must follow detected line completion, never elapsed time. Current timed playback remains a clearly labeled simulation until recording/alignment is connected.
+
+## App source language
+
+Keep app-owned source in `src/KidsMode/`, `src/Prototype.jsx`, and browser adapters in JavaScript/JSX to match the native team. Preserve the protected TypeScript preview runtime. Do not reintroduce TypeScript into the reusable feature.
+
+## Full Japji artwork
+
+The user requested expansion beyond Pauri 1. Keep one quiet panorama per pauri and explicit inclusive line ranges in `story-plans.json`. Shared landmarks may cover related lines. All art is an interpretive memory aid, not a literal theological image or a historical itinerary. Keep scripture outside images, no depictions of God or Gurus, and keep Pauri 38 sacred coin imagery separate from Nanak reward currency.
+
+## Region terrain and entry previews
+
+Give each region its own quiet terrain using landmarks from its pauri panoramas. Preserve the winding game map and three-star system. Store exact node coordinates per region, including eight clearings for the final region. Show the complete panorama on the pauri opening page before Practice and Challenge; keep reading illustrations optional. Terrain labels must not imply historical composition locations.
+
+## Frame removal and map simplicity
+
+Frames are retired. Do not restore frame selection, frame purchases or cosmetic frame colors on avatars or map nodes. Character customization uses Clothing, Belongings and Actions. Ignore legacy frame ownership/equipment fields when loading older saves; retain their remaining progress and wardrobe.
+
+Match regional maps to the original `journey-calm.jpg`: broad muted painted shapes, sparse trees and only a few simple landmarks. Avoid dense crops, foliage, rocks or miniature architectural details. Keep distinct terrain, clear numbered stops and three-star mastery. About this picture contains only the passage-specific explanation, without a generic memory-cue disclaimer.
+
+## Continuous journey map
+
+Show all six Japji Sahib regions in one vertical scroll, with clear region headings and pauri numbers progressing top to bottom. The painted clearing coordinates are traversed in reverse order to follow the downward scroll without flipping the artwork. Do not restore the region-switching tab rail. Keep each terrain, three-star mastery and direct pauri entry. Reuse the existing quiet artwork unless new connecting artwork is explicitly needed.
+
+Recall practice line selection must show the actual Gurmukhi phrase, not numbered placeholder labels. Keep the main recall prompt hidden until revealed.
