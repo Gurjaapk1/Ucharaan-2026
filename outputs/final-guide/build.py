@@ -1,4 +1,4 @@
-"""Printable BlockFrame-inspired one-pager. Retains San Francisco and live links.
+"""Printable BlockFrame-inspired one-pager. Uses Figtree and Open Sans with live links.
 Design reference: github.com/zarazhangrui/beautiful-html-templates/tree/main/templates/block-frame
 """
 from pathlib import Path
@@ -10,7 +10,8 @@ from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.colors import HexColor
 HERE=Path(__file__).parent
-pdfmetrics.registerFont(TTFont('SF','/System/Library/Fonts/SFNS.ttf'))
+pdfmetrics.registerFont(TTFont('Heading',str(HERE/'fonts/Figtree-Bold.ttf')))
+pdfmetrics.registerFont(TTFont('Body',str(HERE/'fonts/OpenSans.ttf')))
 c=canvas.Canvas(str(HERE/'Team12_Final.pdf'),pagesize=(612,792))
 c.setTitle('Uchaaran | Team 12 | Final submission')
 c.setAuthor('Avi Oberoi, Gurjaap Kalra, Mohkm Singh, Gurasees Bajaj')
@@ -20,9 +21,9 @@ def panel(x,y,w,h,fill,shadow=0,border=1.5):
  if shadow:c.rect(x+shadow,y-shadow,w,h,fill=1,stroke=0)
  c.setFillColor(HexColor(fill));c.setStrokeColor(HexColor(INK));c.setLineWidth(border);c.rect(x,y,w,h,fill=1,stroke=1)
 def text(s,x,top,w,size=10.5,leading=13.5,bold=False,color=INK):
- p=Paragraph(s,ParagraphStyle('text',fontName='SF',fontSize=size,leading=leading,textColor=HexColor(color)))
+ p=Paragraph(s,ParagraphStyle('text',fontName='Heading' if bold else 'Body',fontSize=size,leading=leading,textColor=HexColor(color)))
  _,h=p.wrap(w,900)
- c.saveState();c.setStrokeColor(HexColor(color));c.setLineWidth(.32 if bold else 0);c._code.append('2 Tr' if bold else '0 Tr');p.drawOn(c,x,top-h);c.restoreState()
+ c.saveState();c.setStrokeColor(HexColor(color));c.setLineWidth(0);c._code.append('0 Tr');p.drawOn(c,x,top-h);c.restoreState()
  return top-h
 c.setFillColor(HexColor(PAPER));c.rect(0,0,612,792,fill=1,stroke=0)
 panel(25,654,558,112,YELLOW,4,2)
@@ -35,11 +36,11 @@ text('The problem we are solving',26,638,558,14,18,True)
 text('Children need help pronouncing Gurbani and a reason to return to daily practice. Conversations with Khalis focused our design on engagement that sustains practice, and understanding that goes beyond repeating words.',26,615,556,11,14)
 text('Two modes. One path toward mastery.',26,560,557,19,23,True)
 # Number blocks and readable content cards use the reference's square framing.
-panel(26,434,344,89,BLUE,3)
+panel(26,430,344,93,BLUE,3)
 panel(38,481,25,27,PAPER,0,1.2)
 text('1',46,504,15,16,20,True)
 text('Practice at your pace',73,503,285,13,17,True)
-text('Listen and repeat with Gurmukhi, Roman-letter pronunciation and English meaning. Use recall mode to practice from memory.',39,472,316,11,14)
+text('Listen and repeat with Gurmukhi, Roman-letter pronunciation and English meaning. Use recall mode to practice from memory.',39,480,316,11,14)
 panel(26,326,344,93,GREEN,3)
 panel(38,377,25,27,PAPER,0,1.2)
 text('2',45,400,16,16,20,True)
