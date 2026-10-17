@@ -13,7 +13,7 @@ import PracticeScreen from "./PracticeScreen";
 jest.mock("@common", () => {
   const { createCommonMock } = require("@common/test-utils/mocks/common");
   return createCommonMock({
-    STRINGS: { KIDS_LISTEN: "Listen", KIDS_PAUSE: "Pause" },
+    STRINGS: { KIDS_LISTEN: "Listen", KIDS_PAUSE: "Pause", KIDS_TRY_RECITING: "Try reciting" },
     constant: { AUDIO_BASE_URL: "https://cdn.example/audios" },
     StatusBarComponent: () => null,
   });
@@ -35,10 +35,9 @@ jest.mock("../hooks/usePauriLines", () => () => [
 ]);
 jest.mock("../hooks/useKidsAudio", () => jest.fn());
 
+const navigation = { navigate: jest.fn(), setOptions: jest.fn() };
 const renderPractice = () =>
-  render(
-    <PracticeScreen navigation={{ setOptions: jest.fn() }} route={{ params: { pauri: 1 } }} />
-  );
+  render(<PracticeScreen navigation={navigation} route={{ params: { pauri: 1 } }} />);
 
 describe("PracticeScreen", () => {
   const audio = { playing: false, position: 0, play: jest.fn(), stop: jest.fn() };
@@ -88,5 +87,12 @@ describe("PracticeScreen", () => {
     fireEvent.press(getByText("Bhai Jarnail Singh"));
     expect(audio.stop).toHaveBeenCalled();
     expect(getMockDispatch()).toHaveBeenCalledWith(setKidsReciter("bjs"));
+  });
+
+  it("opens the challenge for this pauri", () => {
+    const { getByText } = renderPractice();
+    fireEvent.press(getByText("Try reciting"));
+    expect(audio.stop).toHaveBeenCalled();
+    expect(navigation.navigate).toHaveBeenCalledWith("KidsChallenge", { pauri: 1 });
   });
 });

@@ -1,8 +1,20 @@
 // Kids Mode colours from the Uchaaran designs, which were drawn from this app's light and dark themes.
 const palette = (dark) =>
   dark
-    ? { secondary: "#b7bdc6", subtle: "#232323", action: "#121F35" }
-    : { secondary: "#666666", subtle: "#faf9f6", action: "#D3E1F7" };
+    ? {
+        secondary: "#b7bdc6",
+        subtle: "#232323",
+        action: "#121F35",
+        retry: "#3d2523",
+        retryText: "#f4b4ab",
+      }
+    : {
+        secondary: "#666666",
+        subtle: "#faf9f6",
+        action: "#D3E1F7",
+        retry: "#fbe9e4",
+        retryText: "#9c382c",
+      };
 
 // Baloo Paaji 2 needs about 1.78x its size so Gurmukhi vowel signs are not clipped on iOS.
 const gurmukhiLine = (size) => Math.round(size * 1.78);
@@ -86,6 +98,24 @@ const createStyles = (theme) => {
       borderColor: colors.separator,
     },
     chipSelected: { backgroundColor: kids.action, borderColor: colors.primary },
+    row: { flexDirection: "row", alignItems: "center", gap: spacing.md_12 },
+    grow: { flex: 1 },
+    center: { alignItems: "center", gap: spacing.md },
+    score: {
+      fontFamily: bold,
+      fontSize: 44,
+      lineHeight: gurmukhiLine(44),
+      color: colors.primaryText,
+    },
+    info: { padding: spacing.lg, borderRadius: 10, gap: spacing.md, backgroundColor: kids.action },
+    retryBox: { backgroundColor: kids.retry },
+    retryText: { color: kids.retryText },
+    wordCheck: {
+      color: kids.retryText,
+      backgroundColor: kids.retry,
+      textDecorationLine: "underline",
+    },
+    wordUnclear: { color: kids.secondary, opacity: 0.5 },
     entry: { position: "absolute", bottom: spacing.md, left: spacing.sm },
   };
 };

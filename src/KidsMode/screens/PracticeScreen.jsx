@@ -79,8 +79,8 @@ const PracticeScreen = ({ navigation, route }) => {
           </View>
         ))}
       </ScrollView>
-      {isAudioOn && (
-        <View style={styles.controls}>
+      <View style={styles.controls}>
+        {isAudioOn && (
           <View style={styles.chips}>
             {Object.keys(RECITERS).map((id) => (
               <Pressable
@@ -94,13 +94,23 @@ const PracticeScreen = ({ navigation, route }) => {
               </Pressable>
             ))}
           </View>
+        )}
+        {isAudioOn && (
           <KidsButton
             title={playing ? STRINGS.KIDS_PAUSE : STRINGS.KIDS_LISTEN}
             onPress={listen}
             disabled={!lines.length}
           />
-        </View>
-      )}
+        )}
+        <KidsButton
+          secondary
+          title={STRINGS.KIDS_TRY_RECITING}
+          onPress={() => {
+            stop();
+            navigation.navigate("KidsChallenge", { pauri });
+          }}
+        />
+      </View>
     </SafeArea>
   );
 };

@@ -9,9 +9,11 @@ import DatabaseUpdateScreen from "../DatabaseUpdate";
 import EditBaniOrder from "../EditBaniOrder";
 import FolderScreen from "../FolderScreen";
 import HomeScreen from "../HomeScreen";
+import ChallengeScreen from "../KidsMode/screens/ChallengeScreen";
 import JourneyScreen from "../KidsMode/screens/JourneyScreen";
 import KidsHomeScreen from "../KidsMode/screens/KidsHomeScreen";
 import PracticeScreen from "../KidsMode/screens/PracticeScreen";
+import ResultsScreen from "../KidsMode/screens/ResultsScreen";
 import ReaderScreen from "../ReaderScreen";
 import Settings from "../Settings";
 import ReminderOptions from "../Settings/components/reminders/ReminderOptions";
@@ -123,6 +125,8 @@ const Navigation = () => {
         <Stack.Screen name="KidsHome" component={KidsHomeScreen} />
         <Stack.Screen name="KidsJourney" component={JourneyScreen} />
         <Stack.Screen name="KidsPractice" component={PracticeScreen} />
+        <Stack.Screen name="KidsChallenge" component={ChallengeScreen} />
+        <Stack.Screen name="KidsResults" component={ResultsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
