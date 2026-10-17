@@ -1,49 +1,65 @@
-# Demo setup (for Gurjaap's machine and his agent)
+# Demo setup
 
-Goal: serve the Uchaaran Expo app and our pronunciation-scoring server on one Mac, test live recitation from an iPhone.
+Goal: run the Uchaaran Expo app on a phone and test live recitation against our pronunciation scorer.
 
-## 1. Scoring server (Python 3.11, CPU only)
+## Scoring server: already running on Azure
 
-```sh
-git pull                      # branch main
-cd demo-server
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-python fetch_assets.py        # ~480 MB model from Hugging Face + 3 reciters' Japji audio from Khalis's CDN (~60 MB)
-UCHAARAN_API_KEY=uchaaran-demo uvicorn demo_server:app --host 0.0.0.0 --port 8000
+```
+URL:  https://uchaaran-score.gentlebush-095e8f60.westus.azurecontainerapps.io
+Key:  uchaaran-demo   (header X-Api-Key)
 ```
 
-Check: `curl -s localhost:8000/healthz` → `{"ok": true, ...}`. First request loads the model (~30 s); then ~3-5 s per pauri.
+Always on (Azure Container Apps, 2 vCPU). Endpoints: `GET /healthz`, `GET /v1/manifest?bani=2`, `POST /v1/score`, `POST /v1/follow`. Nothing to install or start.
 
-Score a file by hand:
+Check from any machine:
 ```sh
-curl -s -H "X-Api-Key: uchaaran-demo" -F bani=2 -F reciter=ggs -F seqs=5-10 -F audio=@recording.m4a localhost:8000/v1/score
+curl -s https://uchaaran-score.gentlebush-095e8f60.westus.azurecontainerapps.io/healthz
 ```
-Response: per line `share_like` and per word `state` = `like` | `check` | `unclear`, plus `focus` (the word to practise). Reciters: `ggs` Giani Gurdev Singh, `bjs` Bhai Jarnail Singh, `imk` Bibi Indermohan Kaur. Japji Pauri 1 = seqs 5-10.
 
-## 2. Expo app
+Score a recording by hand:
+```sh
+curl -s -H "X-Api-Key: uchaaran-demo" -F bani=2 -F reciter=ggs -F seqs=5-10 -F audio=@recording.m4a \
+  https://uchaaran-score.gentlebush-095e8f60.westus.azurecontainerapps.io/v1/score
+```
+Response: per line `share_like`, per word `state` = `like` | `check` | `unclear`, plus `focus` (the word to practise). Reciters: `ggs` Giani Gurdev Singh, `bjs` Bhai Jarnail Singh, `imk` Bibi Indermohan Kaur. Japji Pauri 1 = seqs 5-10, Pauri 2 = 11-16, Pauri 3 = 17-30 (all 385 Japji lines are covered; a request may span at most 30 lines). The first request for a reciter and line range not yet cached takes 5-15 s; after that 1-3 s.
+
+## Expo app
 
 ```sh
 git switch native/v1-product-journey && git pull
 npm ci
 EXPO_PUBLIC_SCORING_URL=https://uchaaran-score.gentlebush-095e8f60.westus.azurecontainerapps.io EXPO_PUBLIC_SCORING_API_KEY=uchaaran-demo npx expo start -c
 ```
-That URL is the scorer on Azure Container Apps (always on; verified from outside). Open in Expo Go on the iPhone. To serve the scorer on the Mac instead (section 1), use `EXPO_PUBLIC_SCORING_URL=http://<mac-lan-ip>:8000` with the Mac's LAN IP, not localhost: the phone must reach the server.
+Scan the QR code with the iPhone; Expo Go opens the app. If phone and Mac are not on the same Wi-Fi, add `--tunnel`. For a browser instead of a phone: `--web` (microphone works; CORS is enabled on the server).
 
-## 3. The flow to test
+The `EXPO_PUBLIC_*` values are baked in when Expo starts, so restart with `-c` after changing them.
 
-Settings → Kids Mode on → explorer → Japji map → Pauri 1 → Practice (reciter audio, word highlight) → Challenge: record, recite the pauri, stop → "Checking…" → words marked like / check / unclear, one focus word with "Practise this word". Then the planted errors: say ਸੋਚਿ as ਸੋਚੀ; skip ਲਖ.
+## The flow to test
+
+Settings → Kids Mode on → explorer → Japji map → a pauri → Practice (reciter audio, word highlight) → Challenge: record, recite the pauri, stop → "Checking…" → words marked like / check / unclear, one focus word with "Practise this word". Then the planted errors: say ਸੋਚਿ as ਸੋਚੀ; skip ਲਖ; stop halfway (unspoken lines come back unclear, no score is invented).
 
 ## Known limits (say them in the demo)
 
 - Scores are against the reciter the child heard, never an average.
 - Extra or substituted speech is not detected; skipped words and consonant errors are. Matra flags are "listen and compare", not verdicts.
-- Flags are uncalibrated heuristics from the 2026-10-16 spike; the calibrated service is in `service/` on branch `service/scoring`.
+- Flags are uncalibrated heuristics from the 2026-10-16 spike; the calibrated service is in `service/` (branch `service/scoring`).
 - Audio is processed in memory and not stored.
+
+## Running the scorer yourself (optional)
+
+Only needed if Azure is unreachable. `demo-server/` is self-contained (Python 3.11 or 3.12, CPU):
+```sh
+cd demo-server
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python fetch_assets.py        # ~1.1 GB download once: model + three reciters' audio
+UCHAARAN_API_KEY=uchaaran-demo uvicorn demo_server:app --host 0.0.0.0 --port 8000
+```
+Then start Expo with `EXPO_PUBLIC_SCORING_URL=http://<your-lan-ip>:8000` (the phone must reach your machine; not localhost). The same folder has the `Dockerfile` used for the Azure image.
 
 ## If something breaks
 
-- Server import error about `IndicConformer`/`MMSFA`: the scorer files must be the ones in `demo-server/`, unmodified.
-- Model download fails: set `HF_HOME` to a folder with space and rerun `fetch_assets.py`.
-- Phone cannot reach the server: check the Mac firewall allows port 8000, or use the tunnel route above.
-- No app yet on `native/v1-product-journey` with the client: the client lives on `app/service-client` until merged; `git switch app/service-client` instead.
+- Azure returns 401: the `X-Api-Key` header is missing or wrong.
+- Azure returns 400 on seqs: the range spans more than 30 lines.
+- A 10-15 s first response for a new reciter or line range is expected; later calls are fast.
+- The app shows no result: check `EXPO_PUBLIC_SCORING_URL` was set when Expo started (restart with `-c`).
