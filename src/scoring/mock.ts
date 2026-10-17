@@ -7,7 +7,7 @@
 import pauris from '../bani.json';
 import { tokenizeLine } from '../KidsMode/wordFeedback';
 import { FIRST_PAURI_SEQ } from './config';
-import type { Manifest, ServiceScoreResponse } from './types';
+import type { Manifest, ServiceFollowResponse, ServiceScoreResponse } from './types';
 
 function wordsBySeq(): Map<number, string[]> {
   const out = new Map<number, string[]>();
@@ -55,4 +55,21 @@ export function mockScore(seqs: number[]): ServiceScoreResponse {
     }),
     focus: flagged,
   };
+}
+
+/** Reaches one word per 0.65 s of audio; the second word of the first line is a `check`. */
+export function mockFollow(seqs: number[], seconds: number): ServiceFollowResponse {
+  const words = wordsBySeq();
+  let left = Math.floor(seconds / 0.65);
+  let reached: ServiceFollowResponse['reached'] = null;
+  const lines = seqs.map(seq => ({
+    seq,
+    words: (words.get(seq) ?? []).map((gurmukhi, idx) => {
+      if (left <= 0) return { idx, gurmukhi, state: 'pending' as const };
+      left--;
+      reached = { seq, idx };
+      return { idx, gurmukhi, state: seq === seqs[0] && idx === 1 ? 'check' as const : 'like' as const };
+    }),
+  }));
+  return { status: 'ok', reached, lines };
 }

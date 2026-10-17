@@ -6,6 +6,7 @@
  */
 
 import { Platform } from 'react-native';
+import { File, Paths } from 'expo-file-system';
 
 import {
   BANI,
@@ -15,11 +16,12 @@ import {
   SCORING_BASE_URL,
   SCORING_MOCK,
 } from './config';
-import { mockManifest, mockScore } from './mock';
+import { mockFollow, mockManifest, mockScore } from './mock';
 import {
   ScoringError,
   type Manifest,
   type ScoreResponse,
+  type ServiceFollowResponse,
   type ServiceScoreResponse,
 } from './types';
 
@@ -73,9 +75,14 @@ async function appendAudio(form: FormData, fileUri: string): Promise<void> {
   } as unknown as Blob);
 }
 
-async function request(path: string, init: RequestInit): Promise<Response> {
+function authHeaders(): Record<string, string> {
   const headers: Record<string, string> = { Accept: 'application/json' };
   if (SCORING_API_KEY) headers['X-Api-Key'] = SCORING_API_KEY;
+  return headers;
+}
+
+async function request(path: string, init: RequestInit): Promise<Response> {
+  const headers = authHeaders();
 
   // The spec's hosting note: a cold replica can be slow, so one timed-out attempt is retried.
   for (let attempt = 0; ; attempt++) {
@@ -191,4 +198,60 @@ export async function scoreRecording(
     );
   }
   return toScoreResponse((await response.json()) as ServiceScoreResponse, opts.seqs);
+}
+
+/** A follow that takes longer than this is dropped; the next tick sends more audio anyway. */
+const FOLLOW_TIMEOUT_MS = 8000;
+
+/**
+ * Send the recording so far (a 16 kHz mono WAV) and get each word's state.
+ *
+ * Best effort and never retried: the caller polls every few seconds, so a slow
+ * or failed answer is simply replaced by the next one. Returns null when the
+ * service did not answer usefully; throws only for a 404/405 (endpoint absent).
+ */
+export async function followRecording(
+  wav: Uint8Array,
+  opts: { bani: number; reciter: string; seqs: number[]; signal?: AbortSignal },
+): Promise<ServiceFollowResponse | null> {
+  if (SCORING_MOCK) {
+    // 44-byte header, 2 bytes a sample at 16 kHz.
+    return mockFollow(opts.seqs, (wav.length - 44) / 32000);
+  }
+  const form = new FormData();
+  form.append('bani', String(opts.bani));
+  form.append('reciter', opts.reciter);
+  form.append('seqs', formatSeqs(opts.seqs));
+  if (Platform.OS === 'web') {
+    form.append('audio', new Blob([wav as BlobPart], { type: 'audio/wav' }), 'follow.wav');
+  } else {
+    // React Native's FormData cannot take bytes, only a file reference.
+    const file = new File(Paths.cache, 'follow.wav');
+    if (!file.exists) file.create();
+    await file.write(wav);
+    form.append('audio', { uri: file.uri, name: 'follow.wav', type: 'audio/wav' } as unknown as Blob);
+  }
+
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  opts.signal?.addEventListener('abort', abort);
+  const timer = setTimeout(abort, FOLLOW_TIMEOUT_MS);
+  try {
+    const response = await fetch(`${SCORING_BASE_URL}/v1/follow`, {
+      method: 'POST',
+      body: form,
+      headers: authHeaders(),
+      signal: controller.signal,
+    });
+    if (response.status === 404 || response.status === 405) {
+      throw new ScoringError('Live following is not available on this service.', response.status);
+    }
+    return response.ok ? ((await response.json()) as ServiceFollowResponse) : null;
+  } catch (caught) {
+    if (caught instanceof ScoringError) throw caught;
+    return null;
+  } finally {
+    clearTimeout(timer);
+    opts.signal?.removeEventListener('abort', abort);
+  }
 }

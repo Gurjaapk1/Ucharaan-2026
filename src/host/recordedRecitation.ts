@@ -42,7 +42,10 @@ type ManifestLine = Manifest['lines'][string][string];
  * Service word idx -> on-screen word index, matched by Gurmukhi in order, so a
  * difference in how the two sides split a line cannot shift every highlight.
  */
-function wordIndexMap(text: string, line: ManifestLine | undefined): Map<number, number> {
+export function wordIndexMap(
+  text: string,
+  line: { words: { idx: number; gurmukhi: string }[] } | undefined,
+): Map<number, number> {
   const onScreen = tokenizeLine(text).filter(p => p.word).map(p => p.text);
   const map = new Map<number, number>();
   if (!line) return map;
@@ -165,9 +168,6 @@ export function useRecordedRecitation(pauris: Pauri[]) {
     if (!pauri || !uri) return { retry: 'Nothing was recorded. Please try again.' };
 
     const seqs = seqsForPauri(pauris, pauri.number);
-    if (manifest && !seqs.every(seq => manifest.lines[reciter]?.[String(seq)])) {
-      return { retry: 'Online checking does not cover this pauri yet. Try Pauri 1.' };
-    }
 
     setChecking(true);
     try {
@@ -205,5 +205,7 @@ export function useRecordedRecitation(pauris: Pauri[]) {
     error,
     checking,
     following: false,
+    /** The reciter this session scores against, for callers that also post audio. */
+    reciter,
   };
 }

@@ -10,6 +10,7 @@ import {freshExperience} from './experience';
 import {storyForPauri,storyStopForLine} from './story';
 import {StoryScene} from './StoryScene';
 import {WordReview} from './WordReview';
+import {tokenizeLine} from './wordFeedback';
 import type { Character, HostPorts, IconName, Pauri, Screen } from './types';
 
 export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPorts}) {
@@ -50,6 +51,24 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
   const t = night ? dark : light;
   const {Scroll, Icon, audio, recitation} = host;
   const remote = recitation?.following===false;
+  // Live word states while a service recitation is followed; the final score replaces them.
+  const live = recitation?.live;
+  const liveStates = new Map(live?.words.map(w=>[`${w.lineIndex}:${w.wordIndex}`,w.state]) ?? []);
+  // Auto-advance: keep one line of context above the line being recited.
+  const firstShown = Math.max(0,(live?.reached?.lineIndex ?? 0)-1);
+  function liveWords(text:string,lineIndex:number){
+    let wordIndex=0;
+    return tokenizeLine(text).map((part,k)=>{
+      if(!part.word)return <Text key={k}>{part.text}</Text>;
+      const index=wordIndex++;
+      const state=liveStates.get(`${lineIndex}:${index}`);
+      const here=live?.reached?.lineIndex===lineIndex&&live.reached.wordIndex===index;
+      const style=state==='check'?{color:t.retryText,backgroundColor:t.retry,textDecorationLine:'underline' as const}
+        :state==='unclear'?{color:t.secondary,opacity:0.5}
+        :state==='like'?{color:t.successText}:{};
+      return <Text key={k} style={[style,here&&state!=='check'?{backgroundColor:t.action}:null]}>{part.text}</Text>;
+    });
+  }
   const pauri = pauris[selected-1];
   const current = pauri.lines[line] ?? pauri.lines[0];
   const stars = starsForScore(score);
@@ -200,12 +219,12 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
           setLine(0);setTick(0);setRunning(true);setScreen('challenge');return;
         }
         if(autoScore)setScore(attempts.some(a=>a.pauri===selected)?96:84);setLine(0);setTick(0);setRunning(true);setScreen('challenge');
-      }}>{retry?'Try again':'Begin challenge'}</Button><Small>{remote?'Your recitation is sent for checking when you finish. The audio is not kept.':recitation?'Your voice is recorded on this device and compared with the ustaad\u2019s recording. Nothing is uploaded.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
-      {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&story&&!remote&&<StoryScene pauri={selected} line={line} host={host}/>}{remote?<View style={{paddingVertical:16,gap:10}}>{pauri.lines.map((l,i)=><Copy key={i} style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{l.text}</Copy>)}</View>:<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>}{recitation?<>
+      }}>{retry?'Try again':'Begin challenge'}</Button><Small>{remote?(recitation?.live?'Your recitation is followed word by word as you recite and checked in full when you finish. The audio is not kept.':'Your recitation is sent for checking when you finish. The audio is not kept.'):recitation?'Your voice is recorded on this device and compared with the ustaad\u2019s recording. Nothing is uploaded.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
+      {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&story&&!remote&&<StoryScene pauri={selected} line={line} host={host}/>}{remote?<View style={{paddingVertical:16,gap:10}}>{firstShown>0&&<Small>{firstShown===1?'Line 1 done':`Lines 1\u2013${firstShown} done`}</Small>}{pauri.lines.map((l,i)=>i<firstShown?null:<Copy key={i} style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{live?liveWords(l.text,i):l.text}</Copy>)}</View>:<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>}{recitation?<>
         <View style={[s.track,{backgroundColor:t.separator,marginTop:10}]}><View style={{height:4,width:`${Math.round(recitation.level*100)}%`,backgroundColor:recitation.isRecording?t.primary:t.separator}}/></View>
         {!remote&&<View style={[s.inline,{justifyContent:'center',paddingVertical:8}]}>{pauri.lines.map((_,i)=>{const r=recitation.lineScores.find(x=>x.lineIndex===i);return <View key={i} style={[s.chip,{backgroundColor:r?(r.score<80?t.retry:t.success):t.subtle,borderColor:t.separator}]}><Copy style={{fontSize:13,lineHeight:lineFor(13),color:r?(r.score<80?t.retryText:t.successText):t.secondary}}>{r?`${r.score}%`:i+1}</Copy></View>;})}</View>}
         {checking?<View accessibilityLiveRegion="polite" style={[s.center,{paddingVertical:12,gap:8}]}><ActivityIndicator color={t.primary}/><Copy style={{fontFamily:bold}}>Checking\u2026</Copy><Small>This may take a moment.</Small></View>:<Button onPress={finishRecitation}>{remote?'Finish and check':'Finish and see my score'}</Button>}
-        <Small>{remote?(recitation.isRecording?'Recording \u00b7 sent for checking when you finish':checking?'Checking your recitation':'Not recording'):recitation.isRecording?'Listening \u00b7 recorded and scored on this device only':'Not recording'}</Small>
+        <Small>{remote?(recitation.isRecording?(live?'Following along \u00b7 checked in full when you finish':'Recording \u00b7 sent for checking when you finish'):checking?'Checking your recitation':'Not recording'):recitation.isRecording?'Listening \u00b7 recorded and scored on this device only':'Not recording'}</Small>
         {recitation.error?<Copy style={{color:t.retryText}}>{recitation.error}</Copy>:null}
       </>:<>
         <Button secondary onPress={()=>setRunning(v=>!v)}>{running?'Pause challenge':'Resume challenge'}</Button><Small>Demo playback · No voice recorded or assessed</Small>

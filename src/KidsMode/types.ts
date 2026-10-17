@@ -40,6 +40,14 @@ export type HostPorts = {
     checking?: boolean;
     /** False when the pauri is recorded whole and scored at the end, with no line following. */
     following?: boolean;
+    /**
+     * Word states from the service while the child recites; absent where the
+     * microphone cannot stream. Only reached words are listed (the rest are pending).
+     */
+    live?: {
+      words: {lineIndex: number; wordIndex: number; state: 'like' | 'check' | 'unclear'}[];
+      reached: {lineIndex: number; wordIndex: number} | null;
+    };
   };
   statusBarBackground?: string;
   safeArea: {top: number; bottom: number};

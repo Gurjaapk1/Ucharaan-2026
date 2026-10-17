@@ -110,3 +110,40 @@ export function slice(pcm: Pcm, startSeconds: number, endSeconds: number): Float
   const to = Math.min(pcm.samples.length, Math.ceil(endSeconds * pcm.sampleRate));
   return to > from ? pcm.samples.subarray(from, to) : new Float32Array(0);
 }
+
+/**
+ * Encode mono float samples as a 16-bit PCM WAV, 44-byte header.
+ *
+ * Takes the chunks as captured so a long recording is written once rather
+ * than first concatenated into another float buffer.
+ */
+export function encodeWav16(chunks: Float32Array[], sampleRate: number): Uint8Array {
+  const frames = chunks.reduce((n, c) => n + c.length, 0);
+  const bytes = new Uint8Array(44 + frames * 2);
+  const view = new DataView(bytes.buffer);
+  const ascii = (at: number, text: string) => {
+    for (let i = 0; i < text.length; i++) view.setUint8(at + i, text.charCodeAt(i));
+  };
+  ascii(0, 'RIFF');
+  view.setUint32(4, 36 + frames * 2, true);
+  ascii(8, 'WAVE');
+  ascii(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true); // PCM
+  view.setUint16(22, 1, true); // mono
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  ascii(36, 'data');
+  view.setUint32(40, frames * 2, true);
+
+  let at = 44;
+  for (const chunk of chunks) {
+    for (let i = 0; i < chunk.length; i++, at += 2) {
+      const s = Math.max(-1, Math.min(1, chunk[i]));
+      view.setInt16(at, s < 0 ? s * 32768 : s * 32767, true);
+    }
+  }
+  return bytes;
+}

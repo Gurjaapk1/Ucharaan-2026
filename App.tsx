@@ -30,7 +30,7 @@ import { Icon } from './src/host/icons';
 import { image } from './src/host/images';
 import { HorizontalScroll, Scroll, Sheet } from './src/host/layout';
 import { useLiveRecitation } from './src/host/liveRecitation';
-import { useRecordedRecitation } from './src/host/recordedRecitation';
+import { useFollowedRecitation } from './src/host/followedRecitation';
 import { USE_SERVICE } from './src/scoring/config';
 import { toReviewedLines } from './src/scoring/align';
 import type { ReviewedLine } from './src/KidsMode/wordFeedback';
@@ -130,9 +130,9 @@ const styles = StyleSheet.create({
   },
 });
 
-/** The service's recorder, or Gurjaap's on-device scorer as the offline fallback. */
+/** The service's recorder (following live where the mic streams), or Gurjaap's on-device scorer offline. */
 function useServiceRecitation() {
-  return useRecordedRecitation(pauris as Pauri[]);
+  return useFollowedRecitation(pauris as Pauri[]);
 }
 // A module constant, so the same hooks run on every render.
 const useRecitationPort = USE_SERVICE ? useServiceRecitation : useRecitation;

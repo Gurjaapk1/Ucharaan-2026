@@ -66,6 +66,18 @@ export interface ServiceScoreResponse {
   focus: { seq: number; idx: number } | null;
 }
 
+/** Wire shape of `POST /v1/follow`: the recording so far, judged word by word. */
+export interface ServiceFollowResponse {
+  status: 'ok' | 'unclear';
+  /** The last word the child has reached, or null before the first. */
+  reached: { seq: number; idx: number } | null;
+  lines: {
+    seq: number;
+    /** `pending` = not reached yet. */
+    words: { idx: number; gurmukhi: string; state: WordState | 'pending' }[];
+  }[];
+}
+
 export class ScoringError extends Error {
   readonly status?: number;
 
