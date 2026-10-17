@@ -1,5 +1,5 @@
 import './browser-native-compat';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { BottomSheet, Carousel, MobileScroll, useMobileDevice } from './mobile';
 import KidsApp from './KidsMode/KidsApp';
 import pauris from './bani.json';
@@ -23,7 +23,18 @@ function Sheet({ children, ...props }) {
     // MobileScroll is absolutely positioned; give it a bounded sheet viewport.
     return <BottomSheet {...props} snap={0.86}><div style={{ position: 'relative', height: Math.round(device.geometry.screen.height * 0.86) - 90 }}><MobileScroll className="kids-scroll">{children}</MobileScroll></div></BottomSheet>;
 }
-function Scroll({ children }) { return <MobileScroll className="kids-scroll">{children}</MobileScroll>; }
+const scrollPositions = new Map();
+function Scroll({ children, positionKey }) {
+    const frame = useRef(null);
+    useLayoutEffect(() => {
+        if (!positionKey) return;
+        const scroll = frame.current?.querySelector('[data-testid="mobile-scroll"]');
+        if (scroll) scroll.scrollTop = scrollPositions.get(positionKey) ?? 0;
+    }, [positionKey]);
+    return <div ref={frame} style={{ position: 'absolute', inset: 0 }} onScrollCapture={event => {
+        if (positionKey && event.target.matches('[data-testid="mobile-scroll"]')) scrollPositions.set(positionKey, event.target.scrollTop);
+    }}><MobileScroll className="kids-scroll">{children}</MobileScroll></div>;
+}
 function HorizontalScroll({ children }) { return <Carousel ariaLabel="Choose journey region">{children}</Carousel>; }
 function Icon({ name, color, size = 22 }) {
     return <span aria-hidden="true" style={{ display: 'inline-block', flexShrink: 0, width: size, height: size, backgroundColor: color, mask: `url(/assets/${name}.svg) center / contain no-repeat`, WebkitMask: `url(/assets/${name}.svg) center / contain no-repeat` }}/>;

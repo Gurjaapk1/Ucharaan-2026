@@ -53,3 +53,16 @@ test('six terrains cover all pauris with one reachable, separated map stop per l
   }
   assert.deepEqual(lessons, Array.from({ length: 38 }, (_, i) => i + 1));
 });
+
+
+test('unified trail reaches every pauri in scroll order with distinct touch targets', () => {
+  const map = JSON.parse(readFileSync(new URL('../src/KidsMode/journey-map.json', import.meta.url)));
+  assert.ok(existsSync(new URL(`../public/assets/${map.image}`, import.meta.url)));
+  assert.deepEqual(map.nodes.map(n => n.pauri), Array.from({ length: 38 }, (_, i) => i + 1));
+  const scale = 320 / map.width;
+  for (const [i, node] of map.nodes.entries()) {
+    assert.ok(node.x * scale >= 30 && (map.width - node.x) * scale >= 30);
+    assert.ok(node.y * scale >= 24 && (map.height - node.y) * scale >= 50);
+    if (i) assert.ok((node.y - map.nodes[i - 1].y) * scale >= 72, 'Touch targets stay separate on narrow phones');
+  }
+});

@@ -86,3 +86,7 @@ Bundle the six `public/assets/regions/*.jpg` images in the native asset resolver
 ## Retired frames
 
 Character setup chooses Prem Singh or Sehaj Kaur without a frame selector. Avatar and map-node colors no longer read legacy frame equipment. `parseExperience` discards the retired top-level progress `owned` and `equipped` fields; nested `wardrobe.owned` and `wardrobe.equipped` remain active. Existing coin balances, stars, attempts and wardrobe items survive this migration.
+
+### Unified journey map
+
+The map uses `journey-map.json` coordinates with `japji-connected-map.png`, one continuous canvas for Pauris 1 through 38. Map buttons remain native Pressables. The image is 780 by 7460 pixels; the logical coordinate system is 390 by 3730. `Scroll` receives optional `positionKey="japji-map"`; retain and restore its content offset when the learner returns from a pauri. The web adapter implements this without changing the protected scrolling runtime.

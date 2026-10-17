@@ -8,6 +8,7 @@ import { coinAward, completePauri, starsForScore } from './rewards';
 import { bold, dark, legacyFont, light } from './theme';
 import { characters, regions } from './content';
 import catalog from './bani-catalog.json';
+import journeyMap from './journey-map.json';
 import { freshExperience } from './experience';
 import { storyForPauri, storyStopForLine } from './story';
 import { StoryScene } from './StoryScene';
@@ -116,7 +117,7 @@ export default function KidsApp({ pauris, host }) {
       <View style={s.grow}><Copy style={s.headerTitle}>{title}</Copy>{reading && <Small>{screen === 'challenge' ? 'Challenge · continuous recitation' : screen === 'practice' ? 'Practice · Japji Sahib' : 'Sundar Gutka'}</Small>}</View>
       {main ? <Pressable accessibilityRole="button" accessibilityLabel={`${progress.coins} Nanak coins. Open rewards`} onPress={() => go('rewards')} style={[s.wallet, { backgroundColor: t.action }]}><Icon name="coins" color={t.text} size={19}/><Copy style={{ fontFamily: bold }}>{progress.coins}</Copy></Pressable> : screen !== 'settings' && <Pressable accessibilityRole="button" accessibilityLabel="Settings" onPress={settings} style={s.iconButton}><Icon name="settings" color={t.text}/></Pressable>}
     </View>}
-    <View style={[s.content, { backgroundColor: t.surface }]}><Scroll key={screen === 'practice' ? `${screen}-${line}` : screen}><View style={{ paddingBottom: 24 }}>
+    <View style={[s.content, { backgroundColor: t.surface }]}><Scroll positionKey={screen === 'map' ? 'japji-map' : undefined} key={screen === 'practice' ? `${screen}-${line}` : screen}><View style={{ paddingBottom: screen === 'map' ? 0 : 24 }}>
       {screen === 'home' && <>
         {kids && <Row title="Kids Mode" subtitle={started ? `${characters.find(c => c.id === character)?.name} · ${totalStars} stars` : 'Choose an explorer and begin'} icon="map" onPress={() => go(started ? 'world' : 'character')}/>}
         {catalog.map(({ name, token }) => <Pressable accessibilityRole="button" key={name} onPress={() => { if (token === 'japji') {
@@ -139,34 +140,23 @@ export default function KidsApp({ pauris, host }) {
       </>}
       {screen === 'reader' && <><View style={s.pad}><Small>Japji Sahib · Pauri {selected}</Small></View>{pauri.lines.map((l, i) => <Pressable accessibilityRole="button" accessibilityLabel={`Listen to line ${i + 1}`} key={i} onPress={() => { setLine(i); audio.listen(l.start, l.end); }} style={[s.readerLine, { backgroundColor: audio.playing && line === i ? t.action : t.surface }]}><Copy style={[s.verse, { fontSize: textSize }]}>{l.text}</Copy>{meaning && <Copy style={s.translation}>{l.translation}</Copy>}</Pressable>)}<View style={s.pad}><Small>This reading preview contains the 38 pauris. The opening Mool Mantar and closing Salok remain in the full app.</Small><View style={s.inline}><Button secondary disabled={selected === 1} onPress={() => { audio.stop(); setSelected(n => n - 1); }}>Previous pauri</Button><Button secondary disabled={selected === 38} onPress={() => { audio.stop(); setSelected(n => n + 1); }}>Next pauri</Button></View>{audio.error.length > 0 && <Copy style={{ color: t.retryText }}>{audio.error}</Copy>}</View></>}
       {screen === 'character' && <View style={s.pad}><Heading>A friend for your journey</Heading><Small>Choose Prem Singh or Sehaj Kaur from the Khalis books. Both explore the same world.</Small><View style={[s.inline, { marginVertical: 22 }]}>{characters.map(c => <Pressable key={c.id} accessibilityRole="button" accessibilityState={{ selected: character === c.id }} onPress={() => setCharacter(c.id)} style={[s.characterChoice, { backgroundColor: t.subtle, borderColor: character === c.id ? t.primary : t.separator }]}><Avatar who={c.id}/><Copy style={{ fontFamily: bold }}>{c.name}</Copy><Small>{character === c.id ? 'Selected' : 'Choose'}</Small></Pressable>)}</View><Button onPress={() => { setStarted(true); go('world'); }}>{started ? 'Save my explorer' : 'Begin my journey'}</Button><Small>Both characters are free. You can change your explorer at any time.</Small></View>}
-      {screen === 'world' && <><View style={[s.pad, s.rowBody]}><View style={s.grow}><Heading>Your bani journey</Heading><Small>Choose where to practice.</Small></View><Pressable accessibilityRole="button" accessibilityLabel="Customize my explorer" onPress={() => go('character')}><Avatar small/></Pressable></View><Pressable accessibilityRole="button" accessibilityLabel="Explore Japji Sahib" onPress={() => go('map')} style={[s.worldCard, { backgroundColor: t.action }]}><Image source={host.image('journey-calm.jpg')} style={s.fill} resizeMode="cover"/><View style={s.worldCaption}><Text style={[s.text, { color: light.primary, fontSize: 28, fontFamily: bold }]}>Japji Sahib</Text><Text style={[s.text, { color: light.primary, fontSize: 14 }]}>38 pauris · 6 regions</Text></View><View style={s.worldCta}><Text style={[s.text, { color: '#fff', fontFamily: bold }]}>{completed ? 'Continue exploring' : 'Begin your journey'}  →</Text></View></Pressable><View style={s.pad}><Button onPress={() => openPauri(selected)}>Continue Pauri {selected}</Button><Small>{attempts.length ? `${attempts.length} challenges completed · Your journey is saved here.` : "Your progress saves on this device."}</Small></View><Section>More banis</Section>{['Jaap Sahib', 'Anand Sahib', 'Chaupai Sahib', 'Rehras Sahib', 'Tav Prasad Savaiye', 'Kirtan Sohila'].map(name => <Row key={name} title={name} subtitle="Coming later" icon="book-open" onPress={() => setNotice(`${name} is a preview. Japji Sahib is ready to explore.`)}/>)}</>}
-      {screen === 'map' && <>
-        <View style={s.pad}>
-          <View style={s.rowBody}><View style={s.grow}><Heading>One path through Japji Sahib</Heading><Small>Scroll through all six regions.</Small></View><Icon name="star" color="#cba51e"/><Copy>{totalStars}/114</Copy></View>
-          <Button onPress={() => openPauri(selected)}>Continue with Pauri {selected} →</Button>
+      {screen === 'world' && <><View style={[s.pad, s.rowBody]}><View style={s.grow}><Heading>Your bani journey</Heading><Small>Choose where to practice.</Small></View><Pressable accessibilityRole="button" accessibilityLabel="Customize my explorer" onPress={() => go('character')}><Avatar small/></Pressable></View><Pressable accessibilityRole="button" accessibilityLabel="Explore Japji Sahib" onPress={() => go('map')} style={[s.worldCard, { backgroundColor: t.action }]}><Image source={host.image('journey-calm.jpg')} style={s.fill} resizeMode="cover"/><View style={s.worldCaption}><Text style={[s.text, { color: light.primary, fontSize: 28, fontFamily: bold }]}>Japji Sahib</Text><Text style={[s.text, { color: light.primary, fontSize: 14 }]}>38 pauris · One connected journey</Text></View><View style={s.worldCta}><Text style={[s.text, { color: '#fff', fontFamily: bold }]}>{completed ? 'Continue exploring' : 'Begin your journey'}  →</Text></View></Pressable><View style={s.pad}><Button onPress={() => openPauri(selected)}>Continue Pauri {selected}</Button><Small>{attempts.length ? `${attempts.length} challenges completed · Your journey is saved here.` : "Your progress saves on this device."}</Small></View><Section>More banis</Section>{['Jaap Sahib', 'Anand Sahib', 'Chaupai Sahib', 'Rehras Sahib', 'Tav Prasad Savaiye', 'Kirtan Sohila'].map(name => <Row key={name} title={name} subtitle="Coming later" icon="book-open" onPress={() => setNotice(`${name} is a preview. Japji Sahib is ready to explore.`)}/>)}</>}
+      {screen === 'map' && <View style={{ backgroundColor: '#c0d3b2' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 20, paddingVertical: 8, backgroundColor: '#e3d9a7' }}>
+          <View style={s.inline}><Icon name="star" color="#887127" size={18}/><Copy style={{ color: light.primary, fontSize: 14 }}>{totalStars}/114</Copy></View>
+          <Pressable accessibilityRole="button" accessibilityLabel={`Continue Pauri ${selected}`} onPress={() => openPauri(selected)} style={{ minHeight: 44, justifyContent: 'center' }}><Copy style={{ color: light.primary, fontFamily: bold, fontSize: 15 }}>Continue Pauri {selected} →</Copy></Pressable>
         </View>
-        {regions.map((chapter, index) => <View key={chapter.name}>
-          <View style={[s.pad, { backgroundColor: t.subtle }]}>
-            <Small>Region {index + 1} · Pauris {chapter.start}–{chapter.end}</Small>
-            <Heading>{chapter.name}</Heading>
-            <Small>{chapter.place}</Small>
-          </View>
-          <View style={[s.map, { aspectRatio: chapter.aspectRatio }]}>
-            <Image source={host.image(chapter.image)} accessibilityLabel={chapter.description} style={s.fill} resizeMode="cover"/>
-            {Array.from({ length: chapter.end - chapter.start + 1 }, (_, i) => {
-              const n = chapter.start + i;
-              const count = progress.best[String(n)] ?? 0;
-              // Follow the painted clearings from top to bottom as the child scrolls.
-              const position = chapter.nodes[chapter.nodes.length - 1 - i];
-              return <Pressable key={n} accessibilityRole="button" accessibilityLabel={`Pauri ${n}, ${count} of 3 stars`} onPress={() => openPauri(n)} style={[s.mapNode, { left: `${position[0]}%`, top: `${position[1]}%`, marginLeft: -30, marginTop: -24 }]}>
-                <View style={[s.nodeDisc, { backgroundColor: n === selected ? t.primary : count ? '#426a46' : '#fff', borderColor: '#fff' }]}><Text style={[s.text, { fontFamily: bold, fontSize: 23, color: count || n === selected ? '#fff' : light.primary }]}>{n}</Text></View>
-                <View style={s.nodeStars}><Stars count={count}/></View>
-              </Pressable>;
-            })}
-          </View>
-        </View>)}
-        <View style={s.pad}><Heading>A journey to keep returning to</Heading><Small>Revisit any pauri to practice and grow your mastery.</Small></View>
-      </>}
+        <View style={{ width: '100%', aspectRatio: journeyMap.width / journeyMap.height }}>
+          <Image source={host.image(journeyMap.image)} accessibilityLabel="One winding path through fields, riverbanks and groves, connecting all 38 pauris" style={s.fill} resizeMode="stretch"/>
+          {journeyMap.nodes.map(({ pauri: n, x, y }) => {
+            const count = progress.best[String(n)] ?? 0;
+            return <Pressable key={n} accessibilityRole="button" accessibilityState={{ selected: n === selected }} accessibilityLabel={`Pauri ${n}, ${count} of 3 stars`} onPress={() => openPauri(n)} style={[s.mapNode, { left: `${x / journeyMap.width * 100}%`, top: `${y / journeyMap.height * 100}%`, marginLeft: -30, marginTop: -24 }]}>
+              <View style={[s.nodeDisc, { backgroundColor: n === selected ? t.primary : count ? '#426a46' : '#fff', borderColor: '#fff' }]}><Text style={[s.text, { fontFamily: bold, fontSize: 23, color: count || n === selected ? '#fff' : light.primary }]}>{n}</Text></View>
+              <View style={s.nodeStars}><Stars count={count}/></View>
+            </Pressable>;
+          })}
+        </View>
+      </View>}
       {screen === 'pauri' && <><View style={[s.pad, s.center, { backgroundColor: t.subtle }]}><Small>Japji Sahib</Small><Heading>Pauri {selected}</Heading><Stars count={best} large/><Small>{pauri.lines.length} lines · Your best: {best}/3 stars</Small></View>{story && <View style={{ padding: 16, gap: 10 }}>
         <Copy style={{ fontFamily: bold, fontSize: 18 }}>{story.title}</Copy>
         <StoryScene pauri={selected} line={0} host={host} overview/>
