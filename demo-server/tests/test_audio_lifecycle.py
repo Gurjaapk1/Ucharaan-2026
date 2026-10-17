@@ -35,10 +35,10 @@ class AudioLifecycle(unittest.TestCase):
             if fail:
                 raise ValueError('simulated inference failure')
             return ([], False) if name == 'score' else ({'reached': None, 'status': 'ok'}, 1, {})
-        namespace = dict(API_KEY='test-only-key', RECITERS=['bjs'], Path=Path, os=os,
+        namespace = dict(API_KEY='test-only-key', Path=Path, os=os,
                          tempfile=tempfile, time=time, log=logging.getLogger('test'),
                          HTTPException=HTTPError, File=lambda *a: None, Form=lambda x:x,
-                         Header=lambda x:x, parse_seqs=lambda x:[5], score_rows=process,
+                         Header=lambda x:x, parse_request=lambda *a:(2, 'bjs', [5]), score_rows=process,
                          follow_body=process, to_response=lambda *a:({'status':'ok'}, 1))
         exec(compile(ast.Module(body=[fn], type_ignores=[]), str(SOURCE), 'exec'), namespace)
         return namespace[name], calls

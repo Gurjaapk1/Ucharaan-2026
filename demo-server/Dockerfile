@@ -1,5 +1,6 @@
 # Demo pronunciation scorer, built in Azure with `az acr build` (no local Docker needed).
-# Model + reciter audio are fetched at build time so the container starts with no downloads.
+# Model + every reciter track in banis/catalog.json (19 tracks, ~450 MB of wav) are fetched at build time,
+# so the container starts with no downloads. Word clips are cut on first request into clips/ (ephemeral).
 FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1 \

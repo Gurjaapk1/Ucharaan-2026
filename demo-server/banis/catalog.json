@@ -1,0 +1,191 @@
+[
+ {
+  "id": 2,
+  "token": "japji",
+  "name": "ਜਪੁਜੀ ਸਾਹਿਬ",
+  "translit": "japujee saahib",
+  "reciters": {
+   "bjs": {
+    "track": "BhaiJarnailSingh/JapjiSahib.m4a",
+    "lyrics": "BhaiJarnailSingh/japji-sahib.json",
+    "audio": "japji_BhaiJarnailSingh",
+    "timings": "bjs.json",
+    "lines": 385
+   },
+   "imk": {
+    "track": "IndermohanKaurUK/JapjiSahib.m4a",
+    "lyrics": "IndermohanKaurUK/JapjiSahib.json",
+    "audio": "japji_IndermohanKaurUK",
+    "timings": "imk.json",
+    "lines": 385
+   },
+   "ggs": {
+    "track": "GianiGurdevSingh/JapjiSahib.m4a",
+    "lyrics": "GianiGurdevSingh/JapjiSahib.json",
+    "audio": "japji_ggs",
+    "timings": "ggs.json",
+    "lines": 385
+   }
+  }
+ },
+ {
+  "id": 4,
+  "token": "jaap",
+  "name": "ਜਾਪੁ ਸਾਹਿਬ",
+  "translit": "jaap saahib",
+  "reciters": {
+   "bjs": {
+    "track": "BhaiJarnailSingh/JaapSahib.m4a",
+    "lyrics": "BhaiJarnailSingh/jaap-sahib.json",
+    "audio": "jaap_bjs",
+    "timings": "jaap_bjs.json",
+    "lines": 808
+   },
+   "imk": {
+    "track": "IndermohanKaurUK/JaapSahib.m4a",
+    "lyrics": "IndermohanKaurUK/JaapSahib.json",
+    "audio": "jaap_imk",
+    "timings": "jaap_imk.json",
+    "lines": 808
+   },
+   "ggs": {
+    "track": "GianiGurdevSingh/JaapSahib.m4a",
+    "lyrics": "GianiGurdevSingh/JaapSahib.json",
+    "audio": "jaap_ggs",
+    "timings": "jaap_ggs.json",
+    "lines": 808
+   }
+  }
+ },
+ {
+  "id": 6,
+  "token": "svaiye",
+  "name": "ਤ੍ਵ ਪ੍ਰਸਾਦਿ ਸਵੱਯੇ (ਸ੍ਰਾਵਗ ਸੁੱਧ)",
+  "translit": "tavai prasaadh sava'ye (sraavag su'dh)",
+  "reciters": {
+   "bjs": {
+    "track": "BhaiJarnailSingh/Saviye.m4a",
+    "lyrics": "BhaiJarnailSingh/saviye.json",
+    "audio": "svaiye_bjs",
+    "timings": "svaiye_bjs.json",
+    "lines": 43
+   },
+   "imk": {
+    "track": "IndermohanKaurUK/TavParsadSwayiye.m4a",
+    "lyrics": "IndermohanKaurUK/TavParsadSwayiye.json",
+    "audio": "svaiye_imk",
+    "timings": "svaiye_imk.json",
+    "lines": 43
+   },
+   "ggs": {
+    "track": "GianiGurdevSingh/TavParsadSwayiye.m4a",
+    "lyrics": "GianiGurdevSingh/TavParsadSwayiye.json",
+    "audio": "svaiye_ggs",
+    "timings": "svaiye_ggs.json",
+    "lines": 43
+   }
+  }
+ },
+ {
+  "id": 9,
+  "token": "chaupai",
+  "name": "ਬੇਨਤੀ ਚੌਪਈ ਸਾਹਿਬ",
+  "translit": "benatee chauapiee saahib",
+  "reciters": {
+   "bjs": {
+    "track": "BhaiJarnailSingh/ChaupaiSahib.m4a",
+    "lyrics": "BhaiJarnailSingh/chopai-sahib.json",
+    "audio": "chaupai_bjs",
+    "timings": "chaupai_bjs.json",
+    "lines": 130
+   },
+   "imk": {
+    "track": "IndermohanKaurUK/ChaupaiSahib.m4a",
+    "lyrics": "IndermohanKaurUK/ChaupaiSahib.json",
+    "audio": "chaupai_imk",
+    "timings": "chaupai_imk.json",
+    "lines": 104
+   },
+   "ggs": {
+    "track": "GianiGurdevSingh/ChaupaiSahib.m4a",
+    "lyrics": "GianiGurdevSingh/ChaupaiSahib.json",
+    "audio": "chaupai_ggs",
+    "timings": "chaupai_ggs.json",
+    "lines": 130
+   }
+  }
+ },
+ {
+  "id": 10,
+  "token": "anand",
+  "name": "ਅਨੰਦੁ ਸਾਹਿਬ",
+  "translit": "ana(n)dh saahib",
+  "reciters": {
+   "bjs": {
+    "track": "BhaiJarnailSingh/AnandSahib.m4a",
+    "lyrics": "BhaiJarnailSingh/anand-sahib.json",
+    "audio": "anand_bjs",
+    "timings": "anand_bjs.json",
+    "lines": 211
+   },
+   "imk": {
+    "track": "IndermohanKaurUK/AnandSahib.m4a",
+    "lyrics": "IndermohanKaurUK/AnandSahib.json",
+    "audio": "anand_imk",
+    "timings": "anand_imk.json",
+    "lines": 210
+   },
+   "ggs": {
+    "track": "GianiGurdevSingh/AnandSahib.m4a",
+    "lyrics": "GianiGurdevSingh/AnandSahib.json",
+    "audio": "anand_ggs",
+    "timings": "anand_ggs.json",
+    "lines": 210
+   }
+  }
+ },
+ {
+  "id": 21,
+  "token": "rehras",
+  "name": "ਰਹਰਾਸਿ ਸਾਹਿਬ",
+  "translit": "raharaas saahib",
+  "reciters": {
+   "bjs": {
+    "track": "BhaiJarnailSingh/RehrasSahib-trimmed.m4a",
+    "lyrics": "BhaiJarnailSingh/Rehras-sahib-trimmed.json",
+    "audio": "rehras_bjs",
+    "timings": "rehras_bjs.json",
+    "lines": 435
+   },
+   "imk": {
+    "track": "IndermohanKaurUK/RehrasSahib.m4a",
+    "lyrics": "IndermohanKaurUK/RehrasSahib.json",
+    "audio": "rehras_imk",
+    "timings": "rehras_imk.json",
+    "lines": 340
+   }
+  }
+ },
+ {
+  "id": 23,
+  "token": "sohila",
+  "name": "ਸੋਹਿਲਾ ਸਾਹਿਬ",
+  "translit": "sohilaa saahib",
+  "reciters": {
+   "bjs": {
+    "track": "BhaiJarnailSingh/KirtanSohaila-trimmed.m4a",
+    "lyrics": "BhaiJarnailSingh/kirtan-sohaila-trimmed.json",
+    "audio": "sohila_bjs",
+    "timings": "sohila_bjs.json",
+    "lines": 78
+   },
+   "imk": {
+    "track": "IndermohanKaurUK/KirtanSohaila.m4a",
+    "lyrics": "IndermohanKaurUK/KirtanSohaila.json",
+    "audio": "sohila_imk",
+    "timings": "sohila_imk.json",
+    "lines": 54
+   }
+  }
+ }
+]

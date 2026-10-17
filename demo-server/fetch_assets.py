@@ -2,26 +2,24 @@ import sys
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 # One-time setup for the demo server (macOS / Linux / Windows):
 #   python -m venv .venv && .venv/bin/pip install -r requirements.txt
-#   .venv/bin/python fetch_assets.py          # ~1.1 GB download, ~600 MB kept
+#   .venv/bin/python fetch_assets.py          # ~1.3 GB download, ~1 GB kept
 #   .venv/bin/uvicorn demo_server:app --host 0.0.0.0 --port 8000
-# Downloads the IndicConformer ONNX + tokenizer into ./models and the three reciters' Japji Sahib
-# recordings into ./audio (decoded to 16 kHz mono wav). Re-running skips anything already present.
-import shutil, subprocess, tarfile, urllib.request
+# Downloads the IndicConformer ONNX + tokenizer into ./models and every reciter track in banis/catalog.json
+# (7 banis, 19 tracks, ~270 MB from the Khalis CDN) into ./audio, decoded to 16 kHz mono wav (~450 MB).
+# Re-running skips anything already present. `python fetch_assets.py 2 4` fetches only those banis.
+import tarfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-import imageio_ffmpeg
 from huggingface_hub import hf_hub_download
 from paths import AUDIO, MODELS
+import banis as B
 
 REPO = "surindersinghssj/indicconformer-pa-v3-kirtan"
 ONNX = "onnx-pa-only/fp32/indicconformer-pa-ctc.onnx"
 NEMO = "indicconformer-pa-v3-kirtan.nemo"
 TOKENIZER_MEMBER = "./0940175879b84382b38eed39f1e6f473_tokenizer.model"   # langs.pa.model_path in the .nemo's model_config.yaml
-CDN = "https://gurbani-audios-c4abhzghhnccd5gj.z01.azurefd.net/audios/{}/JapjiSahib.m4a"
-RECITERS = {"GianiGurdevSingh": "japji_ggs", "BhaiJarnailSingh": "japji_BhaiJarnailSingh",
-            "IndermohanKaurUK": "japji_IndermohanKaurUK"}
 
 
 def fetch_model():
@@ -41,24 +39,19 @@ def fetch_model():
     print(f"model ok: {MODELS / ONNX}, {tok}")
 
 
-def fetch_audio():
-    AUDIO.mkdir(parents=True, exist_ok=True)
-    ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
-    for folder, stem in RECITERS.items():
-        wav, m4a = AUDIO / f"{stem}.wav", AUDIO / f"{stem}.m4a"
-        if wav.exists():
+def fetch_audio(only=()):
+    for bani, meta in B.CATALOG.items():
+        if only and bani not in only:
             continue
-        if not m4a.exists():
-            print(f"downloading {folder} Japji Sahib")
-            req = urllib.request.Request(CDN.format(folder), headers={"User-Agent": "UchaaranAssetFetcher/1.0"})
-            with urllib.request.urlopen(req) as r, open(m4a, "wb") as f:
-                shutil.copyfileobj(r, f)
-        # same decode as spike-align/reciter_check.py: mono, 16 kHz, 16-bit wav
-        subprocess.run([ffmpeg, "-loglevel", "error", "-y", "-i", str(m4a), "-ac", "1", "-ar", "16000", str(wav)], check=True)
-        print(f"wrote {wav}")
+        for rec in B.reciters(bani):
+            wav = AUDIO / f"{meta['reciters'][rec]['audio']}.wav"
+            if not wav.exists():
+                print(f"fetching {meta['reciters'][rec]['track']}")
+                B.fetch_track(meta["reciters"][rec])
+            print(f"ok {wav.name}")
 
 
 if __name__ == "__main__":
     fetch_model()
-    fetch_audio()
+    fetch_audio({int(x) for x in sys.argv[1:]})
     print("assets ready; start with: uvicorn demo_server:app --host 0.0.0.0 --port 8000")

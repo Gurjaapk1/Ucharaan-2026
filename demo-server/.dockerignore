@@ -5,3 +5,4 @@ models/
 audio/
 *.log
 .git
+clips/

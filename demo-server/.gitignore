@@ -3,3 +3,4 @@ audio/
 runs/
 __pycache__/
 *.log
+clips/

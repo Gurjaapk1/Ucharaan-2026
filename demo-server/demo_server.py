@@ -1,16 +1,18 @@
 import sys
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 # Demo scoring API wrapping phone_score.py (2026-10-16 live demo). Flags are the spike's UNCALIBRATED heuristics.
+# Scores any bani in banis/catalog.json against one reciter's track, and serves word clips of the reciter.
 # setup: pip install -r requirements.txt; python fetch_assets.py
 # run:   uvicorn demo_server:app --host 0.0.0.0 --port 8000   (from this folder)
-import ast, json, logging, os, tempfile, threading, time
+import ast, gzip, json, logging, os, re, tempfile, threading, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-from fastapi import FastAPI, File, Form, Header, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, Header, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse, Response
 
 
 def load_phone_score():
@@ -34,16 +36,19 @@ log = logging.getLogger("demo_server")
 API_KEY = os.environ.get("UCHAARAN_API_KEY")
 if not API_KEY or API_KEY == "REPLACE_WITH_SECRET":
     raise RuntimeError("Set UCHAARAN_API_KEY to a private deployment secret before starting the scorer")
-RECITERS = ["ggs", "bjs", "imk"]
-from paths import MODELS, AUDIO
-if not (MODELS / "tokenizer.model").exists() or not (AUDIO / "japji_ggs.wav").exists():
-    sys.exit("models/ or audio/ missing: run `python fetch_assets.py` first")
+import banis as B
+from paths import CLIPS, MODELS
+if not (MODELS / "tokenizer.model").exists():
+    sys.exit("models/ missing: run `python fetch_assets.py` first")
 CAND, _SHOW = P["get_model"]("indicconformer")      # loaded once at startup
 torch = C.torch
 torch.set_num_threads(4)                              # ORT already runs 4 intra-op threads (IndicConformer.set_threads)
 MAX_SPAN = 30            # lines per request; the reference is one block of reciter audio, so 1-385 would be 21 min
 FOLLOW_MIN_S = 1.0       # /v1/follow: shorter clips are treated as not started yet
-LOCK = threading.Lock()
+CLIP_PAD = 0.06          # seconds of the reciter's audio kept either side of a word clip
+CLIP_MAX = 3.0           # a sung word can run on; this keeps every clip under 100 KB
+LOCK = threading.Lock()  # one model, one inference at a time
+CLIP_LOCK = threading.Lock()
 # reference results: read phone_score's cache file, never write it (new keys live in memory only)
 REFCACHE = json.load(open(P["CACHE"], encoding="utf-8")) if P["CACHE"].exists() else {}
 log.info(f"model {CAND.name} loaded; refcache keys {list(REFCACHE)}")
@@ -54,33 +59,62 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "P
                    allow_headers=["X-Api-Key", "Content-Type"])
 
 
-def parse_seqs(s):
+def parse_request(bani, reciter, seqs):
+    """Form fields -> (bani id, reciter, seqs). ValueError (-> 400) names what is available instead."""
+    try:
+        b = int(str(bani).strip())
+    except ValueError:
+        b = None
+    if b not in B.CATALOG:
+        raise ValueError(f"bani must be one of {sorted(B.CATALOG)}")
+    rec = str(reciter).lower()
+    if rec not in B.reciters(b):
+        raise ValueError(f"reciter must be one of {B.reciters(b)}")
+    return b, rec, parse_seqs(seqs, b, rec)
+
+
+def parse_seqs(s, bani, rec):
+    """'5-10' (the reciter's lines in that range) or '5,7'. A line the reciter does not recite cannot be scored."""
+    have = B.timings(bani, rec)
+    lo, hi = min(have), max(have)
     s = s.strip()
     if "-" in s:
-        a, b = (int(x) for x in s.split("-", 1))
-        seqs = list(range(a, b + 1))
+        a, z = (int(x) for x in s.split("-", 1))
+        seqs = B.covered(bani, rec, a, z) if a in have and z in have else [a, z]
     else:
         seqs = sorted({int(x) for x in s.split(",") if x.strip()})
-    if not seqs or any(q not in C.LINES for q in seqs):
-        raise ValueError(f"seqs must be within {min(C.LINES)}-{max(C.LINES)}")
+    if not seqs or any(q < lo or q > hi for q in seqs):
+        raise ValueError(f"seqs must be within {lo}-{hi}")
+    missing = [q for q in seqs if q not in have]
+    if missing:
+        raise ValueError(f"lines {missing} are not in the {rec} recording of bani {bani}")
     if seqs[-1] - seqs[0] + 1 > MAX_SPAN:
         raise ValueError(f"seqs may span at most {MAX_SPAN} lines")
     return seqs
 
 
-def reference(ref, s0, s1):
-    key = f"{CAND.name}:{ref}:{s0}-{s1}"
+def block_words(bani, rec, s0, s1):
+    return [(s, i, w) for s in B.covered(bani, rec, s0, s1) for i, w in enumerate(B.words_of(bani, s))]
+
+
+def reference(bani, rec, s0, s1):
+    """The reciter's own alignment of lines s0..s1 (call under LOCK). Japji keeps phone_score's cache keys, so the
+    shipped phone_score_refcache.json still applies."""
+    ref = rec.upper()
+    key = f"{CAND.name}:{ref}:{s0}-{s1}" if bani == 2 else f"{CAND.name}:{bani}:{ref}:{s0}-{s1}"
     if key not in REFCACHE:
-        rwave, _ = C.block(ref, s0, s1)
+        rwave, _ = B.block(bani, rec, s0, s1)
         em, ratio = P["emissions"](CAND, rwave)
-        ids = [CAND.ids_of(CAND.text_of(w)) for s in range(s0, s1 + 1) for w in C.gurmukhi_of(s)]
+        ids = [CAND.ids_of(CAND.text_of(w)) for _, _, w in block_words(bani, rec, s0, s1)]
         REFCACHE[key] = dict(block_s=len(rwave) / SR, words=P["as_secs"](C.align(em, ids, CAND.blank, CAND.delim)[0], ratio))
     return REFCACHE[key]
 
 
-def score_rows(path, ref, s0, s1):
+def score_rows(path, bani, rec, keep):
     """phone_score.main()'s scoring loop, minus printing and file writes. Returns (rows, silent)."""
-    words = [(s, i, w) for s in range(s0, s1 + 1) for i, w in enumerate(C.gurmukhi_of(s))]
+    s0, s1 = min(keep), max(keep)
+    words = block_words(bani, rec, s0, s1)
+    B.wav_path(bani, rec)                 # a track the build did not fetch downloads here, outside the model lock
     wave = P["decode"](path)
     dur = len(wave) / SR
     peak, rms = (float(np.abs(wave).max()), float(np.sqrt(np.mean(wave ** 2)))) if len(wave) else (0.0, 0.0)
@@ -88,7 +122,7 @@ def score_rows(path, ref, s0, s1):
         return [dict(seq=s, idx=i, gurmukhi=w, flag="unclear", gop=None, ref_gop=None) for s, i, w in words], True
     ids = [CAND.ids_of(CAND.text_of(w)) for _, _, w in words]
     with LOCK:
-        R = reference(ref, s0, s1)
+        R = reference(bani, rec, s0, s1)
         em, ratio = P["emissions"](CAND, wave)
     n_fit = len(words)
     try:
@@ -144,9 +178,108 @@ def healthz():
     return {"ok": True, "model": CAND.name}
 
 
+MANIFESTS = {}
+
+
 @app.get("/v1/manifest")
-def manifest(bani: int = 2):
-    return {"bani": bani, "reciters": RECITERS, "star_bands": [60, 80, 95], "lines": {}}
+def manifest(request: Request, bani: int = 2):
+    """Banis and reciters the service scores, star bands, and for this bani every line each reciter recites with
+    its words and their clip paths (resolved by the app as {base}/reference/{clip_url})."""
+    if bani not in B.CATALOG:
+        raise HTTPException(404, f"bani must be one of {sorted(B.CATALOG)}")
+    if bani not in MANIFESTS:
+        body = dict(bani=bani, reciters=B.reciters(bani), star_bands=[60, 80, 95],
+                    banis=[dict(id=k, token=v["token"], name=v["name"], reciters=B.reciters(k))
+                           for k, v in B.CATALOG.items()],
+                    lines={rec: {str(s): dict(words=[dict(idx=i, gurmukhi=w, clip_url=f"{bani}/{rec}/{s}/{i}.wav")
+                                                     for i, w in enumerate(B.words_of(bani, s))])
+                                 for s in sorted(B.timings(bani, rec))}
+                           for rec in B.reciters(bani)})
+        raw = json.dumps(body, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
+        MANIFESTS[bani] = (raw, gzip.compress(raw, 6))
+    raw, packed = MANIFESTS[bani]
+    if "gzip" in request.headers.get("accept-encoding", ""):
+        return Response(packed, media_type="application/json",
+                        headers={"Content-Encoding": "gzip", "Vary": "Accept-Encoding"})
+    return Response(raw, media_type="application/json", headers={"Vary": "Accept-Encoding"})
+
+
+# ---- word clips: the reciter saying one word, cut at the aligned word boundaries ----
+
+CLIP_PATH = re.compile(r"(\d+)/([a-z]+)/(\d+)/(\d+)\.wav")
+
+
+def clip_spans(wave, words):
+    """Sample span of each aligned word. CTC puts a word's tokens on a few 40 ms frames, so each edge moves out to
+    where the voice stops: the first quiet 10 ms frame after the word and the last one before the next word (the
+    quietest frame between them when there is no pause), then CLIP_PAD more on both sides."""
+    hop = SR // 100
+    n = len(wave) // hop
+    db = 10 * np.log10(np.mean(wave[:n * hop].reshape(n, hop) ** 2, axis=1) + 1e-10)
+    quiet = db < max(db.max() - 30, -50)
+    frame = lambda t: min(n, max(0, int(round(t * 100))))
+    starts, ends = [frame(w["start_s"]) for w in words], [frame(w["end_s"]) for w in words]
+    lo, hi = [0] * len(words), [0] * len(words)
+    for i in range(len(words) + 1):            # gap i lies between word i-1 and word i
+        a = ends[i - 1] if i else max(0, starts[0] - 50)
+        z = starts[i] if i < len(words) else min(n, ends[-1] + 80)
+        q = np.flatnonzero(quiet[a:z]) if z > a else []
+        if len(q):
+            stop, go = a + q[0], a + q[-1] + 1
+        else:
+            stop = go = a + int(np.argmin(db[a:z])) if z > a else a
+        if i:
+            hi[i - 1] = stop
+        if i < len(words):
+            lo[i] = go
+    pad = int(CLIP_PAD * SR)
+    return [(max(0, a * hop - pad), min(len(wave), min(max(z, a + 4), a + int(CLIP_MAX * 100)) * hop + pad))
+            for a, z in zip(lo, hi)]
+
+
+def line_clips(bani, rec, seq):
+    """Folder with {idx}.wav for every word of one line; the first request for a line cuts all of them."""
+    d = CLIPS / str(bani) / rec / str(seq)
+    if d.is_dir():
+        return d
+    with CLIP_LOCK:
+        if d.is_dir():
+            return d
+        wave, _ = B.block(bani, rec, seq, seq)
+        n = len(B.words_of(bani, seq))
+        try:
+            with LOCK:
+                words = reference(bani, rec, seq, seq)["words"]
+            spans = clip_spans(wave, words)
+        except C.AlignError:                   # line timing too short for its text: each word gets the whole line
+            spans = [(0, min(len(wave), int(CLIP_MAX * SR)))] * n
+        tmp = d.with_name(d.name + ".part")
+        tmp.mkdir(parents=True, exist_ok=True)
+        fade = np.linspace(0, 1, SR // 200, dtype=np.float32)
+        for i, (a, z) in enumerate(spans):
+            x = wave[a:z].copy()
+            k = min(len(fade), len(x) // 2)
+            if k:
+                x[:k] *= fade[:k]
+                x[-k:] *= fade[:k][::-1]
+            B.sf.write(tmp / f"{i}.wav", x, SR, subtype="PCM_16")
+        os.replace(tmp, d)
+    return d
+
+
+@app.get("/reference/{path:path}")
+def reference_clip(path: str):
+    """A manifest clip_url. No key: the app's audio player cannot send one, and the clips come from the reciter
+    tracks the Khalis CDN already serves publicly."""
+    m = CLIP_PATH.fullmatch(path)
+    if not m:
+        raise HTTPException(404, "no such clip")
+    bani, rec, seq, idx = int(m[1]), m[2], int(m[3]), int(m[4])
+    if (bani not in B.CATALOG or rec not in B.reciters(bani) or seq not in B.timings(bani, rec)
+            or idx >= len(B.words_of(bani, seq))):
+        raise HTTPException(404, "no such clip")
+    return FileResponse(line_clips(bani, rec, seq) / f"{idx}.wav", media_type="audio/wav",
+                        headers={"Cache-Control": "public, max-age=86400"})
 
 
 @app.post("/v1/score")
@@ -155,10 +288,8 @@ async def score(audio: UploadFile = File(...), bani: str = Form("2"), reciter: s
     t0 = time.time()
     if x_api_key != API_KEY:
         raise HTTPException(401, "bad or missing X-Api-Key")
-    if reciter.lower() not in RECITERS:
-        raise HTTPException(400, f"reciter must be one of {RECITERS}")
     try:
-        keep = parse_seqs(seqs)
+        b, rec, keep = parse_request(bani, reciter, seqs)
     except ValueError as e:
         raise HTTPException(400, str(e))
     data = await audio.read()
@@ -167,7 +298,7 @@ async def score(audio: UploadFile = File(...), bani: str = Form("2"), reciter: s
     try:
         with os.fdopen(fd, "wb") as f:
             f.write(data)
-        rows, silent = score_rows(tmp, reciter.upper(), min(keep), max(keep))
+        rows, silent = score_rows(tmp, b, rec, keep)
     except Exception as e:
         log.info(f"score FAILED in {time.time() - t0:.2f}s: {type(e).__name__}: {e}")
         raise HTTPException(422, f"could not score recording: {type(e).__name__}")
@@ -177,7 +308,7 @@ async def score(audio: UploadFile = File(...), bani: str = Form("2"), reciter: s
         except OSError:
             pass
     body, n = to_response(rows, silent, set(keep))
-    log.info(f"score bani={bani} ref={reciter} seqs={seqs} {time.time() - t0:.2f}s words={n} status={body['status']}")
+    log.info(f"score bani={b} ref={rec} seqs={seqs} {time.time() - t0:.2f}s words={n} status={body['status']}")
     return body
 
 
@@ -217,9 +348,10 @@ def best_prefix(em, ids):
         return (best[1], best[2]) if best else (0, [])
 
 
-def follow_body(path, ref, keep):
+def follow_body(path, bani, rec, keep):
     s0, s1 = min(keep), max(keep)
-    words = [(s, i, w) for s in range(s0, s1 + 1) for i, w in enumerate(C.gurmukhi_of(s))]
+    words = block_words(bani, rec, s0, s1)
+    B.wav_path(bani, rec)
     t = {"t0": time.time()}
     wave = P["decode"](path)
     t["decode"] = time.time()
@@ -231,7 +363,7 @@ def follow_body(path, ref, keep):
     elif dur >= FOLLOW_MIN_S:
         ids = [CAND.ids_of(CAND.text_of(w)) for _, _, w in words]
         with LOCK:
-            R = reference(ref, s0, s1)
+            R = reference(bani, rec, s0, s1)
             t["ref"] = time.time()
             em, _ = P["emissions"](CAND, wave)
             t["emis"] = time.time()
@@ -261,10 +393,8 @@ async def follow(audio: UploadFile = File(...), bani: str = Form("2"), reciter: 
     t0 = time.time()
     if x_api_key != API_KEY:
         raise HTTPException(401, "bad or missing X-Api-Key")
-    if reciter.lower() not in RECITERS:
-        raise HTTPException(400, f"reciter must be one of {RECITERS}")
     try:
-        keep = parse_seqs(seqs)
+        b, rec, keep = parse_request(bani, reciter, seqs)
     except ValueError as e:
         raise HTTPException(400, str(e))
     data = await audio.read()
@@ -273,7 +403,7 @@ async def follow(audio: UploadFile = File(...), bani: str = Form("2"), reciter: 
     try:
         with os.fdopen(fd, "wb") as f:
             f.write(data)
-        body, dur, marks = follow_body(tmp, reciter.upper(), keep)
+        body, dur, marks = follow_body(tmp, b, rec, keep)
     except Exception as e:
         log.info(f"follow FAILED in {time.time() - t0:.2f}s: {type(e).__name__}: {e}")
         raise HTTPException(422, f"could not follow recording: {type(e).__name__}")
@@ -282,6 +412,6 @@ async def follow(audio: UploadFile = File(...), bani: str = Form("2"), reciter: 
             os.unlink(tmp)
         except OSError:
             pass
-    log.info(f"follow ref={reciter} seqs={seqs} audio={dur:.1f}s {time.time() - t0:.2f}s [{marks}] "
+    log.info(f"follow bani={b} ref={rec} seqs={seqs} audio={dur:.1f}s {time.time() - t0:.2f}s [{marks}] "
              f"reached={body['reached']} status={body['status']}")
     return body
