@@ -118,3 +118,7 @@ Give each region its own quiet terrain using landmarks from its pauri panoramas.
 Frames are retired. Do not restore frame selection, frame purchases or cosmetic frame colors on avatars or map nodes. Character customization uses Clothing, Belongings and Actions. Ignore legacy frame ownership/equipment fields when loading older saves; retain their remaining progress and wardrobe.
 
 Match regional maps to the original `journey-calm.jpg`: broad muted painted shapes, sparse trees and only a few simple landmarks. Avoid dense crops, foliage, rocks or miniature architectural details. Keep distinct terrain, clear numbered stops and three-star mastery. About this picture contains only the passage-specific explanation, without a generic memory-cue disclaimer.
+
+## Continuous journey map
+
+Show all six Japji Sahib regions in one vertical scroll, with clear region headings and pauri numbers progressing top to bottom. The painted clearing coordinates are traversed in reverse order to follow the downward scroll without flipping the artwork. Do not restore the region-switching tab rail. Keep each terrain, three-star mastery and direct pauri entry. Reuse the existing quiet artwork unless new connecting artwork is explicitly needed.
