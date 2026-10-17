@@ -11,3 +11,5 @@ The scoring diagram and integration wording reflect the draft spec at `origin/ma
 Validation: one page, 11 pt minimum document text, three exact link annotations, rendered and visually reviewed. The user supplied a whiteboard photo. Its grades 6 to 8 audience, engagement versus understanding distinction, pronunciation-first goal and bani-to-pauri-to-line progression informed the revised copy. Sketched percentages are conceptual examples, not measured outcomes. No organizer submission or GitHub push was performed for this revision.
 
 Rebuild from the project root with Python and ReportLab: `python3 outputs/final-submission/build_onepager.py`.
+
+Latest Paper-layout export: `Team12_Final_OnePager_Latest.pdf`, with actual Practice and Challenge screenshots. Exported from concept D; added three clickable footer annotations for the live prototype, GitHub main and Paper process. Verified one page, exact URLs, and rendered layout. Prior generated PDF retained.
