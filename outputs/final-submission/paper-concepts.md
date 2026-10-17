@@ -13,3 +13,9 @@ Recommendation: B as the visual base, borrowing C's pronunciation explanation. N
 Used the diagram-design skill's restrained hierarchy, simple step sequences and clear connectors, adapted to the existing project palette and requested Paper medium. Paper exposes the available Mac system face as System Sans-Serif, with actual 600 and 700 weights. SVG text rendered incorrectly and was replaced by editable system-font labels. Local image insertion failed; the existing public prototype assets loaded correctly. No new images were generated. All three use the main-branch GitHub URL, prototype URL and original Paper process URL.
 
 No GitHub push or PDF export was performed. Next: choose or combine a concept, then produce the revised one-page PDF.
+
+## D: fuller story and learning journey
+
+Added `29N-0` on the same Paper page, titled D · Full story and learning journey. This is a denser 816 x 1056 layout with compact header, two goals, a connected panorama, memory-palace rationale, five-step choose/listen/recite/review/grow diagram and an explicit retry annotation. Native integration and scoring design are explained below it. All three resource links and the full roster remain.
+
+Reviewed the final screenshot after correcting diagram overlap and label wrapping. Minimum text is 15 px, equivalent to 11.25 pt at the letter-sized target. Original concepts and existing PDF preserved. No direction is assumed final and no PDF export or GitHub push was performed.
