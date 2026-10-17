@@ -78,5 +78,5 @@ for i,(label,url) in enumerate(links):
  centered(label+' ↗',x,78,130);c.linkURL(url,(x,59,x+130,84),relative=0)
 # Use a real bold face for the lead-in within one continuously flowing paragraph.
 pdfmetrics.registerFontFamily('Body',normal='Body',bold='Heading')
-text('<b>Ready to help Khalis Foundation launch.</b> An implementation PR is open in the main app repository for review and deployment. We would love to help Khalis Foundation set up infrastructure and support its technical owners.',26,48,557,11,13)
+text('<b>Ready to help Khalis Foundation launch.</b> An implementation PR is open in the main app repository for approval and deployment! We would love to help with infrastructure and support your technical team.',26,48,557,11,13)
 c.save()
