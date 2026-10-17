@@ -48,6 +48,12 @@ def screenshot(path,x,y,w,h,crop,source):
  c.saveState();clip=c.beginPath();clip.rect(x,y,w,h);c.clipPath(clip,stroke=0)
  scale=w/sw
  c.drawImage(str(path),x-sx*scale,y+h-(ih-sy)*scale,width=iw*scale,height=ih*scale,mask='auto')
+ # Only the English heading/touch-indicator band uses the cleaned image.
+ # Preserve every original Gurbani pixel and all other interface content.
+ if path.name=='review-detail.png':
+  band=c.beginPath();band.rect(x,y+h-(300-sy)*scale,w,80*scale)
+  c.clipPath(band,stroke=0)
+  c.drawImage(str(HERE/'review-cleaned.png'),x-sx*scale,y+h-(ih-sy)*scale,width=iw*scale,height=ih*scale,mask='auto')
  c.restoreState();c.setStrokeColor(HexColor(INK));c.setLineWidth(1.3);c.rect(x,y,w,h,fill=0,stroke=1)
 screenshot(HERE/'practice-current.png',302,385,134,166,(15,60,360,538),(390,844))
 screenshot(HERE/'review-detail.png',449,385,134,166,(25,72,385,575),(434,886))
@@ -57,17 +63,17 @@ centered('Listen + recall',302,374,134)
 centered('Review each word',449,374,134)
 panel(26,289,557,65,PINK,3)
 text('What changed since midterm',39,342,530,12,16,True)
-text('Organizers asked for less pressure and simpler feedback. We added line-by-line scoring, short prompts, and an ML maintenance guide for Khalis Foundation.',39,320,530,11,14)
+text('Organizers asked for more attainable goals and simpler feedback for students. We added line-by-line scoring, short prompts, and an ML maintenance guide for Khalis Foundation.',39,320,530,11,14)
 text('Why a memory palace?',26,280,265,13,17,True)
 text('For grades 6 to 8, familiar scenes link each line to a place along 38 pauris. Sikh-inspired journeys invite recall and reflection. The ustaad guides pronunciation; rewards follow learning, not screen time.',26,258,266,11,13)
-text('Tools and implementation',26,168,266,12,16,True)
-text('Expo · React Native · TypeScript · Azure-hosted IndicConformer · BaniDB · reference audio. Codex and Paper supported development and design.',26,146,266,11,13)
+text('Tools and implementation',26,163,266,13,17,True)
+text('React Native / Expo · TypeScript · IndicConformer · BaniDB · reference audio. Built with Codex and Paper. MIT-licensed project code.',26,141,266,11,13)
 text('Private processing, by design',311,280,272,13,17,True)
 text('Recordings are processed privately in Azure. Temporary server recordings are deleted after scoring, with no use for public-model training.<br/><br/>Khalis Foundation can host the model in its own shared AWS or Azure environment. On-device packaging is another option for fully local processing that keeps recordings on device.',311,258,272,11,13)
-links=[('Watch demo','https://www.loom.com/share/8f0b7638963c4f4588720084fd15776c'),('Try the app','https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site'),('View code · MIT','https://github.com/Gurjaapk1/Ucharaan-2026/tree/main'),('Design process','https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0')]
+links=[('Watch demo','https://www.loom.com/share/8f0b7638963c4f4588720084fd15776c'),('Try the app','https://uchaaran-japji-journey.gsingh-honsla.chatgpt.site'),('View code','https://github.com/Gurjaapk1/Ucharaan-2026/tree/main'),('Design process','https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0')]
 for i,(label,url) in enumerate(links):
  x=26+i*142;panel(x,59,130,25,[YELLOW,BLUE,GREEN,PINK][i],2,1.2)
  centered(label+' ↗',x,78,130);c.linkURL(url,(x,59,x+130,84),relative=0)
-text('Ready to help Khalis Foundation launch.',26,48,557,11,14,True)
-text('An implementation PR is open in the main app repository for review and deployment. We can help Khalis Foundation set up infrastructure and support its technical owners.',26,32,557,11,14)
+text('Ready to help Khalis Foundation launch.',26,44,557,11,14,True)
+text('An implementation PR is open in the main app repository for review and deployment!',26,28,557,11,14)
 c.save()
