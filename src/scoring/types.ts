@@ -1,0 +1,54 @@
+/**
+ * The contract between the app and whatever scores a recitation.
+ *
+ * Deliberately provider-neutral: the app knows it sends a recording plus the
+ * reference text and timings, and receives per-line and per-word scores. Which
+ * speech model produces them is a server-side detail.
+ *
+ * Note on what can do this job: Claude and other text/vision LLMs cannot
+ * accept audio, so the scorer is a speech system — ASR with forced alignment,
+ * a pronunciation-assessment service, or an acoustic comparison against the
+ * ustaad's own recording. An LLM is useful downstream, turning these numbers
+ * into child-friendly coaching, not for the listening itself.
+ */
+
+/** One reference line: what should be said, and where it sits in the track. */
+export interface ReferenceLine {
+  text: string;
+  /** Seconds into the ustaad recording. */
+  start: number;
+  end: number;
+}
+
+export interface ScoreRequest {
+  pauriNumber: number;
+  lines: ReferenceLine[];
+  /** The child's recording. */
+  audio: { uri: string; mimeType: string };
+}
+
+/** A score for one word, located by its position in the reference text. */
+export interface WordScore {
+  lineIndex: number;
+  wordIndex: number;
+  /** 0-100, matching WordFeedback.score in the UI. */
+  score: number;
+}
+
+export interface ScoreResponse {
+  /** 0-100 per reference line, same order and length as the request. */
+  lineScores: number[];
+  words: WordScore[];
+  /** Which provider produced this, for logging and calibration. */
+  provider: string;
+}
+
+export class ScoringError extends Error {
+  readonly status?: number;
+
+  constructor(message: string, status?: number) {
+    super(message);
+    this.name = 'ScoringError';
+    this.status = status;
+  }
+}

@@ -1,1 +1,36 @@
 tmp/
+
+# local secrets
+.env
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# native build output
+ios/build/
+ios/Pods/
+ios/Podfile.lock
+ios/.xcode.env.local
+*.xcworkspace
+android/build/
+android/app/build/
+android/.gradle/
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# macOS
+.DS_Store
+
+# logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
