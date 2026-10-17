@@ -31,7 +31,9 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", stream=sys.stdout, force=True)
 log = logging.getLogger("demo_server")
 
-API_KEY = os.environ.get("UCHAARAN_API_KEY", "uchaaran-demo")
+API_KEY = os.environ.get("UCHAARAN_API_KEY")
+if not API_KEY or API_KEY == "REPLACE_WITH_SECRET":
+    raise RuntimeError("Set UCHAARAN_API_KEY to a private deployment secret before starting the scorer")
 RECITERS = ["ggs", "bjs", "imk"]
 from paths import MODELS, AUDIO
 if not (MODELS / "tokenizer.model").exists() or not (AUDIO / "japji_ggs.wav").exists():

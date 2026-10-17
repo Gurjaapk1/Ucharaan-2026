@@ -24,7 +24,7 @@ Same audio, same tests: alignment sanity against hand-checked word clips; plante
 | MMS forced aligner (Roman letters) | 25% | 11% | 20% | 7 s | non-commercial |
 | IPA phone model (xlsr-53-espeak) | 17% | 0% | 73% | 15 s | Apache-2.0 |
 
-Decision: **the Gurbani-trained IndicConformer runs the demo** (fast, permissive, trained on 480 h of Gurbani, no name-matched overlap with our three reciters across 516 training videos); **w2v-BERT is the production scorer** once it has an int8/ONNX export or a GPU, because it is the only commercially usable model that scores the recited form over the written one and can police the silent-sihari rule. The Roman-letter aligner we started with is nearly blind to matras and is non-commercial, so it was dropped.
+Decision: **the Gurbani-trained IndicConformer runs the demo** (fast, permissive, trained on 480 h of Gurbani, no name-matched overlap with our three reciters across 516 training videos); **w2v-BERT was selected as a production candidate** once it has an int8/ONNX export or a GPU, because it is the only commercially usable model that scores the recited form over the written one and can police the silent-sihari rule. The Roman-letter aligner we started with is nearly blind to matras and is non-commercial, so it was dropped.
 
 What no model could do: hear a dropped word-final ਾ (ਸਿਆਣਪਾ→ਸਿਆਣਪ) or detect extra speech the text does not contain. Those are stated limits, not bugs to fix tonight.
 
@@ -39,7 +39,7 @@ What no model could do: hear a dropped word-final ਾ (ਸਿਆਣਪਾ→ਸ�
 
 ## The demo server
 
-`demo-server/` (and the same image on Azure Container Apps): FastAPI around the tested command-line scorer. `POST /v1/score` takes a recording, reciter and line range and returns per-line share and per-word states plus a focus word; `POST /v1/follow` takes the recording-so-far and returns how far the child has got, for live word highlighting (2-3 s per 20 s of audio on 2-4 CPU threads). Audio is decoded in memory and never stored. Flags are uncalibrated heuristics from today's spike; the calibrated service with tests is `service/` on branch `service/scoring`.
+`demo-server/` (and the same image on Azure Container Apps): FastAPI around the tested command-line scorer. `POST /v1/score` takes a recording, reciter and line range and returns per-line share and per-word states plus a focus word; `POST /v1/follow` takes the recording-so-far and returns how far the child has got, for live word highlighting (2-3 s per 20 s of audio on 2-4 CPU threads). The current API writes an intermediate temporary audio file and deletes it in a `finally` block after processing; see `engineering/privacy.md` for the precise lifecycle. Flags are uncalibrated heuristics from today's spike; the calibrated service with tests is `service/` on branch `service/scoring`.
 
 ## What is still unvalidated
 
