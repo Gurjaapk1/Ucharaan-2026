@@ -1,0 +1,118 @@
+{
+  "fileName": "Uchaaran | V1 product and user journey",
+  "pageName": "Page 1",
+  "pageId": "p-1-0",
+  "url": "https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0",
+  "rootNodeId": "root_node_p-1-0",
+  "nodeCount": 521,
+  "artboardCount": 18,
+  "artboards": [
+    {
+      "id": "91-0",
+      "name": "01 \u2022 Journey home \u2022 sample state",
+      "childCount": 13,
+      "width": 390,
+      "height": 844,
+      "worldX": 0,
+      "worldY": 3120
+    },
+    {
+      "id": "AF-0",
+      "name": "02 \u2022 Listen and follow \u2022 sample timing",
+      "childCount": 14,
+      "width": 390,
+      "height": 844,
+      "worldX": 470,
+      "worldY": 3120
+    },
+    {
+      "id": "BW-0",
+      "name": "03 \u2022 Recite \u2022 listening state",
+      "childCount": 10,
+      "width": 390,
+      "height": 844,
+      "worldX": 940,
+      "worldY": 3120
+    },
+    {
+      "id": "D2-0",
+      "name": "04 \u2022 Pronunciation feedback \u2022 illustrative score",
+      "childCount": 12,
+      "width": 390,
+      "height": 844,
+      "worldX": 1410,
+      "worldY": 3120
+    },
+    {
+      "id": "E6-0",
+      "name": "05 \u2022 Practice complete \u2022 illustrative reward",
+      "childCount": 9,
+      "width": 390,
+      "height": 844,
+      "worldX": 1880,
+      "worldY": 3120
+    },
+    {
+      "id": "FB-0",
+      "name": "06 \u2022 Rewards collection \u2022 sample balances",
+      "childCount": 10,
+      "width": 390,
+      "height": 844,
+      "worldX": 2350,
+      "worldY": 3120
+    },
+    {
+      "id": "GX-0",
+      "name": "07 \u2022 Reward preview \u2022 before unlock",
+      "childCount": 10,
+      "width": 390,
+      "height": 844,
+      "worldX": 2820,
+      "worldY": 3120
+    },
+    {
+      "id": "I3-0",
+      "name": "08 \u2022 Reward unlocked \u2022 equip action",
+      "childCount": 8,
+      "width": 390,
+      "height": 844,
+      "worldX": 3290,
+      "worldY": 3120
+    },
+    {
+      "id": "J2-0",
+      "name": "09 \u2022 Unclear audio \u2022 recovery state",
+      "childCount": 9,
+      "width": 390,
+      "height": 844,
+      "worldX": 3760,
+      "worldY": 3120
+    },
+    {
+      "id": "JZ-0",
+      "name": "App mockups \u2022 review notes and source",
+      "childCount": 6,
+      "width": 1440,
+      "height": 640,
+      "worldX": 0,
+      "worldY": 4050
+    }
+  ],
+  "pages": [
+    {
+      "type": "page",
+      "id": "p-1-0",
+      "name": "Page 1",
+      "icon": null,
+      "isActive": true
+    }
+  ],
+  "fontFamilies": [
+    "Inter",
+    "System Sans-Serif",
+    "Noto Sans Gurmukhi"
+  ],
+  "tokens": {
+    "items": []
+  }
+}

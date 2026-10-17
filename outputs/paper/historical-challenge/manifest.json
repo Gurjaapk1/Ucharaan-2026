@@ -1,0 +1,62 @@
+{
+  "fileId": "01M533NG24KGRMXNQQ6EX5Z1BJ",
+  "url": "https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0",
+  "screens": [
+    {
+      "id": "1NL-0",
+      "name": "Onboarding • Choose your learner"
+    },
+    {
+      "id": "1OG-0",
+      "name": "Historical map • Sultanpur Lodhi and the Bein"
+    },
+    {
+      "id": "1PW-0",
+      "name": "Pauri modes • Practice or challenge"
+    },
+    {
+      "id": "1RD-0",
+      "name": "Challenge • Record each line in sequence"
+    },
+    {
+      "id": "1SJ-0",
+      "name": "Challenge scorecard • Percentage and rubric"
+    },
+    {
+      "id": "1U4-0",
+      "name": "Pronunciation rubric • All 14 lines"
+    },
+    {
+      "id": "1XD-0",
+      "name": "Region complete • Bonus stop choices"
+    },
+    {
+      "id": "1Z4-0",
+      "name": "Mini-game • Story match"
+    },
+    {
+      "id": "203-0",
+      "name": "Wardrobe • Nanak coin rewards"
+    }
+  ],
+  "boards": [
+    {
+      "id": "20Y-0",
+      "name": "Historical chapters rewards and mini-games • Decisions"
+    }
+  ],
+  "assets": [
+    {
+      "id": "1O1-0",
+      "name": "learner-choices"
+    },
+    {
+      "id": "1OW-0",
+      "name": "sultanpur-inspired-terrain"
+    },
+    {
+      "id": "20J-0",
+      "name": "river-explorer-outfit"
+    }
+  ]
+}

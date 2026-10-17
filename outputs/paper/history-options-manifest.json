@@ -1,0 +1,41 @@
+{
+  "fileId": "01M533NG24KGRMXNQQ6EX5Z1BJ",
+  "url": "https://app.paper.design/file/01M533NG24KGRMXNQQ6EX5Z1BJ/p-1-0",
+  "status": "Design proposals, not approved implementation",
+  "screens": [
+    {
+      "id": "KC-0",
+      "name": "Option A1 • History expedition • proposal"
+    },
+    {
+      "id": "LG-0",
+      "name": "Option A2 • Journal encounter • proposal"
+    },
+    {
+      "id": "MD-0",
+      "name": "Option B1 • Pauri mastery map • proposal"
+    },
+    {
+      "id": "NU-0",
+      "name": "Option B2 • Pauri scorecard • proposal"
+    },
+    {
+      "id": "OY-0",
+      "name": "Option C1 • Story and mastery • proposal"
+    },
+    {
+      "id": "PX-0",
+      "name": "Option C2 • One line at a time • proposal"
+    }
+  ],
+  "boards": [
+    {
+      "id": "QV-0",
+      "name": "Journey options • Compare and choose"
+    },
+    {
+      "id": "RY-0",
+      "name": "Independent decisions • Stars history and feedback"
+    }
+  ]
+}

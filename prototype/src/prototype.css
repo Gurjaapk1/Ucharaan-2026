@@ -1,0 +1,9 @@
+@font-face{font-family:BalooPaaji2-Regular;src:url('/assets/BalooPaaji2-Regular.ttf');font-display:swap}
+@font-face{font-family:BalooPaaji2-SemiBold;src:url('/assets/BalooPaaji2-SemiBold.ttf');font-display:swap}
+@font-face{font-family:GurbaniAkharTrue;src:url('/assets/GurbaniAkharTrue.ttf');font-display:swap}
+/* Only the browser host belongs here. App styles live in KidsMode StyleSheet. */
+.uchaaran{position:absolute;inset:0;display:flex;flex-direction:column;overflow:hidden;background:#fff}
+.uchaaran>audio{display:none}
+.uchaaran>.css-view-175oi2r{flex:1;min-height:0}
+.kids-scroll{height:100%;background:transparent}
+.uchaaran [role=button]:focus-visible,.uchaaran input:focus-visible{outline:3px solid #d6ad32;outline-offset:-3px}

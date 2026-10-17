@@ -1,0 +1,197 @@
+[
+  {
+    "file": "prototype/public/assets/japji/opening.jpg",
+    "sha256": "e8412d6479716a2d4ef8a8666dca30576347982dc8b5795892ef331be8253255",
+    "bytes": 334569
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-02.jpg",
+    "sha256": "4bb1b18d6414a97b866df7611e90de86adb8816a07929faea154215437e37e9d",
+    "bytes": 345425
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-03.jpg",
+    "sha256": "5f75f93f920c09c50119a9d89c9a4a0923ef470c84b95ebf4fecf1c13ec942ce",
+    "bytes": 305761
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-04.jpg",
+    "sha256": "9a40745b7e789b0902f2d5fc7bbec607d01234a06c9094404374e699d6061808",
+    "bytes": 361843
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-05.jpg",
+    "sha256": "96eeddcfc8cc7ee5edfbf125ee6a89fcceddff13fa33ef66b86d347391a395e5",
+    "bytes": 310950
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-06.jpg",
+    "sha256": "585ad4d8342d87366b75b79ecf69c4f8896d62d5a2a38470a1de2b4aaf061194",
+    "bytes": 331951
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-07.jpg",
+    "sha256": "d84736f500f70dd55da2e21762a3d7d3216eb612bcd9868afd871726e72ff684",
+    "bytes": 312593
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-08.jpg",
+    "sha256": "878d77296dd3d342fb6115408044e855227ce2081de607a0f76334d475e949c6",
+    "bytes": 345458
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-09.jpg",
+    "sha256": "4ff4ac6698bba6b7c4ccb12a752d35c335183dab4b8d982412d1e012ce5e4b1f",
+    "bytes": 339410
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-10.jpg",
+    "sha256": "403eed6d3eced6972413629dd90a282c2df2f3725d5fa3d81a25ac1af7c35300",
+    "bytes": 304553
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-11.jpg",
+    "sha256": "b5a1e09203d3e6a60ec8ab5ed01f67aafb38a3c304e91c3755bf22adf3f34fd3",
+    "bytes": 334296
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-12.jpg",
+    "sha256": "d2d584e31d5146471dcafe77e9d43dcb74f897b0d35a2923cf3eab03d7086efe",
+    "bytes": 350266
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-13.jpg",
+    "sha256": "a29a2408c7c12655bcefee1ebfe8dffa16c81aecc8b88a2e0a009fd4923ddffc",
+    "bytes": 331647
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-14.jpg",
+    "sha256": "c66baae6195279911d2b09fefab617228118862b8d8f35b962141476bae1d7e2",
+    "bytes": 329176
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-15.jpg",
+    "sha256": "3b44554a3fd894e6d94faa90aacb3b599edbcb81d510eadc9eaa5ba9ec36167d",
+    "bytes": 361325
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-16.jpg",
+    "sha256": "640c87ee431413ec53d3973d293aa4808a096c3fc32a95012e2614684006aea9",
+    "bytes": 330854
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-17.jpg",
+    "sha256": "0f78447bcf926065be443cb32d6c3aebcebc03fcdd7f8972784f414840267412",
+    "bytes": 319593
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-18.jpg",
+    "sha256": "5c70711ae04b9eae3f0220ed9e501344c1c2b06321a3ebfe324c43dcbb3a6031",
+    "bytes": 326120
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-19.jpg",
+    "sha256": "a49553521cf9ec4b81b68b6c337c3bfa12609b2621f35af4023783511070c0dc",
+    "bytes": 297325
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-20.jpg",
+    "sha256": "fef9f15cfecb635f2be14f933972e94a510bdcbf63bf01b72b22b864416f620f",
+    "bytes": 327964
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-21.jpg",
+    "sha256": "189292be29e0635d2537f6d88f3b2c8c84eae61f4b2f4b5212df83d415906c34",
+    "bytes": 344463
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-22.jpg",
+    "sha256": "9cf52bb94dd1a8d2c1b28e63c02c0677207576bbf1ecd90dda5843e2f1578b1e",
+    "bytes": 259677
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-23.jpg",
+    "sha256": "f5cd2ea9cc1f97692c3a83bf642405952c5a68050e700fa8bc7773d964a8440d",
+    "bytes": 298817
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-24.jpg",
+    "sha256": "ba375e12ad9839f42af69fb886007abd34c483b4c662f44cae82a1ac18e829eb",
+    "bytes": 282270
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-25.jpg",
+    "sha256": "ff038023e9ce45be0535a698f59a580599d8f25afbef34f19437a365bfba3aee",
+    "bytes": 324750
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-26.jpg",
+    "sha256": "900b3e89c2a97c6570bdec391079010e62d556a53ea869d42b649f6fad5ef4a4",
+    "bytes": 332968
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-27.jpg",
+    "sha256": "52cb17031d6af051e6d75cbc6f4b4cd36c4c3bda5c6660e38ec64ce50a7530d4",
+    "bytes": 305127
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-28.jpg",
+    "sha256": "256bdcdc0a384d2caf00878da027e16a9266ec883f5457fb7eb31c0e8919548a",
+    "bytes": 354303
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-29.jpg",
+    "sha256": "35bf91dd072128009dacfc7216cc62d6661154cba7d31f62851dd0e5004f96c5",
+    "bytes": 267194
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-30.jpg",
+    "sha256": "d2ba246886e976598c017bff89159b0718c07abb2931d004506c242e2740ebf9",
+    "bytes": 328918
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-31.jpg",
+    "sha256": "cbf5b6891846d0071c459eace264993b0106123e59154de794abb4317eb20ea0",
+    "bytes": 314817
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-32.jpg",
+    "sha256": "78ee5b58c7aaffacd9e579e16e597043906dbc361248b65b6c76806a731f7d36",
+    "bytes": 288140
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-33.jpg",
+    "sha256": "b660f96583e4d2e25cfd12df22fdcb7e12561b5b6bab8e5548c60ad10df127c2",
+    "bytes": 323426
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-34.jpg",
+    "sha256": "0d7ef7adb29ccc3e1e074039f193581dc85c25146c41140e326eaa3010574328",
+    "bytes": 307847
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-35.jpg",
+    "sha256": "75485c8d8ebf2b937d28d8fa798807dcb0290c95737646f43a2ec663499d9c72",
+    "bytes": 329485
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-36.jpg",
+    "sha256": "4f3caee013aedfdc00920f8a5a1ded9fbdfdb87d3068327d782e1c9d1a317639",
+    "bytes": 294450
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-37.jpg",
+    "sha256": "0745aee39c6a6b906cd5b9a1ba1fb459e48ac8e5ca797b685287d8b21c85ce27",
+    "bytes": 305026
+  },
+  {
+    "file": "prototype/public/assets/japji/pauri-38.jpg",
+    "sha256": "7aab611d1211a5da774bee3c5ad7dcc99ecf93ebe49198a2e8ace68c4150c789",
+    "bytes": 313272
+  },
+  {
+    "file": "prototype/public/assets/japji/salok.jpg",
+    "sha256": "b93d55e53f5d9e24596bc6ddd49de5dffa4781cb5c962c651932049a0c54efa8",
+    "bytes": 400285
+  }
+]
