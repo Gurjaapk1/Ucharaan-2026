@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Image, Pressable, Switch, Text, View, type ViewStyle } from 'react-native';
+import { Image, Pressable, Switch, Text, View } from 'react-native';
 import {Avatar,Button,Copy,Heading,Row,Section,Small,Stars,UIProvider} from './components';
 import {s} from './styles';
 import { coinAward, completePauri, initialProgress, redeem, starsForScore } from './rewards';
@@ -7,18 +7,10 @@ import { bold, dark, font, legacyFont, light, line as lineFor } from './theme';
 import { characters, collection, regions } from './content';
 import catalog from './bani-catalog.json';
 import {freshExperience} from './experience';
-import {pauriOneStory} from './story';
+import {storyForPauri,storyStopForLine} from './story';
 import {StoryScene} from './StoryScene';
 import {WordReview} from './WordReview';
 import type { Character, HostPorts, IconName, Pauri, Screen } from './types';
-
-// Reuse the route for preview regions. Coordinates match the six clearings.
-function mapPosition(index:number,count:number):ViewStyle {
-  const points=[[21,84.5],[44.5,65.7],[64,52.7],[84,39.3],[51,27.7],[24,13.8]];
-  const along=index*5/(count-1),low=Math.floor(along),fraction=along-low;
-  const a=points[low],b=points[Math.min(low+1,5)];
-  return {left:`${a[0]+(b[0]-a[0])*fraction}%`,top:`${a[1]+(b[1]-a[1])*fraction}%`,marginLeft:-30,marginTop:-24};
-}
 
 export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPorts}) {
   const [saved]=useState(()=>host.storage.load());
@@ -53,15 +45,15 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
   const [award, setAward] = useState(0);
   const [notice, setNotice] = useState('');
   const t = night ? dark : light;
-  const {Scroll, HorizontalScroll, Icon, audio, recitation} = host;
+  const {Scroll, Icon, audio, recitation} = host;
   const pauri = pauris[selected-1];
   const current = pauri.lines[line] ?? pauri.lines[0];
-  const chapter = regions[region];
   const stars = starsForScore(score);
   const best = progress.best[String(selected)] ?? 0;
   const totalStars = Object.values(progress.best).reduce<number>((sum,n)=>sum+n,0);
   const completed = Object.values(progress.best).filter(n=>n>0).length;
-  const storyStop=pauriOneStory[line]??pauriOneStory[0];
+  const story=storyForPauri(selected);
+  const storyStop=story?storyStopForLine(story,line):undefined;
   useEffect(()=>{setRevealed(false);setShowCue(false);},[line,screen]);
   useEffect(()=>{setSaveFailed(!host.storage.save({version:1,kids,night,meaning,illustrations,textSize,character,started,progress,selected,region,attempts}));},[host.storage,kids,night,meaning,illustrations,textSize,character,started,progress,selected,region,attempts]);
 
@@ -114,7 +106,7 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
     if(recitation.currentLine>=pauri.lines.length)void finishRecitation();
   },[screen,recitation,running,pauri.lines.length]);
 
-  const title = screen==='home'?'ਸੁੰਦਰ ਗੁਟਕਾ':screen==='settings'?'Settings':screen==='world'?'Bani worlds':screen==='map'?'Japji Sahib':screen==='character'?'Choose your explorer':screen==='rewards'?'Nanak rewards':screen==='journal'?'My explorer':screen==='reader'?'ਜਪੁਜੀ ਸਾਹਿਬ':screen==='story'?'Pauri 1 · memory walk':`Pauri ${selected}`;
+  const title = screen==='home'?'ਸੁੰਦਰ ਗੁਟਕਾ':screen==='settings'?'Settings':screen==='world'?'Bani worlds':screen==='map'?'Japji Sahib':screen==='character'?'Choose your explorer':screen==='rewards'?'Nanak rewards':screen==='journal'?'My explorer':screen==='reader'?'ਜਪੁਜੀ ਸਾਹਿਬ':screen==='story'?`Pauri ${selected} · memory walk`:`Pauri ${selected}`;
 
   return <UIProvider value={{t,host,character,equipped:progress.equipped}}><View style={[s.app,{backgroundColor:host.statusBarBackground??t.surface,paddingTop:host.safeArea.top}]}>
     {screen==='home'?<View style={[s.homeHeader,{backgroundColor:t.primary}]}>
@@ -143,21 +135,51 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
       {screen==='reader'&&<><View style={s.pad}><Small>Japji Sahib · Pauri {selected}</Small></View>{pauri.lines.map((l,i)=><Pressable accessibilityRole="button" accessibilityLabel={`Listen to line ${i+1}`} key={i} onPress={()=>{setLine(i);audio.listen(l.start,l.end);}} style={[s.readerLine,{backgroundColor:audio.playing&&line===i?t.action:t.surface}]}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize)}]}>{l.text}</Copy>{meaning&&<Copy style={s.translation}>{l.translation}</Copy>}</Pressable>)}<View style={s.pad}><Small>This reading preview contains the 38 pauris. The opening Mool Mantar and closing Salok remain in the full app.</Small><View style={s.inline}><Button secondary disabled={selected===1} onPress={()=>{audio.stop();setSelected(n=>n-1);}}>Previous pauri</Button><Button secondary disabled={selected===38} onPress={()=>{audio.stop();setSelected(n=>n+1);}}>Next pauri</Button></View>{audio.error.length>0&&<Copy style={{color:t.retryText}}>{audio.error}</Copy>}</View></>}
       {screen==='character'&&<View style={s.pad}><Heading>A friend for your journey</Heading><Small>Choose Prem Singh or Sehaj Kaur from the Khalis books. Both explore the same world.</Small><View style={[s.inline,{marginVertical:22}]}>{characters.map(c=><Pressable key={c.id} accessibilityRole="button" accessibilityState={{selected:character===c.id}} onPress={()=>setCharacter(c.id)} style={[s.characterChoice,{backgroundColor:t.subtle,borderColor:character===c.id?t.primary:t.separator}]}><Avatar who={c.id}/><Copy style={{fontFamily:bold}}>{c.name}</Copy><Small>{character===c.id?'Selected':'Choose'}</Small></Pressable>)}</View><Heading>Your starting style</Heading><View style={s.wrap}>{collection.filter(r=>progress.owned.includes(r.id)).map(r=><Pressable key={r.id} accessibilityRole="button" accessibilityState={{selected:progress.equipped===r.id}} onPress={()=>setProgress(p=>({...p,equipped:r.id}))} style={[s.chip,{borderColor:r.color,backgroundColor:progress.equipped===r.id?t.action:t.surface}]}><Copy>{r.name}</Copy></Pressable>)}</View><Button onPress={()=>{setStarted(true);go('world');}}>{started?'Save my explorer':'Begin my journey'}</Button><Small>Both characters are free. You can change your explorer at any time.</Small></View>}
       {screen==='world'&&<><View style={[s.pad,s.rowBody]}><View style={s.grow}><Heading>Your bani journey</Heading><Small>Choose where to practice.</Small></View><Pressable accessibilityRole="button" accessibilityLabel="Customize my explorer" onPress={()=>go('character')}><Avatar small/></Pressable></View><Pressable accessibilityRole="button" accessibilityLabel="Explore Japji Sahib" onPress={()=>go('map')} style={[s.worldCard,{backgroundColor:t.action}]}><Image source={host.image('journey-calm.jpg')} style={s.fill} resizeMode="cover"/><View style={s.worldCaption}><Text style={[s.text,{color:light.primary,fontSize:28,fontFamily:bold,lineHeight:lineFor(28)}]}>Japji Sahib</Text><Text style={[s.text,{color:light.primary,fontSize:14,lineHeight:lineFor(14)}]}>38 pauris · 6 regions</Text></View><View style={s.worldCta}><Text style={[s.text,{color:'#fff',fontFamily:bold}]}>{completed?'Continue exploring':'Begin your journey'}  →</Text></View></Pressable><View style={s.pad}><Button onPress={()=>openPauri(selected)}>Continue Pauri {selected}</Button><Small>{attempts.length?`${attempts.length} challenges completed · Your journey is saved here.`:"Your progress saves on this device."}</Small></View><Section>More banis</Section>{['Jaap Sahib','Anand Sahib','Chaupai Sahib','Rehras Sahib','Tav Prasad Savaiye','Kirtan Sohila'].map(name=><Row key={name} title={name} subtitle="Coming later" icon="book-open" onPress={()=>setNotice(`${name} is a preview. Japji Sahib is ready to explore.`)}/>)}</>}
-      {screen==='map'&&<><View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Heading>{chapter.name}</Heading><Small>Region {region+1} of 6 · Pauris {chapter.start}–{chapter.end}</Small></View><Icon name="star" color="#cba51e"/><Copy>{totalStars}/114</Copy></View></View><HorizontalScroll><View style={[s.inline,{paddingHorizontal:16,paddingBottom:14}]}>{regions.map((r,i)=><Pressable accessibilityRole="button" accessibilityState={{selected:region===i}} key={r.name} onPress={()=>setRegion(i)} style={[s.chip,{backgroundColor:region===i?t.primary:t.subtle,borderColor:t.separator}]}><Copy style={{color:region===i?'#fff':t.text,fontSize:14,lineHeight:lineFor(14)}}>{i+1}. {r.name}</Copy></Pressable>)}</View></HorizontalScroll><View style={s.map}><Image source={host.image('journey-calm.jpg')} style={s.fill} resizeMode="cover"/><View style={s.mapCaption}><Text style={[s.text,{color:light.primary,fontSize:12,lineHeight:lineFor(12)}]}>{chapter.place}</Text></View>{Array.from({length:chapter.end-chapter.start+1},(_,i)=>{const n=chapter.start+i;const count=progress.best[String(n)]??0;return <Pressable key={n} accessibilityRole="button" accessibilityLabel={`Pauri ${n}, ${count} of 3 stars`} onPress={()=>openPauri(n)} style={[s.mapNode,mapPosition(i,chapter.end-chapter.start+1)]}><View style={[s.nodeDisc,{backgroundColor:n===selected?t.primary:count?'#426a46':'#fff',borderColor:n===selected?(collection.find(r=>r.id===progress.equipped)?.color??'#fff'):'#fff'}]}><Text style={[s.text,{fontFamily:bold,fontSize:23,lineHeight:lineFor(23),color:count||n===selected?'#fff':light.primary}]}>{n}</Text></View><View style={s.nodeStars}><Stars count={count}/></View></Pressable>;})}</View><View style={s.pad}><Button onPress={()=>openPauri(selected)}>Continue with Pauri {selected}  →</Button></View></>}
-      {screen==='pauri'&&<><View style={[s.pad,s.center,{backgroundColor:t.subtle}]}><Small>Japji Sahib</Small><Heading>Pauri {selected}</Heading><Stars count={best} large/><Small>{pauri.lines.length} lines · Your best: {best}/3 stars</Small></View><Row title="Practice" subtitle="Listen and practice one line at a time" icon="headphones" onPress={()=>{setLine(0);go('practice');}}/><Row title="Challenge" subtitle="Recite continuously. Review at the end." icon="mic" onPress={()=>go('ready')}/>{selected===1&&<Row title="Walk the story" subtitle="Explore the six visual cues" icon="map" onPress={()=>{setLine(0);go('story');}}/>}<View style={s.pad}><Row title="Recall practice" subtitle="Hide the words until you are ready" trailing={<Switch accessibilityLabel="Recall practice" value={recall} onValueChange={setRecall}/>}/></View><View style={s.pad}><Heading>Stars and coins</Heading><Copy>Every new star earns 10 Nanak coins.</Copy><Small>1 star: 60–79% · 2 stars: 80–94% · 3 stars: 95–100%. These thresholds are proposed for V1.</Small><Small>Replays keep your best result. Improve your stars to earn the difference.</Small></View></>}
+      {screen==='map'&&<>
+        <View style={s.pad}>
+          <View style={s.rowBody}><View style={s.grow}><Heading>One path through Japji Sahib</Heading><Small>Scroll through all six regions.</Small></View><Icon name="star" color="#cba51e"/><Copy>{totalStars}/114</Copy></View>
+          <Button onPress={()=>openPauri(selected)}>Continue with Pauri {selected}  →</Button>
+        </View>
+        {regions.map((chapter,index)=><View key={chapter.name}>
+          <View style={[s.pad,{backgroundColor:t.subtle}]}>
+            <Small>Region {index+1} · Pauris {chapter.start}–{chapter.end}</Small>
+            <Heading>{chapter.name}</Heading>
+            <Small>{chapter.place}</Small>
+          </View>
+          <View style={[s.map,{aspectRatio:chapter.aspectRatio}]}>
+            <Image source={host.image(chapter.image)} accessibilityLabel={chapter.description} style={s.fill} resizeMode="cover"/>
+            {Array.from({length:chapter.end-chapter.start+1},(_,i)=>{
+              const n=chapter.start+i;
+              const count=progress.best[String(n)]??0;
+              // Follow the painted clearings from top to bottom as the child scrolls.
+              const position=chapter.nodes[chapter.nodes.length-1-i];
+              return <Pressable key={n} accessibilityRole="button" accessibilityLabel={`Pauri ${n}, ${count} of 3 stars`} onPress={()=>openPauri(n)} style={[s.mapNode,{left:`${position[0]}%`,top:`${position[1]}%`,marginLeft:-30,marginTop:-24}]}>
+                <View style={[s.nodeDisc,{backgroundColor:n===selected?t.primary:count?'#426a46':'#fff',borderColor:n===selected?(collection.find(r=>r.id===progress.equipped)?.color??'#fff'):'#fff'}]}><Text style={[s.text,{fontFamily:bold,fontSize:23,lineHeight:lineFor(23),color:count||n===selected?'#fff':light.primary}]}>{n}</Text></View>
+                <View style={s.nodeStars}><Stars count={count}/></View>
+              </Pressable>;
+            })}
+          </View>
+        </View>)}
+        <View style={s.pad}><Heading>A journey to keep returning to</Heading><Small>Revisit any pauri to practice and grow your mastery.</Small></View>
+      </>}
+      {screen==='pauri'&&<><View style={[s.pad,s.center,{backgroundColor:t.subtle}]}><Small>Japji Sahib</Small><Heading>Pauri {selected}</Heading><Stars count={best} large/><Small>{pauri.lines.length} lines · Your best: {best}/3 stars</Small></View>{story&&<View style={{padding:16,gap:10}}>
+        <Copy style={{fontFamily:bold,fontSize:18,lineHeight:lineFor(18)}}>{story.title}</Copy>
+        <StoryScene pauri={selected} line={0} host={host} overview/>
+        <Small>The whole landscape for this pauri. Follow its landmarks as you practice.</Small>
+      </View>}<Row title="Practice" subtitle="Listen and practice one line at a time" icon="headphones" onPress={()=>{setLine(0);go('practice');}}/><Row title="Challenge" subtitle="Recite continuously. Review at the end." icon="mic" onPress={()=>go('ready')}/>{story&&<Row title="Walk the story" subtitle={`Explore ${story.stops.length} connected visual cues`} icon="map" onPress={()=>{setLine(0);go('story');}}/>}<View style={s.pad}><Row title="Recall practice" subtitle="Hide the words until you are ready" trailing={<Switch accessibilityLabel="Recall practice" value={recall} onValueChange={setRecall}/>}/></View><View style={s.pad}><Heading>Stars and coins</Heading><Copy>Every new star earns 10 Nanak coins.</Copy><Small>1 star: 60–79% · 2 stars: 80–94% · 3 stars: 95–100%. These thresholds are proposed for V1.</Small><Small>Replays keep your best result. Improve your stars to earn the difference.</Small></View></>}
       {screen==='story'&&<View style={s.pad}>
-        <View style={s.rowBody}><View style={s.grow}><Copy style={{fontFamily:bold,fontSize:18,lineHeight:lineFor(18)}}>{storyStop.place}</Copy></View><Small>Line {line+1} of 6</Small></View>
-        {illustrations&&<StoryScene line={line} host={host} overview={showOverview} onSelect={n=>{audio.stop();setLine(n);}}/>}
+        <View style={s.rowBody}><View style={s.grow}><Copy style={{fontFamily:bold,fontSize:18,lineHeight:lineFor(18)}}>{storyStop?.place}</Copy></View><Small>Line {line+1} of {pauri.lines.length}</Small></View>
+        {illustrations&&<StoryScene pauri={selected} line={line} host={host} overview={showOverview} onSelect={n=>{audio.stop();setLine(n);}}/>}
         <Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize)}]}>{current.text}</Copy>
         {meaning&&<Copy style={s.translation}>{current.translation}</Copy>}
         <Row expanded={showCue} title="About this picture" onPress={()=>setShowCue(v=>!v)} trailing={<Copy>{showCue?'−':'+'}</Copy>}/>
-        {showCue&&<Small>{storyStop.reflection} The picture is a memory cue, not a translation.</Small>}
+        {showCue&&<Small>{storyStop?.reflection} The picture is a memory cue, not a translation.</Small>}
         {illustrations&&<Button secondary onPress={()=>setShowOverview(v=>!v)}>{showOverview?'Show this place':'Show the whole path'}</Button>}
         {audio.error.length>0&&<Copy style={{color:t.retryText}}>{audio.error}</Copy>}
       </View>}
       {screen==='practice'&&<View style={s.pad}>
         <View style={s.rowBody}><View style={s.grow}><Copy style={{fontFamily:bold,fontSize:18,lineHeight:lineFor(18)}}>{recall?'Recall practice':'Listen and repeat'}</Copy></View><Small>Line {line+1} of {pauri.lines.length}</Small></View>
-        {illustrations&&selected===1&&<StoryScene line={line} host={host}/>}
+        {illustrations&&story&&<StoryScene pauri={selected} line={line} host={host}/>}
         {recall&&!revealed?<><Heading>Can you recall this line?</Heading><Button secondary onPress={()=>setRevealed(true)}>Show the words</Button></>:<><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize)}]}>{current.text}</Copy>{meaning&&<Copy style={s.translation}>{current.translation}</Copy>}</>}
         <View style={s.rowBody}><View style={s.grow}><Small>Bhai Jarnail Singh</Small></View><Pressable accessibilityRole="button" accessibilityLabel={slow?'Playback speed 0.8 times. Switch to normal speed':'Playback speed normal. Switch to slower speed'} onPress={()=>{audio.stop();setSlow(v=>!v);}} style={[s.speed,{borderColor:t.separator}]}><Copy>{slow?'0.8×':'1×'} speed</Copy></Pressable></View>
         <Row expanded={showLines} title="Choose a line" onPress={()=>setShowLines(v=>!v)} trailing={<Copy>{showLines?'−':'+'}</Copy>}/>
@@ -173,7 +195,7 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
         }
         if(autoScore)setScore(attempts.some(a=>a.pauri===selected)?96:84);setLine(0);setTick(0);setRunning(true);setScreen('challenge');
       }}>Begin challenge</Button><Small>{recitation?'Your voice is recorded on this device and compared with the ustaad\u2019s recording. Nothing is uploaded.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
-      {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&selected===1&&<StoryScene line={line} host={host}/>}<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>{recitation?<>
+      {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&story&&<StoryScene pauri={selected} line={line} host={host}/>}<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>{recitation?<>
         <View style={[s.track,{backgroundColor:t.separator,marginTop:10}]}><View style={{height:4,width:`${Math.round(recitation.level*100)}%`,backgroundColor:recitation.isRecording?t.primary:t.separator}}/></View>
         <View style={[s.inline,{justifyContent:'center',paddingVertical:8}]}>{pauri.lines.map((_,i)=>{const r=recitation.lineScores.find(x=>x.lineIndex===i);return <View key={i} style={[s.chip,{backgroundColor:r?(r.score<80?t.retry:t.success):t.subtle,borderColor:t.separator}]}><Copy style={{fontSize:13,lineHeight:lineFor(13),color:r?(r.score<80?t.retryText:t.successText):t.secondary}}>{r?`${r.score}%`:i+1}</Copy></View>;})}</View>
         <Button onPress={finishRecitation}>Finish and see my score</Button>
