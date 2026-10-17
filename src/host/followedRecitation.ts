@@ -122,10 +122,11 @@ export function useFollowedRecitation(pauris: Pauri[]) {
       // Unclear so far: keep what is already on screen.
       if (body.status === 'ok') setLive(toLive(body, target.pauri, target.seqs));
     } catch {
-      // The endpoint is missing: stop asking for this attempt.
-      if (generation === generationRef.current && timerRef.current) {
-        clearInterval(timerRef.current);
+      // The endpoint is missing: stop asking, and stop saying the recitation is followed.
+      if (generation === generationRef.current) {
+        if (timerRef.current) clearInterval(timerRef.current);
         timerRef.current = null;
+        setStreamWorks(false);
       }
     } finally {
       if (inFlightRef.current === controller) inFlightRef.current = null;
