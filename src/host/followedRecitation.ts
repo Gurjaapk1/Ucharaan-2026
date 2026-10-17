@@ -40,7 +40,7 @@ export type LiveFollow = {
 const EMPTY: LiveFollow = { words: [], reached: null };
 
 /** Service seq/idx -> the on-screen line and word, matched by each word's Gurmukhi. */
-function toLive(body: ServiceFollowResponse, pauri: Pauri, seqs: number[]): LiveFollow {
+export function toLive(body: ServiceFollowResponse, pauri: Pauri, seqs: number[]): LiveFollow {
   const lineOf = new Map(seqs.map((seq, i) => [seq, i]));
   const maps = new Map<number, Map<number, number>>();
   const words: LiveWord[] = [];

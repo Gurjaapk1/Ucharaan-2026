@@ -242,6 +242,8 @@ export async function followRecording(
   const controller = new AbortController();
   const abort = () => controller.abort();
   opts.signal?.addEventListener('abort', abort);
+  // A stop while the WAV was being written on native fired before the listener existed.
+  if (opts.signal?.aborted) abort();
   const timer = setTimeout(abort, FOLLOW_TIMEOUT_MS);
   try {
     const response = await fetch(`${SCORING_BASE_URL}/v1/follow`, {
