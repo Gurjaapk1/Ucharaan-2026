@@ -122,3 +122,5 @@ Match regional maps to the original `journey-calm.jpg`: broad muted painted shap
 ## Continuous journey map
 
 Show all six Japji Sahib regions in one vertical scroll, with clear region headings and pauri numbers progressing top to bottom. The painted clearing coordinates are traversed in reverse order to follow the downward scroll without flipping the artwork. Do not restore the region-switching tab rail. Keep each terrain, three-star mastery and direct pauri entry. Reuse the existing quiet artwork unless new connecting artwork is explicitly needed.
+
+Recall practice line selection must show the actual Gurmukhi phrase, not numbered placeholder labels. Keep the main recall prompt hidden until revealed.
