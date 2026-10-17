@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.expo/
+.env*
+*.log
+tmp/
+.DS_Store
+native-app/expo-env.d.ts

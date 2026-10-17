@@ -1,0 +1,14 @@
+import http from 'node:http';
+import {readFile} from 'node:fs/promises';
+import path from 'node:path';
+import readline from 'node:readline';
+import worker from './worker.mjs';
+process.stdin.setRawMode?.(true);
+process.stdout.write('Enter scoring configuration JSON (hidden):\n');
+let input='';
+const config=await new Promise(resolve=>process.stdin.on('data',chunk=>{for(const c of chunk.toString()){if(c==='\r'||c==='\n'){if(input){resolve(JSON.parse(input));input='';}}else input+=c;}}));
+process.stdin.setRawMode?.(false);
+const root=path.resolve('dist/client');
+const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.ttf':'font/ttf','.wasm':'application/wasm'};
+const env={...config,ASSETS:{async fetch(req){let p=path.resolve(root,'.'+decodeURIComponent(new URL(req.url).pathname));if(!p.startsWith(root+'/')&&p!==root)return new Response('',{status:403});if(p===root)p+='/index.html';try{return new Response(await readFile(p),{headers:{'content-type':types[path.extname(p)]||'application/octet-stream'}})}catch{return new Response('',{status:404})}}}};
+http.createServer(async(req,res)=>{try{const options={method:req.method,headers:req.headers};if(!['GET','HEAD'].includes(req.method)){options.body=req;options.duplex='half';}const response=await worker.fetch(new Request('http://localhost:4186'+req.url,options),env);res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));}catch{res.writeHead(500);res.end('Preview request failed');}}).listen(4186,()=>console.log('Preview: http://localhost:4186'));

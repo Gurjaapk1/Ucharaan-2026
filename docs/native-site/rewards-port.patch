@@ -1,0 +1,631 @@
+diff --git a/native-app/assets/app/rewards/basket.png b/native-app/assets/app/rewards/basket.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..2415027a7f1424c32664056e7dbbae8266671ce8
+GIT binary patch
+literal 1682
+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
+Y;DB*r^gCTp{RnykL~?ndO&lTeZ<c)X5dZ)H
+
+literal 0
+HcmV?d00001
+
+diff --git a/native-app/assets/app/rewards/hand.png b/native-app/assets/app/rewards/hand.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..cd82312d0f5a46aecdaba518bee34839bb23384d
+GIT binary patch
+literal 1670
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/native-app/assets/app/rewards/leaf.png b/native-app/assets/app/rewards/leaf.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..adfa56c69df821850b89aed65b676de5d16feea9
+GIT binary patch
+literal 1915
+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
+BouU8$
+
+literal 0
+HcmV?d00001
+
+diff --git a/native-app/assets/app/rewards/rabab.png b/native-app/assets/app/rewards/rabab.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..f5befd4b6de5b98a16bb36454cf3c874ed9aa86c
+GIT binary patch
+literal 1761
+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
+DR6-`B
+
+literal 0
+HcmV?d00001
+
+diff --git a/native-app/assets/app/rewards/satchel.png b/native-app/assets/app/rewards/satchel.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..385be7831f17a020c6d4fe06dca96e1402babfa5
+GIT binary patch
+literal 1991
+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
+L@^q~x`m_H9?ZJ?I
+
+literal 0
+HcmV?d00001
+
+diff --git a/native-app/assets/app/rewards/shirt.png b/native-app/assets/app/rewards/shirt.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..733b4ade7e41579291f31bfcd7823a336f61d822
+GIT binary patch
+literal 1398
+zcmeAS@N?(olHy`uVBq!ia0vp^4Is?H1|$#LC7xzrVAb|?aSW-L^JZ>u;cYj8*7!Lh
+zhe9U#s(Yzgh9~V7T5FxCZg!r*eT$pI#_IhK_T{rJp2!j8ey4nQHG9J!7NJ@G3JVu9
+z93&d$3dpo5b4<{?{W|sc#=P~f@25F`xOVRK`IeJEnLjH{e_MY?-gmy?KLu{N?Vs<T
+zUN&Pwq_V>yqpl|h>wX^Sm&$Bf+FO0gGW*J*`7`=kmL}_-__asoqDbz<)8A76)-V6-
+z|NHA6xwpoKvl%Lv>^acCU@iw!{PF$uy(?8_EM*h0Ik#9Y>k3DcS?=sbdNUTXdEA)p
+zZaW1i@YnL*VUf~<FGMCJoc}Jz@;li1-gc8K?_CWnRC`1gnB1=x$myOS|N833_y6A;
+zaJpS#Xfm_B>by=+r1bV;*7aBS>b;O<6q*)T)-<=K;NM}TwF~%~RJrB`^d)7+Pdjz{
+zn0QGao2{}#lm30}dv001*H`yGdi*VQ4{OSH(Q|Qv2WG$j+<0Q~t3L;myEa`6>w1)X
+zWWM>gpKS5JS>`G^zUEN)@I3srhQ|wGL6O_ab=@rWw`W~r)m3(Iirn{~OS)^DpyS7i
+zBloM{O(}I;%`qXs{Qmcx!_^{RZ%vuGN-sl@G3rS*f7hmt1t0o<RQrUAU+H0Js{47*
+z`Ov<O1uLu{ZTFb5KyQU8qtLHsKxMxL747dO9l4)<{==>XZY&-W^WWQ^*!A+)?j)JR
+zubM7#7<ljdUU2Nv%k-XH_q2%E2fYkUJ3s#o^n4K`UZK>GAo)}M#>=Vi`@0sc(fh%d
+zZ1Ooq;L+LdSGBIIs~?oVcD6QI)FENJaeGbKzPUAL>~7CXdOv@Ef^$Oi&wV{x{^gYQ
+z9hPFevO(W^KOg6|$9iqGv6~y@+iE3$y-u)vw#@FUNaM6UCWl$2-Jf6GuzqV=fiJVD
+z_YBLoH_YE(eiM?$AoNXti{`YWroyV+j$+0$x!$PUP+GBC-&Rv$afDT={@T2C6=^zi
+z^ZEXUd!1vQlNi0#Dlzi2TK~p1Tg1+8^YUlYjNrebwy^Nt{-wuWCNREkj8Z8%@q2qk
+zc0;tt8uqM<s_*Xyz3y6I9Kk>3k}i<_c~OAt>?(&1F?rvLZvH#=KK$dEwgcC%we(f~
+zpC)B`K)0#tYeT~CMUy4Z8>{5Bf2e-D_xqmy6}Qs2vYy~Lr6TZV_pJ;yPN8q5kKA*&
+zt@#{Ye_r<;x5eRb{wIIeet&*G$o-9I+=t(+^3I?B>FO#S5cS@={=-?Gw3$IsZX4NK
+zbC+$MEp_>TuFhqVgN1@ymU})=kK$U8apQwS$jtZo7lRsl7JZbiD4Hd{Yc1;um4cVo
+zn-?9{S>Dbd>BeXsdnsL?5$GkI5^00IEGIN1IKN#eZCt&aVP?zmuMTy8Zu&`Te>*w<
+zyY~x^d`6?_@;xtp-Pm0EZ)!{G!(8u{*Rmn88}CVmbhm83Y9IT5S%+hk`9YTV^-~xm
+zUEjQ1*d#CR@8-<dL^ovoDfm#9!fUfh^#uuidJOyL?Gsqm@E`z&&gdL4uHAm1+~?HA
+zbVhf@#Gtf3hOXy7X3boA-}!Vt-`dWEKTZ9jM;Yz-{%bHza4QfKkm16K=FA5cn*aa*
+j6fMvPGT1=HCNsmFOME*YAOF+^6k+gm^>bP0l+XkKU_^nS
+
+literal 0
+HcmV?d00001
+
+diff --git a/native-app/src/KidsMode/ExplorerPreview.tsx b/native-app/src/KidsMode/ExplorerPreview.tsx
+new file mode 100644
+index 0000000..58ed515
+--- /dev/null
++++ b/native-app/src/KidsMode/ExplorerPreview.tsx
+@@ -0,0 +1,26 @@
++import type {Wardrobe} from './wardrobe';
++import type {Character} from './types';
++import { useEffect, useRef, useState } from 'react';
++import { AccessibilityInfo, Animated, Pressable, View } from 'react-native';
++import { Copy, Small, useUI } from './components';
++import { rewardById } from './wardrobe';
++export function ExplorerPreview({ wardrobe, who, compact = false, tiny = false }: {wardrobe:Wardrobe;who?:Character;compact?:boolean;tiny?:boolean}) {
++    const { t, host, character } = useUI();
++    const actor = who ?? character;
++    const movement = useRef(new Animated.Value(0)).current;
++    const [reduced, setReduced] = useState(false), [playing, setPlaying] = useState(false);
++    useEffect(() => { let active = true; void AccessibilityInfo.isReduceMotionEnabled().then(v => { if (active)
++        setReduced(v); }); const sub = AccessibilityInfo.addEventListener('reduceMotionChanged', setReduced); return () => { active = false; sub.remove(); movement.stopAnimation(); }; }, [movement]);
++    const action = wardrobe.equipped.action, belonging = rewardById(wardrobe.equipped.belonging);
++    useEffect(() => { movement.stopAnimation(); movement.setValue(0); setPlaying(false); }, [action, movement]);
++    function play() { movement.stopAnimation(); movement.setValue(0); setPlaying(true); Animated.sequence([Animated.timing(movement, { toValue: 1, duration: reduced ? 0 : 500, useNativeDriver: false }), Animated.delay(reduced ? 600 : 200), Animated.timing(movement, { toValue: 0, duration: reduced ? 0 : 500, useNativeDriver: false })]).start(() => setPlaying(false)); }
++    const angle = action === 'listening' ? '7deg' : action === 'helping' ? '-9deg' : '-3deg';
++    return <View style={{ alignItems: 'center', gap: 4 }}>
++  <Pressable accessible={!compact} accessibilityRole={compact ? undefined : 'button'} accessibilityLabel={`Preview ${rewardById(action)?.name ?? 'character action'}`} onPress={compact ? undefined : play} style={{ width: tiny ? 62 : compact ? 110 : 150, height: tiny ? 78 : compact ? 142 : 190, alignItems: 'center', justifyContent: 'flex-end' }}>
++   <View style={{ position: 'absolute', bottom: 4, width: tiny ? 48 : compact ? 80 : 144, height: 18, borderRadius: 80, backgroundColor: t.separator }}/>
++   <Animated.Image source={host.image(`${actor}-${wardrobe.equipped.clothing === 'garden-thread' ? 'garden' : 'character'}.png`)} resizeMode="contain" style={{ width: '100%', height: '100%', transform: [{ rotate: movement.interpolate({ inputRange: [0, 1], outputRange: ['0deg', reduced ? '0deg' : angle] }) }, { translateY: movement.interpolate({ inputRange: [0, 1], outputRange: [0, reduced ? 0 : action === 'greeting' ? -10 : -2] }) }] }}/>
++   {belonging && belonging.id !== 'travel-light' && <View accessibilityLabel={`Belonging: ${belonging.name}`} style={{ position: 'absolute', right: 0, bottom: 18, backgroundColor: belonging.color, borderRadius: 14, padding: tiny ? 3 : compact ? 6 : 12, borderWidth: 2, borderColor: t.surface }}><host.Icon name={belonging.icon} size={tiny ? 16 : compact ? 24 : 42} color="#4d473d"/></View>}
++  </Pressable>
++  {!compact && <><Copy style={{ fontSize: 14 }}>{playing ? rewardById(action)?.name : 'Tap your explorer to preview the action'}</Copy><Small>{belonging?.id === 'travel-light' ? 'Traveling light' : belonging?.name}</Small></>}
++ </View>;
++}
+diff --git a/native-app/src/KidsMode/KidsApp.tsx b/native-app/src/KidsMode/KidsApp.tsx
+index 2301cde..0baa684 100644
+--- a/native-app/src/KidsMode/KidsApp.tsx
++++ b/native-app/src/KidsMode/KidsApp.tsx
+@@ -1,10 +1,13 @@
++import {RewardsScreen} from './RewardsScreen';
++import {ExplorerPreview} from './ExplorerPreview';
++import {wardrobeOf} from './wardrobe';
+ import { useEffect, useState } from 'react';
+ import { ActivityIndicator, Image, Pressable, Switch, Text, View } from 'react-native';
+ import {Avatar,Button,Copy,Heading,Row,Section,Small,Stars,UIProvider} from './components';
+ import {s} from './styles';
+-import { coinAward, completePauri, initialProgress, redeem, starsForScore } from './rewards';
++import { coinAward, completePauri, initialProgress, starsForScore } from './rewards';
+ import { bold, dark, font, legacyFont, light, line as lineFor } from './theme';
+-import { characters, collection, regions } from './content';
++import { characters, regions } from './content';
+ import catalog from './bani-catalog.json';
+ import {freshExperience} from './experience';
+ import {storyForPauri,storyStopForLine} from './story';
+@@ -131,7 +134,7 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
+ 
+   const title = screen==='home'?'ਸੁੰਦਰ ਗੁਟਕਾ':screen==='settings'?'Settings':screen==='world'?'Bani worlds':screen==='map'?'Japji Sahib':screen==='character'?'Choose your explorer':screen==='rewards'?'Nanak rewards':screen==='journal'?'My explorer':screen==='reader'?'ਜਪੁਜੀ ਸਾਹਿਬ':screen==='story'?`Pauri ${selected} · memory walk`:`Pauri ${selected}`;
+ 
+-  return <UIProvider value={{t,host,character,equipped:progress.equipped}}><View style={[s.app,{backgroundColor:host.statusBarBackground??t.surface,paddingTop:host.safeArea.top}]}>
++  return <UIProvider value={{t,host,character,wardrobe:wardrobeOf(progress)}}><View style={[s.app,{backgroundColor:host.statusBarBackground??t.surface,paddingTop:host.safeArea.top}]}>
+     {screen==='home'?<View style={[s.homeHeader,{backgroundColor:t.primary}]}>
+       <Text style={s.fateh}><Text style={{fontFamily:legacyFont,fontSize:20}}>{'<> '}</Text>ਸ੍ਰੀ ਵਾਹਿਗੁਰੂ ਜੀ ਕੀ ਫਤਹਿ</Text>
+       <View style={s.homeTitleRow}><Text style={s.homeTitle}><Text style={s.ornament}>Œ</Text> ਸੁੰਦਰ ਗੁਟਕਾ <Text style={s.ornament}>‰</Text></Text><Pressable accessibilityRole="button" accessibilityLabel="Settings" onPress={settings} style={s.settingsButton}><Icon name="settings" color="#faf9f6" size={28}/></Pressable></View>
+@@ -156,7 +159,7 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
+         <Section>Preview controls</Section><Row title="Show test controls" subtitle="Choose a sample result for team review" trailing={<Switch accessibilityLabel="Show test controls" value={reviewControls} onValueChange={setReviewControls}/>}/>{reviewControls&&<View style={s.pad}><Row title="Automatic sample progression" trailing={<Switch accessibilityLabel="Automatic sample progression" value={autoScore} onValueChange={setAutoScore}/>}/>{!autoScore&&<View style={s.inline}>{[72,84,96].map(n=><Button key={n} secondary onPress={()=>setScore(n)}>{n}%{score===n?' ✓':''}</Button>)}</View>}<Button secondary onPress={()=>{const v=freshExperience();setProgress(v.progress);setAttempts([]);setSelected(1);setRegion(0);setNotice('Practice progress reset. Your explorer and display settings are kept.');}}>Reset practice progress</Button></View>}<Section>About</Section><View style={s.pad}><Small>Try Japji Sahib, Kids Mode, and the display controls above. Other Sundar Gutka settings and banis are outside this preview. Progress and settings are saved on this browser. No account is created. Challenge recordings are sent to the scoring service only when you finish a line.</Small></View>
+       </>}
+       {screen==='reader'&&<><View style={s.pad}><Small>Japji Sahib · Pauri {selected}</Small></View>{pauri.lines.map((l,i)=><Pressable accessibilityRole="button" accessibilityLabel={`Listen to line ${i+1}`} key={i} onPress={()=>{setLine(i);audio.listen(l.start,l.end);}} style={[s.readerLine,{backgroundColor:audio.playing&&line===i?t.action:t.surface}]}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize)}]}>{l.text}</Copy>{meaning&&<Copy style={s.translation}>{l.translation}</Copy>}</Pressable>)}<View style={s.pad}><Small>This reading preview contains the 38 pauris. The opening Mool Mantar and closing Salok remain in the full app.</Small><View style={s.inline}><Button secondary disabled={selected===1} onPress={()=>{audio.stop();setSelected(n=>n-1);}}>Previous pauri</Button><Button secondary disabled={selected===38} onPress={()=>{audio.stop();setSelected(n=>n+1);}}>Next pauri</Button></View>{audio.error.length>0&&<Copy style={{color:t.retryText}}>{audio.error}</Copy>}</View></>}
+-      {screen==='character'&&<View style={s.pad}><Heading>A friend for your journey</Heading><Small>Choose Prem Singh or Sehaj Kaur from the Khalis books. Both explore the same world.</Small><View style={[s.inline,{marginVertical:22}]}>{characters.map(c=><Pressable key={c.id} accessibilityRole="button" accessibilityState={{selected:character===c.id}} onPress={()=>setCharacter(c.id)} style={[s.characterChoice,{backgroundColor:t.subtle,borderColor:character===c.id?t.primary:t.separator}]}><Avatar who={c.id}/><Copy style={{fontFamily:bold}}>{c.name}</Copy><Small>{character===c.id?'Selected':'Choose'}</Small></Pressable>)}</View><Heading>Your starting style</Heading><View style={s.wrap}>{collection.filter(r=>progress.owned.includes(r.id)).map(r=><Pressable key={r.id} accessibilityRole="button" accessibilityState={{selected:progress.equipped===r.id}} onPress={()=>setProgress(p=>({...p,equipped:r.id}))} style={[s.chip,{borderColor:r.color,backgroundColor:progress.equipped===r.id?t.action:t.surface}]}><Copy>{r.name}</Copy></Pressable>)}</View><Button onPress={()=>{setStarted(true);go('world');}}>{started?'Save my explorer':'Begin my journey'}</Button><Small>Both characters are free. You can change your explorer at any time.</Small></View>}
++      {screen==='character'&&<View style={s.pad}><Heading>A friend for your journey</Heading><Small>Choose Prem Singh or Sehaj Kaur from the Khalis books. Both explore the same world.</Small><View style={[s.inline,{marginVertical:22}]}>{characters.map(c=><Pressable key={c.id} accessibilityRole="button" accessibilityState={{selected:character===c.id}} onPress={()=>setCharacter(c.id)} style={[s.characterChoice,{backgroundColor:t.subtle,borderColor:character===c.id?t.primary:t.separator}]}><Avatar who={c.id}/><Copy style={{fontFamily:bold}}>{c.name}</Copy><Small>{character===c.id?'Selected':'Choose'}</Small></Pressable>)}</View><Button onPress={()=>{setStarted(true);go('world');}}>{started?'Save my explorer':'Begin my journey'}</Button><Small>Both characters are free. You can change your explorer at any time.</Small></View>}
+       {screen==='world'&&<><View style={[s.pad,s.rowBody]}><View style={s.grow}><Heading>Your bani journey</Heading><Small>Choose where to practice.</Small></View><Pressable accessibilityRole="button" accessibilityLabel="Customize my explorer" onPress={()=>go('character')}><Avatar small/></Pressable></View><Pressable accessibilityRole="button" accessibilityLabel="Explore Japji Sahib" onPress={()=>go('map')} style={[s.worldCard,{backgroundColor:t.action}]}><Image source={host.image('journey-calm.jpg')} style={s.fill} resizeMode="cover"/><View style={s.worldCaption}><Text style={[s.text,{color:light.primary,fontSize:28,fontFamily:bold,lineHeight:lineFor(28)}]}>Japji Sahib</Text><Text style={[s.text,{color:light.primary,fontSize:14,lineHeight:lineFor(14)}]}>38 pauris · 6 regions</Text></View><View style={s.worldCta}><Text style={[s.text,{color:'#fff',fontFamily:bold}]}>{completed?'Continue exploring':'Begin your journey'}  →</Text></View></Pressable><View style={s.pad}><Button onPress={()=>openPauri(selected)}>Continue Pauri {selected}</Button><Small>{attempts.length?`${attempts.length} challenges completed · Your journey is saved here.`:"Your progress saves on this device."}</Small></View><Section>More banis</Section>{['Jaap Sahib','Anand Sahib','Chaupai Sahib','Rehras Sahib','Tav Prasad Savaiye','Kirtan Sohila'].map(name=><Row key={name} title={name} subtitle="Coming later" icon="book-open" onPress={()=>setNotice(`${name} is a preview. Japji Sahib is ready to explore.`)}/>)}</>}
+       {screen==='map'&&<>
+         <View style={s.pad}>
+@@ -177,7 +180,7 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
+               // Follow the painted clearings from top to bottom as the child scrolls.
+               const position=chapter.nodes[chapter.nodes.length-1-i];
+               return <Pressable key={n} accessibilityRole="button" accessibilityLabel={`Pauri ${n}, ${count} of 3 stars`} onPress={()=>openPauri(n)} style={[s.mapNode,{left:`${position[0]}%`,top:`${position[1]}%`,marginLeft:-30,marginTop:-24}]}>
+-                <View style={[s.nodeDisc,{backgroundColor:n===selected?t.primary:count?'#426a46':'#fff',borderColor:n===selected?(collection.find(r=>r.id===progress.equipped)?.color??'#fff'):'#fff'}]}><Text style={[s.text,{fontFamily:bold,fontSize:23,lineHeight:lineFor(23),color:count||n===selected?'#fff':light.primary}]}>{n}</Text></View>
++                <View style={[s.nodeDisc,{backgroundColor:n===selected?t.primary:count?'#426a46':'#fff',borderColor:'#fff'}]}><Text style={[s.text,{fontFamily:bold,fontSize:23,lineHeight:lineFor(23),color:count||n===selected?'#fff':light.primary}]}>{n}</Text></View>
+                 <View style={s.nodeStars}><Stars count={count}/></View>
+               </Pressable>;
+             })}
+@@ -240,8 +243,8 @@ export default function KidsApp({pauris, host}: {pauris: Pauri[]; host: HostPort
+         <Button secondary onPress={()=>go('rewards')}>Visit rewards</Button>
+         <View style={s.inline}><Button secondary onPress={()=>go('ready')}>Try again</Button><Button secondary onPress={()=>go('map')}>Back to map</Button></View>
+       </View>}
+-      {screen==='rewards'&&<View style={s.pad}><View style={s.rowBody}><Avatar small/><View style={s.grow}><Heading>Your rewards</Heading><Copy>{progress.coins} Nanak coins</Copy></View></View><Small>Use Nanak coins to choose a frame.</Small><View style={s.rewardGrid}>{collection.map(r=>{const owned=progress.owned.includes(r.id);const equipped=progress.equipped===r.id;return <View key={r.id} style={[s.reward,{borderColor:t.separator,backgroundColor:t.subtle}]}><Avatar small frame={r.id}/><Copy style={{fontFamily:bold,textAlign:'center',minHeight:48}}>{r.name}</Copy><Button secondary disabled={equipped||(!owned&&progress.coins<r.cost)} onPress={()=>{setProgress(p=>redeem(p,r.id,r.cost));setNotice(`${r.name} equipped`);}}>{equipped?'Equipped':owned?'Equip':`${r.cost} coins`}</Button></View>;})}</View><Button onPress={()=>go('map')}>Earn more stars</Button><Small>Frames change your portrait and map marker. Your learning progress stays the same.</Small></View>}
+-      {screen==='journal'&&<View style={s.pad}><View style={s.center}><Avatar/><Heading>{characters.find(c=>c.id===character)?.name}’s journey</Heading><Button secondary onPress={()=>go('character')}>Customize my explorer</Button></View><View style={[s.info,s.rowBody,{backgroundColor:t.subtle}]}>{[[completed,'pauris'],[totalStars,'stars'],[progress.coins,'coins']].map(([n,label])=><View key={label} style={[s.grow,s.center]}><Copy style={{fontSize:28,fontFamily:bold,lineHeight:lineFor(28)}}>{n}</Copy><Small>{label}</Small></View>)}</View><Heading>Your progress</Heading>{completed?Object.entries(progress.best).map(([n,count])=><Row key={n} title={`Pauri ${n}`} trailing={<Stars count={count}/>} onPress={()=>openPauri(Number(n))}/>):<Button onPress={()=>go('map')}>Explore your first pauri</Button>}<Heading>Recent practice</Heading>{attempts.slice(0,8).map((a,i)=><Row key={`${a.at}-${i}`} title={`Pauri ${a.pauri} · ${a.score}%`} subtitle={`Sample challenge ${attempts.length-i}`} onPress={()=>openPauri(a.pauri)} trailing={<Stars count={starsForScore(a.score)}/>}/>)}<Small>Progress is shared between both characters and saved on this browser.</Small></View>}
++      {screen==='rewards'&&<RewardsScreen progress={progress} setProgress={setProgress} onEarn={()=>go('map')}/>}
++      {screen==='journal'&&<View style={s.pad}><View style={s.center}><ExplorerPreview wardrobe={wardrobeOf(progress)}/><Heading>{characters.find(c=>c.id===character)?.name}’s journey</Heading><Button secondary onPress={()=>go('character')}>Customize my explorer</Button></View><View style={[s.info,s.rowBody,{backgroundColor:t.subtle}]}>{[[completed,'pauris'],[totalStars,'stars'],[progress.coins,'coins']].map(([n,label])=><View key={label} style={[s.grow,s.center]}><Copy style={{fontSize:28,fontFamily:bold,lineHeight:lineFor(28)}}>{n}</Copy><Small>{label}</Small></View>)}</View><Heading>Your progress</Heading>{completed?Object.entries(progress.best).map(([n,count])=><Row key={n} title={`Pauri ${n}`} trailing={<Stars count={count}/>} onPress={()=>openPauri(Number(n))}/>):<Button onPress={()=>go('map')}>Explore your first pauri</Button>}<Heading>Recent practice</Heading>{attempts.slice(0,8).map((a,i)=><Row key={`${a.at}-${i}`} title={`Pauri ${a.pauri} · ${a.score}%`} subtitle={`Sample challenge ${attempts.length-i}`} onPress={()=>openPauri(a.pauri)} trailing={<Stars count={starsForScore(a.score)}/>}/>)}<Small>Progress is shared between both characters and saved on this browser.</Small></View>}
+     </View></Scroll></View>
+     {(screen==='practice'||screen==='story')&&<View style={[s.readingControls,{backgroundColor:t.surface,borderColor:t.separator,paddingBottom:Math.max(12,host.safeArea.bottom)}]}>
+       <Pressable accessibilityRole="button" accessibilityLabel="Previous line" accessibilityState={{disabled:line===0}} disabled={line===0} onPress={()=>{audio.stop();setLine(n=>n-1);}} style={[s.iconButton,{opacity:line===0?0.35:1}]}><Icon name="chevron-left" color={t.text}/></Pressable>
+diff --git a/native-app/src/KidsMode/RewardsScreen.tsx b/native-app/src/KidsMode/RewardsScreen.tsx
+new file mode 100644
+index 0000000..e3ffd26
+--- /dev/null
++++ b/native-app/src/KidsMode/RewardsScreen.tsx
+@@ -0,0 +1,59 @@
++import type {Dispatch, SetStateAction} from 'react';
++import type {Progress} from './rewards';
++import type {Slot, Story, Reward} from './wardrobe';
++import { useState } from 'react';
++import { Pressable, View } from 'react-native';
++import { Button, Copy, Heading, Small, useUI } from './components';
++import { ExplorerPreview } from './ExplorerPreview';
++import { eligible, freshWardrobe, readRewardStory, rewards, unlockAndEquip, wardrobeOf } from './wardrobe';
++import { initialProgress } from './rewards';
++import { s } from './styles';
++import { bold } from './theme';
++const tabs: {slot:Slot;label:string}[] = [{ slot: 'clothing', label: 'Clothing' }, { slot: 'belonging', label: 'Belongings' }, { slot: 'action', label: 'Actions' }];
++const stories = {
++    music: { title: 'Music and companionship', text: 'Bhai Mardana traveled with Guru Nanak and played the rabab alongside his singing. Music and companionship are part of this shared history.', question: 'Who helps you listen and learn?', source: 'Story reference: Darbar, Guru Nanak’s Message of Peace through Music.' },
++    seva: { title: 'A small act of seva', text: 'Seva means selfless service. Helping prepare or serve food and caring for shared spaces are ways people can help their community.', question: 'What is one helpful thing you could do today?', source: 'Story reference: Sikh Coalition, Beliefs.' },
++};
++export function RewardsScreen({ progress, setProgress, onEarn }: {progress:Progress;setProgress:Dispatch<SetStateAction<Progress>>;onEarn:()=>void}) {
++    const { t, host } = useUI();
++    const [slot, setSlot] = useState<Slot>('clothing');
++    const [selected, setSelected] = useState<string|null>(null);
++    const [story, setStory] = useState<Story|null>(null);
++    const [demo, setDemo] = useState<Progress|null>(null), [message, setMessage] = useState('');
++    const active = demo ?? progress, wardrobe = wardrobeOf(active), item = rewards.find(r => r.id === selected);
++    const preview = item ? { ...wardrobe, equipped: { ...wardrobe.equipped, [item.slot]: item.id } } : wardrobe;
++    function update(transform:(p:Progress)=>Progress) { if (demo)
++        setDemo(current => current ? transform(current) : current);
++    else
++        setProgress(transform); }
++    function chooseTab(next:Slot) { setSlot(next); setSelected(null); setMessage(''); }
++    function equip(item:Reward) { update(p => unlockAndEquip(p, item.id)); setSelected(null); setMessage(`${item.name} equipped${demo ? ' in the demo' : ''}.`); }
++    function ruleLabel(item:Reward) { const rule = item.unlock; if (wardrobe.owned.includes(item.id))
++        return wardrobe.equipped[item.slot] === item.id ? 'Equipped' : 'Owned'; if (rule.kind === 'coins')
++        return `${rule.cost} coins`; if (rule.kind === 'pauris')
++        return eligible(active, item) ? 'Ready to unlock' : 'Complete 1 pauri'; if (rule.kind === 'story')
++        return eligible(active, item) ? 'Ready to unlock' : 'Read a short story'; return 'Free'; }
++    return <View style={{ padding: 20, gap: 16 }}>
++  <View style={s.rowBody}><View style={s.grow}><Heading>Make it yours</Heading><Small>Choose what your explorer wears, carries, and does.</Small></View></View>
++  {demo && <View style={{ padding: 12, borderRadius: 12, backgroundColor: t.action, gap: 4 }}><Copy style={{ fontFamily: bold }}>Demo wardrobe · {active.coins} coins</Copy><Small>Your saved coins and rewards are unchanged.</Small><Button secondary onPress={() => { setDemo(null); setSelected(null); setMessage(''); }}>Return to my rewards</Button></View>}
++  <View style={{ backgroundColor: t.subtle, borderRadius: 20, padding: 12, gap: 8 }}>
++   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}><View style={{ flex: 1 }}><ExplorerPreview wardrobe={wardrobe}/></View><View style={{ width: 114, gap: 8 }}>{tabs.map(tab => <View key={tab.slot} style={{ backgroundColor: t.surface, borderRadius: 10, padding: 8 }}><Small>{tab.label}</Small><Copy style={{ fontSize: 13, lineHeight: 18, fontFamily: bold }}>{rewards.find(r => r.id === wardrobe.equipped[tab.slot])?.name}</Copy></View>)}</View></View>
++
++  </View>
++  {message !== '' && <View accessibilityLiveRegion="polite" style={{ padding: 12, borderRadius: 10, backgroundColor: t.success }}><Copy style={{ color: t.successText }}>{message}</Copy></View>}
++  <View style={{ flexDirection: 'row', borderRadius: 12, padding: 4, backgroundColor: t.subtle }}>{tabs.map(tab => <Pressable key={tab.slot} accessibilityRole="tab" accessibilityState={{ selected: slot === tab.slot }} onPress={() => chooseTab(tab.slot)} style={{ flex: 1, minHeight: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 9, backgroundColor: slot === tab.slot ? t.primary : 'transparent' }}><Copy style={{ fontSize: 15, fontFamily: bold, color: slot === tab.slot ? '#fff' : t.text }}>{tab.label}</Copy></Pressable>)}</View>
++  <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>{rewards.filter(r => r.slot === slot).map(r => <Pressable key={r.id} accessibilityRole="button" accessibilityLabel={`${r.name}. ${ruleLabel(r)}. Preview`} accessibilityState={{ selected: selected === r.id }} onPress={() => { setSelected(r.id); setMessage(''); }} style={{ width: '48%', padding: 12, borderRadius: 14, borderWidth: 2, borderColor: selected === r.id ? t.primary : t.separator, gap: 7 }}><View style={{ height: 70, backgroundColor: r.color, alignItems: 'center', justifyContent: 'center', borderRadius: 10 }}><host.Icon name={r.icon} color="#4d473d" size={40}/></View><Copy style={{ fontFamily: bold, lineHeight: 21 }}>{r.name}</Copy><Small>{ruleLabel(r)}</Small></Pressable>)}</View>
++  <host.Sheet open={!!item && !story} onOpenChange={open => { if (!open)
++        setSelected(null); }} title="Preview reward">{item && <View style={{ padding: 16, gap: 8, borderRadius: 14, backgroundColor: t.surface }}><ExplorerPreview wardrobe={preview}/><Small>Preview only. Your equipped items stay unchanged until you confirm.</Small><Heading>{item.name}</Heading><Copy>{item.description}</Copy>
++   {wardrobe.equipped[item.slot] === item.id ? <Small>Already equipped</Small> : wardrobe.owned.includes(item.id) ? <Button onPress={() => equip(item)}>Equip {item.name}</Button> : eligible(active, item) ? <><Small>{item.unlock.kind === 'coins' ? `${active.coins} coins available · ${active.coins - item.unlock.cost} after unlocking` : 'This reward is ready. No coins needed.'}</Small><Button onPress={() => equip(item)}>{item.unlock.kind === 'coins' ? `Unlock & equip · ${item.unlock.cost} coins` : 'Unlock & equip for free'}</Button></> : item.unlock.kind === 'story' ? <Button onPress={() => { if (item.unlock.kind === 'story')
++            setStory(item.unlock.story); }}>Read story to unlock</Button> : <><Small>{item.unlock.kind === 'coins' ? `Earn ${item.unlock.cost - active.coins} more Nanak coins.` : 'Complete a pauri challenge to unlock this reward.'}</Small><Button secondary onPress={onEarn}>Return to the journey</Button></>}
++   <Button secondary onPress={() => setSelected(null)}>Cancel preview</Button>
++  </View>}</host.Sheet>
++  <Small>New stars earn coins. Stories and milestones unlock special items for free. Both characters share your collection.</Small>
++  {!demo && <Button secondary onPress={() => { setDemo({ ...initialProgress, coins: 60, best: { 1: 2 }, wardrobe: freshWardrobe() }); setSelected(null); setMessage(''); }}>Try rewards with 60 demo coins</Button>}
++  <host.Sheet open={story !== null} onOpenChange={open => { if (!open)
++        setStory(null); }} title={story ? stories[story].title : 'A story for your journey'}>
++   {story && <View style={{ padding: 20, gap: 18, backgroundColor: t.surface }}><host.Icon name={story === 'music' ? 'rabab' : 'basket'} color={t.text} size={64}/><Heading>{stories[story].title}</Heading><Copy>{stories[story].text}</Copy><View style={{ backgroundColor: t.subtle, padding: 14, borderRadius: 12 }}><Copy>{stories[story].question}</Copy></View><Small>No answer is recorded. Take a moment to think.</Small><Button onPress={() => { const id = story; update(p => readRewardStory(p, id)); setStory(null); setMessage('Story completed. Your reward is ready to unlock.'); }}>Finish story</Button><Button secondary onPress={() => setStory(null)}>Back to rewards</Button><Small>{stories[story].source}</Small><Small>Prototype story and artwork for Khalis review.</Small></View>}
++  </host.Sheet>
++ </View>;
++}
+diff --git a/native-app/src/KidsMode/components.tsx b/native-app/src/KidsMode/components.tsx
+index 7d8d621..3ac299b 100644
+--- a/native-app/src/KidsMode/components.tsx
++++ b/native-app/src/KidsMode/components.tsx
+@@ -1,10 +1,11 @@
++import {rewardById, type Wardrobe} from './wardrobe';
+ import {createContext,useContext,type PropsWithChildren} from 'react';
+ import {Image,Pressable,Text,View,type StyleProp,type TextStyle} from 'react-native';
+ import {bold,light,line,symbolLine} from './theme';
+-import {characters,collection} from './content';
++import {characters} from './content';
+ import {s} from './styles';
+ import type {Character,HostPorts,IconName} from './types';
+-type UI = {t:typeof light;host:HostPorts;character:Character;equipped:string};
++type UI = {t:typeof light;host:HostPorts;character:Character;wardrobe:Wardrobe};
+ const UIContext=createContext<UI|null>(null);
+ export const UIProvider=UIContext.Provider;
+ export function useUI(){const value=useContext(UIContext);if(!value)throw new Error('Shared controls require UIProvider');return value;}
+@@ -21,10 +22,10 @@ export function Button({children,onPress,secondary=false,disabled=false,label}:
+ export function Stars({count,large=false}:{count:number;large?:boolean}) {
+     return <View accessible accessibilityLabel={`${count} of 3 stars`} style={s.stars}>{[1,2,3].map(n=><Text key={n} style={{fontSize:large?38:17,lineHeight:symbolLine(large?38:17),color:n<=count?'#cba51e':'#a1a9b2'}}>★</Text>)}</View>;
+   }
+-export function Avatar({who,frame,small=false}:{who?:Character;frame?:string;small?:boolean}) {
+-    const {t,host,character,equipped}=useUI(); who=who??character; frame=frame??equipped;
+-    return <View style={[s.avatar,{width:small?62:123,height:small?78:160,borderColor:collection.find(r=>r.id===frame)?.color??'#c4d4ea',backgroundColor:t.action}]}><Image source={host.image(`${who}-character.png`)} accessibilityLabel={characters.find(c=>c.id===who)?.name} resizeMode="contain" style={s.fill}/></View>;
+-  }
++export function Avatar({who,small=false}:{who?:Character;small?:boolean}) {
++ const {t,host,character,wardrobe}=useUI();who=who??character;
++ return <View style={[s.avatar,{width:small?62:123,height:small?78:160,borderWidth:0,borderRadius:0,backgroundColor:'transparent'}]}><Image source={host.image(`${who}-${wardrobe.equipped.clothing==='garden-thread'?'garden':'character'}.png`)} accessibilityLabel={characters.find(c=>c.id===who)?.name} resizeMode="contain" style={s.fill}/>{wardrobe.equipped.belonging!=='travel-light'&&<View style={{position:'absolute',right:0,bottom:0,padding:4,borderRadius:8,backgroundColor:t.surface}}><host.Icon name={rewardById(wardrobe.equipped.belonging)?.icon??'satchel'} color={t.text} size={small?16:24}/></View>}</View>;
++}
+ export function Row({title,subtitle,onPress,icon,trailing,expanded}: {title:string;subtitle?:string;onPress?:()=>void;icon?:IconName;trailing?:React.ReactNode;expanded?:boolean}) {
+     const {t,host:{Icon}}=useUI();
+     const inner=<><View style={s.rowBody}>{icon&&<View style={s.rowIcon}><Icon name={icon} color={t.text} size={25}/></View>}<View style={s.grow}><Copy style={{fontSize:18,lineHeight:line(18)}}>{title}</Copy>{subtitle&&<Small>{subtitle}</Small>}</View>{trailing??(onPress&&<Copy style={{color:t.secondary,fontSize:24,lineHeight:symbolLine(24)}}>›</Copy>)}</View></>;
+diff --git a/native-app/src/KidsMode/experience.ts b/native-app/src/KidsMode/experience.ts
+index be113e9..6ecc1f9 100644
+--- a/native-app/src/KidsMode/experience.ts
++++ b/native-app/src/KidsMode/experience.ts
+@@ -1,3 +1,4 @@
++import {parseWardrobe} from './wardrobe';
+ import type {Progress, Stars} from './rewards';
+ import type {Character} from './types';
+ 
+@@ -8,7 +9,7 @@ export type Experience = {
+ };
+ export function freshExperience():Experience {
+   return {version:1,kids:false,night:false,meaning:true,illustrations:true,textSize:27,character:'prem',started:false,
+-    progress:{coins:0,best:{},owned:['classic','sky'],equipped:'classic'},selected:1,region:0,attempts:[]};
++    progress:{coins:0,best:{}},selected:1,region:0,attempts:[]};
+ }
+ function record(value:unknown):value is Record<string,unknown> {return typeof value==='object'&&value!==null&&!Array.isArray(value);}
+ function bounded(value:unknown,min:number,max:number):value is number {return typeof value==='number'&&Number.isInteger(value)&&value>=min&&value<=max;}
+@@ -16,11 +17,9 @@ function bounded(value:unknown,min:number,max:number):value is number {return ty
+ export function parseExperience(value:unknown):Experience|null {
+   if(!record(value)||value.version!==1||!record(value.progress))return null;
+   const p=value.progress;
+-  if(!bounded(p.coins,0,1140)||!record(p.best)||!Array.isArray(p.owned)||typeof p.equipped!=='string')return null;
+-  const styles=['classic','sky','sunshine','river','garden'];
+-  const owned:string[]=[];
+-  for(const item of p.owned){if(typeof item!=='string'||!styles.includes(item))return null;owned.push(item);}
+-  if(!owned.includes(p.equipped)||new Set(owned).size!==owned.length)return null;
++  const wardrobe=p.wardrobe===undefined?undefined:parseWardrobe(p.wardrobe);
++  if(wardrobe===null||!bounded(p.coins,0,1140)||!record(p.best))return null;
++  // Retired frame fields are ignored while earned coins and stars are retained.
+   const best:Record<string,Stars>={};
+   for(const [key,stars] of Object.entries(p.best)){
+     if(!/^[1-9][0-9]*$/.test(key)||!bounded(Number(key),1,38)||!(stars===0||stars===1||stars===2||stars===3))return null;
+@@ -36,5 +35,5 @@ export function parseExperience(value:unknown):Experience|null {
+     attempts.push({pauri:a.pauri,score:a.score,at:a.at});
+   }
+   return {version:1,kids:value.kids,night:value.night,meaning:value.meaning,illustrations:value.illustrations??true,textSize:value.textSize,character:value.character,
+-    started:value.started,selected:value.selected,region:value.region,progress:{coins:p.coins,best,owned,equipped:p.equipped},attempts};
++    started:value.started,selected:value.selected,region:value.region,progress:{coins:p.coins,best,...(wardrobe?{wardrobe}:{})},attempts};
+ }
+diff --git a/native-app/src/KidsMode/rewards.ts b/native-app/src/KidsMode/rewards.ts
+index 84b5355..9561d44 100644
+--- a/native-app/src/KidsMode/rewards.ts
++++ b/native-app/src/KidsMode/rewards.ts
+@@ -1,3 +1,4 @@
++import type {Wardrobe} from './wardrobe';
+ export type Stars = 0 | 1 | 2 | 3;
+ export function starsForScore(score: number): Stars {
+   if (!Number.isFinite(score) || score < 0 || score > 100) throw new Error('Score must be between 0 and 100');
+@@ -6,15 +7,10 @@ export function starsForScore(score: number): Stars {
+ export function coinAward(previous: Stars, next: Stars): number {
+   return Math.max(0, next - previous) * 10;
+ }
+-export type Progress = { coins: number; best: Record<string, Stars>; owned: string[]; equipped: string };
+-export const initialProgress: Progress = {coins:0,best:{},owned:['classic','sky'],equipped:'classic'};
++export type Progress = { coins: number; best: Record<string, Stars>; wardrobe?: Wardrobe };
++export const initialProgress: Progress = {coins:0,best:{}};
+ export function completePauri(progress: Progress, pauri: number, score: number): Progress {
+   const next = starsForScore(score);
+   const previous = progress.best[String(pauri)] ?? 0;
+   return {...progress, coins: progress.coins + coinAward(previous,next), best:{...progress.best,[pauri]:next > previous ? next : previous}};
+ }
+-export function redeem(progress: Progress, item: string, cost: number): Progress {
+-  if (progress.owned.includes(item)) return {...progress,equipped:item};
+-  if (!Number.isInteger(cost) || cost < 0 || progress.coins < cost) return progress;
+-  return {...progress, coins:progress.coins-cost,owned:[...progress.owned,item],equipped:item};
+-}
+diff --git a/native-app/src/KidsMode/types.ts b/native-app/src/KidsMode/types.ts
+index 419c50b..d59066a 100644
+--- a/native-app/src/KidsMode/types.ts
++++ b/native-app/src/KidsMode/types.ts
+@@ -6,7 +6,7 @@ import type { ImageSourcePropType } from 'react-native';
+ export type Pauri = { number: number; lines: { text: string; translation: string; start: number; end: number }[] };
+ export type Character = 'prem' | 'sehaj';
+ export type Screen = 'home' | 'settings' | 'reader' | 'character' | 'world' | 'map' | 'pauri' | 'practice' | 'ready' | 'challenge' | 'results' | 'rewards' | 'journal' | 'story';
+-export type IconName = 'settings' | 'chevron-left' | 'home' | 'book-open' | 'map' | 'coins' | 'navigation' | 'headphones' | 'mic' | 'volume-2' | 'star';
++export type IconName = 'shirt' | 'satchel' | 'rabab' | 'basket' | 'leaf' | 'hand' | 'settings' | 'chevron-left' | 'home' | 'book-open' | 'map' | 'coins' | 'navigation' | 'headphones' | 'mic' | 'volume-2' | 'star';
+ export type HostPorts = {
+   Sheet: ComponentType<PropsWithChildren<{open:boolean;onOpenChange:(open:boolean)=>void;title:string}>>;
+   Scroll: ComponentType<PropsWithChildren>;
+diff --git a/native-app/src/KidsMode/wardrobe.ts b/native-app/src/KidsMode/wardrobe.ts
+new file mode 100644
+index 0000000..b64adef
+--- /dev/null
++++ b/native-app/src/KidsMode/wardrobe.ts
+@@ -0,0 +1,58 @@
++import type {Progress} from './rewards';
++import type {IconName} from './types';
++export type Slot = 'clothing' | 'belonging' | 'action';
++export type Story = 'music' | 'seva';
++export type Wardrobe = {owned:string[];equipped:Record<Slot,string>;stories:Story[]};
++export type Reward = {id:string;slot:Slot;name:string;description:string;icon:IconName;color:string;unlock:{kind:'free'}|{kind:'coins';cost:number}|{kind:'pauris';count:number}|{kind:'story';story:Story}};
++export const rewards: Reward[] = [
++    { id: 'everyday', slot: 'clothing', name: 'Everyday explorer', description: 'Your original outfit. Always yours.', icon: 'shirt', color: '#dce8f9', unlock: { kind: 'free' } },
++    { id: 'garden-thread', slot: 'clothing', name: 'Garden embroidery', description: 'Soft green fabric with a simple embroidered border.', icon: 'shirt', color: '#e1ebdc', unlock: { kind: 'coins', cost: 30 } },
++    { id: 'travel-light', slot: 'belonging', name: 'Travel light', description: 'Keep your explorer’s hands free.', icon: 'satchel', color: '#f1eee8', unlock: { kind: 'free' } },
++    { id: 'journey-bag', slot: 'belonging', name: 'Journey satchel', description: 'A small companion for your next adventure.', icon: 'satchel', color: '#f0dfcb', unlock: { kind: 'coins', cost: 20 } },
++    { id: 'journal', slot: 'belonging', name: 'Explorer’s journal', description: 'A place to remember what you are learning.', icon: 'book-open', color: '#e3e9f4', unlock: { kind: 'pauris', count: 1 } },
++    { id: 'rabab', slot: 'belonging', name: 'Rabab', description: 'Discover music and companionship with Bhai Mardana.', icon: 'rabab', color: '#efdfcd', unlock: { kind: 'story', story: 'music' } },
++    { id: 'seva-basket', slot: 'belonging', name: 'Seva basket', description: 'A reminder to share and help others.', icon: 'basket', color: '#e4ead9', unlock: { kind: 'story', story: 'seva' } },
++    { id: 'ready', slot: 'action', name: 'Ready to explore', description: 'A quiet moment before the next step.', icon: 'leaf', color: '#e3e9e0', unlock: { kind: 'free' } },
++    { id: 'greeting', slot: 'action', name: 'A warm welcome', description: 'A cheerful greeting when you tap your explorer.', icon: 'hand', color: '#f7e9cd', unlock: { kind: 'coins', cost: 20 } },
++    { id: 'listening', slot: 'action', name: 'Listening closely', description: 'Pause and lean in to listen.', icon: 'headphones', color: '#dfe8f1', unlock: { kind: 'pauris', count: 1 } },
++    { id: 'helping', slot: 'action', name: 'Ready to help', description: 'Your explorer leans forward, ready to help.', icon: 'basket', color: '#e2eadb', unlock: { kind: 'story', story: 'seva' } },
++];
++export function freshWardrobe(): Wardrobe { return { owned: ['everyday', 'travel-light', 'ready'], equipped: { clothing: 'everyday', belonging: 'travel-light', action: 'ready' }, stories: [] }; }
++export function wardrobeOf(progress: Progress) { return progress.wardrobe ?? freshWardrobe(); }
++export function rewardById(id: string) { return rewards.find(r => r.id === id); }
++export function eligible(progress: Progress, item: Reward) {
++    const rule = item.unlock;
++    if (rule.kind === 'coins')
++        return progress.coins >= rule.cost;
++    if (rule.kind === 'pauris')
++        return Object.values(progress.best).filter(n => n > 0).length >= rule.count;
++    if (rule.kind === 'story')
++        return wardrobeOf(progress).stories.includes(rule.story);
++    return true;
++}
++// One state transition charges, owns and equips. Repeated taps cannot double-charge.
++export function unlockAndEquip(progress: Progress, id: string): Progress {
++    const item = rewardById(id);
++    if (!item)
++        return progress;
++    const wardrobe = wardrobeOf(progress), owned = wardrobe.owned.includes(id);
++    if (!owned && !eligible(progress, item))
++        return progress;
++    return { ...progress, coins: progress.coins - (!owned && item.unlock.kind === 'coins' ? item.unlock.cost : 0), wardrobe: { ...wardrobe, owned: owned ? wardrobe.owned : [...wardrobe.owned, id], equipped: { ...wardrobe.equipped, [item.slot]: id } } };
++}
++export function readRewardStory(progress: Progress, story: Story): Progress {
++    const wardrobe = wardrobeOf(progress);
++    return wardrobe.stories.includes(story) ? progress : { ...progress, wardrobe: { ...wardrobe, stories: [...wardrobe.stories, story] } };
++}
++export function parseWardrobe(value: unknown): Wardrobe | null {
++ if(typeof value !== 'object' || value === null) return null;
++ const v=value as Record<string,unknown>;
++ if(!Array.isArray(v.owned)||!Array.isArray(v.stories)||typeof v.equipped!=='object'||v.equipped===null)return null;
++ if(v.owned.some(id=>typeof id!=='string'||!rewardById(id))||new Set(v.owned).size!==v.owned.length)return null;
++ if(v.stories.some(id=>id!=='music'&&id!=='seva')||new Set(v.stories).size!==v.stories.length)return null;
++ const e=v.equipped as Record<string,unknown>;
++ for(const slot of ['clothing','belonging','action'] as const){
++  if(typeof e[slot]!=='string'||!v.owned.includes(e[slot])||rewardById(e[slot] as string)?.slot!==slot)return null;
++ }
++ return {owned:[...v.owned],stories:[...v.stories],equipped:{clothing:String(e.clothing),belonging:String(e.belonging),action:String(e.action)}};
++}
+diff --git a/native-app/src/host/icons.tsx b/native-app/src/host/icons.tsx
+index 704ab44..8a99a82 100644
+--- a/native-app/src/host/icons.tsx
++++ b/native-app/src/host/icons.tsx
+@@ -7,11 +7,12 @@
+  * FontAwesome5 instead.
+  */
+ 
++import {Image} from 'react-native';
+ import { FontAwesome5, Feather } from '@expo/vector-icons';
+ 
+ import type { IconName } from '../KidsMode/types';
+ 
+-const FEATHER: Record<Exclude<IconName, 'coins'>, keyof typeof Feather.glyphMap> = {
++const FEATHER: Record<Exclude<IconName, 'coins' | 'shirt' | 'satchel' | 'rabab' | 'basket' | 'leaf' | 'hand'>, keyof typeof Feather.glyphMap> = {
+   settings: 'settings',
+   'chevron-left': 'chevron-left',
+   home: 'home',
+@@ -33,8 +34,10 @@ export function Icon({
+   color: string;
+   size?: number;
+ }) {
++  const rewards = {rabab:require('../../assets/app/rewards/rabab.png'), satchel:require('../../assets/app/rewards/satchel.png'), shirt:require('../../assets/app/rewards/shirt.png'), basket:require('../../assets/app/rewards/basket.png'), leaf:require('../../assets/app/rewards/leaf.png'), hand:require('../../assets/app/rewards/hand.png')};
++  if (name in rewards) return <Image source={rewards[name as keyof typeof rewards]} style={{width:size,height:size,tintColor:color}}/>;
+   if (name === 'coins') {
+     return <FontAwesome5 name="coins" color={color} size={size * 0.9} />;
+   }
+-  return <Feather name={FEATHER[name]} color={color} size={size} />;
++  return <Feather name={FEATHER[name as keyof typeof FEATHER]} color={color} size={size} />;
+ }
+diff --git a/native-app/src/host/images.ts b/native-app/src/host/images.ts
+index 411c625..57a60fa 100644
+--- a/native-app/src/host/images.ts
++++ b/native-app/src/host/images.ts
+@@ -8,6 +8,8 @@
+ import type { ImageSourcePropType } from 'react-native';
+ 
+ const IMAGES: Record<string, ImageSourcePropType> = {
++  'prem-garden.png': require('../../assets/app/prem-garden.png'),
++  'sehaj-garden.png': require('../../assets/app/sehaj-garden.png'),
+   // Journey and character art.
+   'journey-calm.jpg': require('../../assets/app/journey-calm.jpg'),
+   'pauri-1-calm.jpg': require('../../assets/app/pauri-1-calm.jpg'),

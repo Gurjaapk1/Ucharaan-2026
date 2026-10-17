@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Uchaaran Helper",
+    "slug": "uchaaran-helper",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.uchaaran.helper",
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "Uchaaran Helper listens to your recitation so it can tell you how close it was to the ustaad’s."
+      }
+    },
+    "android": {
+      "package": "com.uchaaran.helper",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Uchaaran Helper listens to your recitation so it can tell you how close it was to the ustaad’s."
+        }
+      ],
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ff2c2753-f9e5-43b2-9be9-3004685f221e"
+      }
+    }
+  }
+}
