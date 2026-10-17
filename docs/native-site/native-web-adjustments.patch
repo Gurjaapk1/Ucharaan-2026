@@ -1,0 +1,146 @@
+--- a/src/scoring/config.ts
++++ b/src/scoring/config.ts
+@@ -1,3 +1,4 @@
++import { Platform } from 'react-native';
+ /**
+  * Where recitations are scored.
+  *
+@@ -12,7 +13,7 @@
+ export const SCORING_URL_PLACEHOLDER = 'https://SET-ME.example';
+ 
+ export const SCORING_BASE_URL = (
+-  process.env.EXPO_PUBLIC_SCORING_URL || SCORING_URL_PLACEHOLDER
++  Platform.OS === 'web' ? '/api/scoring' : (process.env.EXPO_PUBLIC_SCORING_URL || SCORING_URL_PLACEHOLDER)
+ ).replace(/\/+$/, '');
+ 
+ /**
+@@ -25,9 +26,9 @@
+ export const SCORING_CONFIGURED = SCORING_BASE_URL !== SCORING_URL_PLACEHOLDER;
+ 
+ /** Trace scoring requests to the console. */
+-export const SCORING_DEBUG = true;
++export const SCORING_DEBUG = false;
+ 
+-export const SCORING_API_KEY = process.env.EXPO_PUBLIC_SCORING_API_KEY ?? '';
++export const SCORING_API_KEY = Platform.OS === 'web' ? '' : (process.env.EXPO_PUBLIC_SCORING_API_KEY ?? '');
+ 
+ /** Canned responses without network, so the UI can be exercised before the service is live. */
+ export const SCORING_MOCK = process.env.EXPO_PUBLIC_SCORING_MOCK === '1';
+@@ -36,7 +37,7 @@
+ export const BANI = 2;
+ 
+ /** Used until a reciter picker exists; the manifest lists the others. */
+-export const DEFAULT_RECITER = 'ggs';
++export const DEFAULT_RECITER = 'bjs';
+ 
+ /** BaniDB verse sequence of Pauri 1's first line; 1-4 are the Mool Mantar and opening salok. */
+ export const FIRST_PAURI_SEQ = 5;
+--- a/src/host/recordedRecitation.ts
++++ b/src/host/recordedRecitation.ts
+@@ -188,6 +188,11 @@
+       }
+     }
+     return false;
++  }, [recorder]);
++
++  const cancel = useCallback(async () => {
++    await recorder.stop().catch(() => {});
++    await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => {});
+   }, [recorder]);
+ 
+   const start = useCallback(
+@@ -294,6 +299,8 @@
+   return {
+     granted,
+     requestPermission,
++    cancel,
++    retry: beginRecording,
+     start,
+     stop,
+     isRecording: state.isRecording,
+@@ -303,5 +310,6 @@
+     error,
+     checking,
+     following: true,
++    provider: "service" as const,
+   };
+ }
+--- a/src/KidsMode/types.ts
++++ b/src/KidsMode/types.ts
+@@ -25,6 +25,8 @@
+   recitation?: {
+     granted: boolean;
+     requestPermission: () => Promise<boolean>;
++    cancel?: () => Promise<void>;
++    retry?: () => Promise<boolean>;
+     start: (pauriNumber: number, lineCount: number) => Promise<boolean>;
+     /**
+      * Finish the current line.
+@@ -52,6 +54,7 @@
+     checking?: boolean;
+     /** False when the pauri is recorded whole and scored at the end, with no line following. */
+     following?: boolean;
++    provider?: "service" | "local";
+   };
+   statusBarBackground?: string;
+   safeArea: {top: number; bottom: number};
+--- a/src/KidsMode/KidsApp.tsx
++++ b/src/KidsMode/KidsApp.tsx
+@@ -49,7 +49,7 @@
+   const [notice, setNotice] = useState('');
+   const t = night ? dark : light;
+   const {Scroll, Icon, audio, recitation} = host;
+-  const remote = recitation?.following===false;
++  const remote = recitation?.provider === "service";
+   const pauri = pauris[selected-1];
+   const current = pauri.lines[line] ?? pauri.lines[0];
+   const stars = starsForScore(score);
+@@ -64,10 +64,11 @@
+   const main = ['world','map','rewards','journal'].includes(screen);
+   const reading = screen==='reader' || screen==='practice' || screen==='challenge';
+   function go(next: Screen) {
++    if(checking)return;
+     audio.stop();
+     // Abandoning a challenge mid-recording would otherwise leave iOS in
+     // play-and-record, which silently routes later playback to the earpiece.
+-    if (recitation?.isRecording) void recitation.stop();
++    if (recitation?.isRecording) void (recitation.cancel ? recitation.cancel() : recitation.stop());
+     setRunning(false); setNotice(''); setScreen(next);
+   }
+   function openPauri(n: number) { setRegion(Math.max(0,regions.findIndex(r=>n>=r.start&&n<=r.end))); setSelected(n); setLine(0); go('pauri'); }
+@@ -79,7 +80,7 @@
+     if(result&&'retry' in result){
+       // Only this line failed. Stay on it rather than losing the whole pauri.
+       setNotice(result.retry);
+-      if(!(await recitation.start(selected,pauri.lines.length))){setRetry(result.retry);setRunning(false);setScreen('ready');}
++      if(!(await (recitation.retry ? recitation.retry() : recitation.start(selected,pauri.lines.length)))){setRetry(result.retry);setRunning(false);setScreen('ready');}
+       return;
+     }
+     if(result&&'nextLine' in result){
+@@ -136,7 +137,7 @@
+       <View style={s.homeTitleRow}><Text style={s.homeTitle}><Text style={s.ornament}>Œ</Text> ਸੁੰਦਰ ਗੁਟਕਾ <Text style={s.ornament}>‰</Text></Text><Pressable accessibilityRole="button" accessibilityLabel="Settings" onPress={settings} style={s.settingsButton}><Icon name="settings" color="#faf9f6" size={28}/></Pressable></View>
+     </View>:<View style={[s.header,{borderColor:t.separator,backgroundColor:t.surface}]}>
+       <Pressable accessibilityRole="button" accessibilityLabel={screen==='challenge'?'Leave challenge':'Back'} onPress={back} style={s.iconButton}><Icon name="chevron-left" color={t.text}/></Pressable>
+-      <View style={s.grow}><Copy style={s.headerTitle}>{title}</Copy>{reading&&<Small>{screen==='challenge'?'Challenge · continuous recitation':screen==='practice'?'Practice · Japji Sahib':'Sundar Gutka'}</Small>}</View>
++      <View style={s.grow}><Copy style={s.headerTitle}>{title}</Copy>{reading&&<Small>{screen==='challenge'?'Challenge · line-by-line recitation':screen==='practice'?'Practice · Japji Sahib':'Sundar Gutka'}</Small>}</View>
+       {main?<Pressable accessibilityRole="button" accessibilityLabel={`${progress.coins} Nanak coins. Open rewards`} onPress={()=>go('rewards')} style={[s.wallet,{backgroundColor:t.action}]}><Icon name="coins" color={t.text} size={19}/><Copy style={{fontFamily:bold}}>{progress.coins}</Copy></Pressable>:screen!=='settings'&&<Pressable accessibilityRole="button" accessibilityLabel="Settings" onPress={settings} style={s.iconButton}><Icon name="settings" color={t.text}/></Pressable>}
+     </View>}
+     <View style={[s.content,{backgroundColor:t.surface}]}><Scroll key={screen==='practice'?`${screen}-${line}`:screen}><View style={{paddingBottom:24}}>
+@@ -152,7 +153,7 @@
+         <Row title="English meanings" subtitle="Show translations while reading" trailing={<Switch accessibilityLabel="English meanings" value={meaning} onValueChange={setMeaning} trackColor={{false:'#c8c8cc',true:t.primary}}/>}/>
+         <Row title="Font size" subtitle={`${textSize} pt`} trailing={<View style={s.inline}><Button secondary label="Decrease font size" disabled={textSize<=21} onPress={()=>setTextSize(n=>n-2)}>A−</Button><Button secondary label="Increase font size" disabled={textSize>=35} onPress={()=>setTextSize(n=>n+2)}>A+</Button></View>}/>
+         <Row title="Font face" subtitle="Baloo Paaji 2"/>
+-        <Section>Preview controls</Section><Row title="Show test controls" subtitle="Choose a sample result for team review" trailing={<Switch accessibilityLabel="Show test controls" value={reviewControls} onValueChange={setReviewControls}/>}/>{reviewControls&&<View style={s.pad}><Row title="Automatic sample progression" trailing={<Switch accessibilityLabel="Automatic sample progression" value={autoScore} onValueChange={setAutoScore}/>}/>{!autoScore&&<View style={s.inline}>{[72,84,96].map(n=><Button key={n} secondary onPress={()=>setScore(n)}>{n}%{score===n?' ✓':''}</Button>)}</View>}<Button secondary onPress={()=>{const v=freshExperience();setProgress(v.progress);setAttempts([]);setSelected(1);setRegion(0);setNotice('Practice progress reset. Your explorer and display settings are kept.');}}>Reset practice progress</Button></View>}<Section>About</Section><View style={s.pad}><Small>Try Japji Sahib, Kids Mode, and the display controls above. Other Sundar Gutka settings and banis are outside this preview. Progress and settings are saved on this browser. No account or recording is created.</Small></View>
++        <Section>Preview controls</Section><Row title="Show test controls" subtitle="Choose a sample result for team review" trailing={<Switch accessibilityLabel="Show test controls" value={reviewControls} onValueChange={setReviewControls}/>}/>{reviewControls&&<View style={s.pad}><Row title="Automatic sample progression" trailing={<Switch accessibilityLabel="Automatic sample progression" value={autoScore} onValueChange={setAutoScore}/>}/>{!autoScore&&<View style={s.inline}>{[72,84,96].map(n=><Button key={n} secondary onPress={()=>setScore(n)}>{n}%{score===n?' ✓':''}</Button>)}</View>}<Button secondary onPress={()=>{const v=freshExperience();setProgress(v.progress);setAttempts([]);setSelected(1);setRegion(0);setNotice('Practice progress reset. Your explorer and display settings are kept.');}}>Reset practice progress</Button></View>}<Section>About</Section><View style={s.pad}><Small>Try Japji Sahib, Kids Mode, and the display controls above. Other Sundar Gutka settings and banis are outside this preview. Progress and settings are saved on this browser. No account is created. Challenge recordings are sent to the scoring service only when you finish a line.</Small></View>
+       </>}
+       {screen==='reader'&&<><View style={s.pad}><Small>Japji Sahib · Pauri {selected}</Small></View>{pauri.lines.map((l,i)=><Pressable accessibilityRole="button" accessibilityLabel={`Listen to line ${i+1}`} key={i} onPress={()=>{setLine(i);audio.listen(l.start,l.end);}} style={[s.readerLine,{backgroundColor:audio.playing&&line===i?t.action:t.surface}]}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize)}]}>{l.text}</Copy>{meaning&&<Copy style={s.translation}>{l.translation}</Copy>}</Pressable>)}<View style={s.pad}><Small>This reading preview contains the 38 pauris. The opening Mool Mantar and closing Salok remain in the full app.</Small><View style={s.inline}><Button secondary disabled={selected===1} onPress={()=>{audio.stop();setSelected(n=>n-1);}}>Previous pauri</Button><Button secondary disabled={selected===38} onPress={()=>{audio.stop();setSelected(n=>n+1);}}>Next pauri</Button></View>{audio.error.length>0&&<Copy style={{color:t.retryText}}>{audio.error}</Copy>}</View></>}
+       {screen==='character'&&<View style={s.pad}><Heading>A friend for your journey</Heading><Small>Choose Prem Singh or Sehaj Kaur from the Khalis books. Both explore the same world.</Small><View style={[s.inline,{marginVertical:22}]}>{characters.map(c=><Pressable key={c.id} accessibilityRole="button" accessibilityState={{selected:character===c.id}} onPress={()=>setCharacter(c.id)} style={[s.characterChoice,{backgroundColor:t.subtle,borderColor:character===c.id?t.primary:t.separator}]}><Avatar who={c.id}/><Copy style={{fontFamily:bold}}>{c.name}</Copy><Small>{character===c.id?'Selected':'Choose'}</Small></Pressable>)}</View><Heading>Your starting style</Heading><View style={s.wrap}>{collection.filter(r=>progress.owned.includes(r.id)).map(r=><Pressable key={r.id} accessibilityRole="button" accessibilityState={{selected:progress.equipped===r.id}} onPress={()=>setProgress(p=>({...p,equipped:r.id}))} style={[s.chip,{borderColor:r.color,backgroundColor:progress.equipped===r.id?t.action:t.surface}]}><Copy>{r.name}</Copy></Pressable>)}</View><Button onPress={()=>{setStarted(true);go('world');}}>{started?'Save my explorer':'Begin my journey'}</Button><Small>Both characters are free. You can change your explorer at any time.</Small></View>}
+@@ -220,7 +221,7 @@
+           setLine(0);setTick(0);setRunning(true);setScreen('challenge');return;
+         }
+         if(autoScore)setScore(attempts.some(a=>a.pauri===selected)?96:84);setLine(0);setTick(0);setRunning(true);setScreen('challenge');
+-      }}>{retry?'Try again':'Begin challenge'}</Button><Small>{remote?'Your recitation is sent for checking when you finish. The audio is not kept.':recitation?'We listen on this phone only. Your voice is not sent anywhere.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
++      }}>{retry?'Try again':'Begin challenge'}</Button><Small>{remote?'When you finish each line, your recording is sent to our Azure scoring service to compare it with Bhai Jarnail Singh. The service processes audio without saving it.':recitation?'We listen on this phone only. Your voice is not sent anywhere.':'Interactive preview: no microphone is used. Alignment and feedback are simulated.'}</Small><Button secondary onPress={()=>go('practice')}>Practice first</Button></View>}
+       {screen==='challenge'&&<View style={s.pad}><View style={s.rowBody}><View style={s.grow}><Small>{running?'Reciting':'Paused'}</Small></View><Small>Line {line+1} of {pauri.lines.length}</Small></View><View style={[s.track,{backgroundColor:t.separator}]}><View style={{height:4,width:`${tick/(pauri.lines.length*4)*100}%`,backgroundColor:t.primary}}/></View>{illustrations&&story&&!remote&&<StoryScene pauri={selected} line={line} host={host}/>}{remote?<View style={{paddingVertical:16,gap:10}}>{pauri.lines.map((l,i)=><Copy key={i} style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{l.text}</Copy>)}</View>:<View accessibilityLiveRegion="polite" style={{paddingVertical:16}}><Copy style={[s.verse,{fontSize:textSize,lineHeight:lineFor(textSize),textAlign:'center'}]}>{current.text}</Copy><Copy style={{color:t.secondary,fontSize:19,lineHeight:lineFor(19),textAlign:'center',marginTop:22}}>{pauri.lines[line+1]?.text??'Final line'}</Copy></View>}{recitation?<>
+         <View style={[s.track,{backgroundColor:t.separator,marginTop:10}]}><View style={{height:4,width:`${Math.round(recitation.level*100)}%`,backgroundColor:recitation.isRecording?t.primary:t.separator}}/></View>
+         {<View style={[s.inline,{justifyContent:'center',paddingVertical:8}]}>{pauri.lines.map((_,i)=>{const r=recitation.lineScores.find(x=>x.lineIndex===i);return <View key={i} style={[s.chip,{backgroundColor:r?(r.score<80?t.retry:t.success):t.subtle,borderColor:t.separator}]}><Copy style={{fontSize:13,lineHeight:lineFor(13),color:r?(r.score<80?t.retryText:t.successText):t.secondary}}>{r?`${r.score}%`:i+1}</Copy></View>;})}</View>}

@@ -50,7 +50,7 @@ def fetch_audio():
             continue
         if not m4a.exists():
             print(f"downloading {folder} Japji Sahib")
-            req = urllib.request.Request(CDN.format(folder), headers={"User-Agent": "uchaaran-demo"})
+            req = urllib.request.Request(CDN.format(folder), headers={"User-Agent": "UchaaranAssetFetcher/1.0"})
             with urllib.request.urlopen(req) as r, open(m4a, "wb") as f:
                 shutil.copyfileobj(r, f)
         # same decode as spike-align/reciter_check.py: mono, 16 kHz, 16-bit wav

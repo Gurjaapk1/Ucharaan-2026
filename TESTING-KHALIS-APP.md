@@ -1,3 +1,5 @@
+> Historical native-integration notes. For the current submission use [DEMO-SETUP.md](DEMO-SETUP.md) and [the ML handover](docs/engineering/ml-production.md). Credentials below are placeholders.
+
 # Testing the Kids Mode PRs in the real Sundar Gutka app (Mac + Xcode)
 
 The Kids Mode PRs live in branches of this repo that contain the full Khalis app (bare React Native 0.78, JavaScript). Testing a PR means building the Khalis app with that branch and walking its checklist on a phone. The Expo demo app is not involved here.
@@ -21,7 +23,7 @@ yarn install --frozen-lockfile
 cd ios && bundle exec pod install && cd ..
 ```
 
-Point the scoring client at the server (needed from PR 3 on): in `src/common/constant.js` set `KIDS_SCORING_URL` to `https://uchaaran-score.gentlebush-095e8f60.westus.azurecontainerapps.io` and `KIDS_SCORING_API_KEY` to `uchaaran-demo`. The server is always on (Azure); see DEMO-SETUP.md. Do not commit that edit.
+Point the scoring client at the server (needed from PR 3 on): in `src/common/constant.js` set `KIDS_SCORING_URL` to `https://uchaaran-score.gentlebush-095e8f60.westus.azurecontainerapps.io` and `KIDS_SCORING_API_KEY` to `REPLACE_WITH_SECRET`. The server is always on (Azure); see DEMO-SETUP.md. Do not commit that edit.
 
 Run: `yarn ios --device` (or open `ios/SundarGutka.xcworkspace` in Xcode, pick your iPhone, press Run). Metro starts in a terminal; JavaScript edits reload live; native changes (PR 3 adds a recorder library and permissions) need a rebuild.
 
