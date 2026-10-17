@@ -65,7 +65,8 @@ export function practicePrompt(word:WordFeedback):{title:string;tip:string;steps
         ? `Listen to how ${word.text} starts. Then say it slowly.`
         : `Listen to ${word.text}. Then say it the same way.`;
   return {
-    title:word.score<80?`Let\u2019s try ${word.text} again`:`You said ${word.text} well!`,
+    // A service verdict decides when present; an unclear word is not praised.
+    title:(word.state?word.state!=='like':word.score<80)?`Let\u2019s try ${word.text} again`:`You said ${word.text} well!`,
     tip,
     steps:['Listen to the word.','Say it out loud.','Now say the whole line.'],
   };
