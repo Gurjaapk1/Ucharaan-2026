@@ -32,6 +32,24 @@ for(let i=0;i<24;i++){
 parts.push('<g transform="translate(24 470)"><ellipse cx="23" cy="12" rx="25" ry="12" fill="#aaa886"/><ellipse cx="23" cy="8" rx="25" ry="12" fill="#e4dbc0"/><ellipse cx="23" cy="8" rx="19" ry="8" fill="#a4c9ca"/></g>');
 parts.push('<g transform="translate(322 2130)"><path d="M0 0H44V39H0Z" fill="#d7c99f"/><path d="M-5 0L22-24 49 0Z" fill="#9c9671"/><path d="M16 39V18Q22 10 28 18V39" fill="#99966d"/></g>');
 parts.push('<g transform="translate(14 2720)" fill="none" stroke="#b9b38b" stroke-width="5"><path d="M0 0Q35-18 63 0M0 15Q35-3 63 15M0 30Q35 12 63 30"/></g>');
+// Six rest clearings give the long world a rhythm without interrupting its path.
+// These are scenic milestones, not gates, minigames, or historical claims.
+for (let i=0;i<6;i++) {
+ const n=nodes[(i+1)*6-1], x=n.x>195?57:333, y=n.y+20;
+ const colors=['#d09a69','#7fa6a5','#9aa375','#be9277','#8fa48b','#c6aa6e'];
+ parts.push(`<g transform="translate(${x} ${y})"><ellipse cy="17" rx="39" ry="24" fill="#f0e3bb"/><ellipse cy="23" rx="30" ry="10" fill="#8c9874" opacity=".18"/>
+ <path d="M-20 17V-15M20 17V-15" stroke="#a18a63" stroke-width="4" stroke-linecap="round"/>
+ <path d="M-29-15L0-34 29-15Z" fill="${colors[i]}"/><path d="M-29-15H29" stroke="#f4e7c7" stroke-width="3"/>
+ <path d="M-15 12H15M-12 12V21M12 12V21" stroke="#a18a63" stroke-width="4" stroke-linecap="round"/>
+ <path d="M29-9V-31" stroke="#9d865d" stroke-width="2"/><path d="M30-31L44-27 30-21Z" fill="#d8aa50"/>
+ <circle cx="-28" cy="24" r="3" fill="#cc976d"/><circle cx="-22" cy="28" r="2" fill="#f5efd1"/>
+ </g>`);
+}
+// Sparse flowers, reeds and field terraces add texture around the margins.
+for(let i=0;i<32;i++) {
+ const x=i%2?370:18, y=160+i*109;
+ parts.push(`<g transform="translate(${x} ${y})" fill="none" stroke="#92a17b" stroke-width="1.5" stroke-linecap="round"><path d="M0 5V-5M0 4L-5-1M0 3L5-3"/><circle cy="-7" r="2.5" fill="${i%3?'#eed8a1':'#c98e71'}" stroke="none"/></g>`);
+}
 let d=`M${nodes[0].x} 0 L${nodes[0].x} ${nodes[0].y}`;
 for(let i=1;i<nodes.length;i++){const a=nodes[i-1],b=nodes[i];d+=` C${a.x} ${a.y+47} ${b.x} ${b.y-47} ${b.x} ${b.y}`;}
 d+=` Q${nodes.at(-1).x} 3680 195 3730`;
