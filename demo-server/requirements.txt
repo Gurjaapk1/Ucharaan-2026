@@ -1,0 +1,13 @@
+# Python 3.11 or 3.12. Versions are the ones the scorer was tested with on 2026-10-16.
+# torchaudio 2.5 still ships functional.forced_align, which later releases dropped, so keep torch/torchaudio pinned.
+torch==2.5.1
+torchaudio==2.5.1
+onnxruntime==1.31.0
+numpy==2.4.6
+soundfile==0.14.0
+imageio-ffmpeg
+sentencepiece==0.2.2
+huggingface_hub
+fastapi==0.143.3
+uvicorn==0.54.0
+python-multipart==0.0.32
